@@ -3,42 +3,59 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LeadTest {
 
-    public static Lead completeLeadOne = null;
-    public static Lead completeLeadTwo = null;
-    public static Lead completeLeadThree = null;
+    public static Lead testLead = null;
+    public static Lead testLeadTwo = null;
 
     @BeforeAll
     public static void setUp() {
-        completeLeadOne = new Lead("Marie","0000 1234","marie@email.com","A New Company");
-        completeLeadTwo = new Lead("Barry", "1234 5678", "barry@test.com","Another Company");
+        testLead = new Lead("Marie","0000 1234","marie@email.com","A New Company");
     }
 
     @Test
-    @DisplayName("Test: Complete Lead Constructor. Validate Values")
-    public void LeadClass_CompleteLeadConstructor_CheckCorrectValues() {
-        assertEquals(1,completeLeadOne.getId());
-        assertEquals("Marie",completeLeadOne.getContactName());
-        assertEquals("0000 1234",completeLeadOne.getPhoneNumber());
-        assertEquals("marie@email.com",completeLeadOne.getEmail());
-        assertEquals("A New Company",completeLeadOne.getCompanyName());
+    @DisplayName("Test: Lead Constructor. Validate ID Set.")
+    public void LeadClass_LeadConstructor_CheckCorrectID() {
+        assertEquals(1, testLead.getId());
+    }
 
-        assertEquals(2,completeLeadTwo.getId());
-        assertEquals("Barry",completeLeadTwo.getContactName());
-        assertEquals("1234 5678",completeLeadTwo.getPhoneNumber());
-        assertEquals("barry@test.com",completeLeadTwo.getEmail());
-        assertEquals("Another Company",completeLeadTwo.getCompanyName());
+    @Test
+    @DisplayName("Test: Lead Constructor. Validate Contact Name Set.")
+    public void LeadClass_LeadConstructor_CheckCorrectName() {
+        assertEquals("Marie", testLead.getContactName());
+    }
+
+    @Test
+    @DisplayName("Test: Lead Constructor. Validate Phone Number Set.")
+    public void LeadClass_LeadConstructor_CheckCorrectPhoneNumber() {
+        assertEquals("0000 1234", testLead.getPhoneNumber());
+    }
+
+    @Test
+    @DisplayName("Test: Lead Constructor. Validate Email Set.")
+    public void LeadClass_LeadConstructor_CheckCorrectEmail() {
+        assertEquals("marie@email.com", testLead.getEmail());
+        assertEquals("A New Company", testLead.getCompanyName());
+    }
+
+    @Test
+    @DisplayName("Test: Lead Constructor. Validate Company Name Set.")
+    public void LeadClass_LeadConstructor_CheckCorrectCompanyName() {
+        assertEquals("A New Company", testLead.getCompanyName());
     }
 
     @Test
     @DisplayName("Test: LeadCountID. Validate Count Incremented")
     public void LeadClass_LeadCountID_ValidateCountIncrement() {
-        assertEquals(2,Lead.getLeadIDCount()-1);
-        completeLeadThree = new Lead("Caddie", "1234 5678", "caddie@test.com","A Third Company");
-        assertEquals(3,Lead.getLeadIDCount()-1);
+        var currentLeadCount = Lead.getLeadIDCount();
+        testLeadTwo = new Lead("Caddie", "1234 5678", "caddie@test.com","A Third Company");
+        var updatedLeadCount = Lead.getLeadIDCount();
+        assertTrue(currentLeadCount == (updatedLeadCount - 1));
     }
 
 }
