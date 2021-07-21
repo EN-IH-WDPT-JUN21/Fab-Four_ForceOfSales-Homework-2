@@ -10,7 +10,6 @@ public class CommandHandler {
     public Lead lookupLead(long id) {return null;}
     public void removeLead(long id) {}
     public Opportunity convertLead(long id) { return null;}
-    public LeadList showLeads() {return null;}
     public void updateOpportunityStatus(long id) {}
     public void IOHandler(){}
 }
