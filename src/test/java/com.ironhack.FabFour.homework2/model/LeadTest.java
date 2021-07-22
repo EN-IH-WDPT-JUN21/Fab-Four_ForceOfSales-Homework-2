@@ -1,6 +1,7 @@
 package com.ironhack.FabFour.homework2.model;
 
 import com.ironhack.FabFour.homework2.model.Lead;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,7 +21,10 @@ public class LeadTest {
     @Test
     @DisplayName("Test: Lead Constructor. Validate ID Set.")
     public void LeadClass_LeadConstructor_CheckCorrectID() {
-        assertEquals(1, testLead.getId());
+        long currentID = Lead.getLeadIDCount();
+        testLeadTwo = new Lead("Rick","0208","rick@westley","Zombies");
+        long updatedID = Lead.getLeadIDCount();
+        assertTrue(updatedID == currentID + 1);
     }
 
     @Test
@@ -49,12 +53,11 @@ public class LeadTest {
     }
 
     @Test
-    @DisplayName("Test: LeadCountID. Validate Count Incremented")
-    public void LeadClass_LeadCountID_ValidateCountIncrement() {
-        var currentLeadCount = Lead.getLeadIDCount();
+    @DisplayName("Test: toString(). Result as expected.")
+    public void LeadClass_ToStringTest_ValidateString() {
         testLeadTwo = new Lead("Caddie", "1234 5678", "caddie@test.com","A Third Company");
-        var updatedLeadCount = Lead.getLeadIDCount();
-        assertTrue(currentLeadCount == (updatedLeadCount - 1));
+        String testString = "Lead: " + testLeadTwo.getId() + ", Name of Contact: " + testLeadTwo.getContactName() + ", Phone Number: " +
+                testLeadTwo.getPhoneNumber() + ", Email: " + testLeadTwo.getEmail() + ", Company Name: " + testLeadTwo.getCompanyName();
+        assertTrue(testString.equals(testLeadTwo.toString()));
     }
-
 }

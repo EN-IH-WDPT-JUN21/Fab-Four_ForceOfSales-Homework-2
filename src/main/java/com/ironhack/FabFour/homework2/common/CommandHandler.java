@@ -19,18 +19,18 @@ public class CommandHandler {
         String tempEmail; String tempCompany;
         Lead tempLead = null;
         Scanner aScanner = new Scanner(System.in);
-            System.out.println("Please enter their contact name.");
-            tempName = aScanner.next();
-            System.out.println("Please enter their phone number.");
-            tempNumber = aScanner.next();
-            System.out.println("Please enter their email address.");
-            tempEmail = aScanner.next();
-            System.out.println("Please enter their company's name");
-            tempCompany = aScanner.next();
-            tempLead = new Lead(tempName,tempNumber,tempEmail,tempCompany);
-            LeadList.getListOfLeads().add(tempLead);
-            System.out.println("Lead created. Lead ID: " + tempLead.getId());
-            return tempLead;
+        System.out.println("Please enter their contact name.");
+        tempName = aScanner.next();
+        System.out.println("Please enter their phone number.");
+        tempNumber = aScanner.next();
+        System.out.println("Please enter their email address.");
+        tempEmail = aScanner.next();
+        System.out.println("Please enter their company's name");
+        tempCompany = aScanner.next();
+        tempLead = new Lead(tempName,tempNumber,tempEmail,tempCompany);
+        LeadList.getListOfLeads().add(tempLead);
+        System.out.println("Lead created. Lead ID: " + tempLead.getId());
+        return tempLead;
     }
 
     public Lead lookupLead(long id) {
