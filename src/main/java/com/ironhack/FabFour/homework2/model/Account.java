@@ -1,11 +1,13 @@
 package com.ironhack.FabFour.homework2.model;
 
+import com.ironhack.FabFour.homework2.common.CommandHandler;
 import com.ironhack.FabFour.homework2.enums.Industry;
 
 import java.util.List;
-import java.util.Objects;
+import java.util.Scanner;
 
 public class Account {
+    private static long accountIDCount = 1000;
     private long id;
     private Industry industry;
     private int employeeCount;
@@ -14,8 +16,7 @@ public class Account {
     private List<Contact> contactList;
     private List<Opportunity> opportunityList;
 
-    public Account(long id,
-                   Industry industry,
+    public Account(Industry industry,
                    int employeeCount,
                    String city,
                    String country,
@@ -31,11 +32,12 @@ public class Account {
     }
 
     public long getId() {
-        return id;
+        return Account.accountIDCount;
     }
 
     public void setId(long id) {
-        this.id = id;
+        this.id = accountIDCount;
+        accountIDCount++;
     }
 
     public Industry getIndustry() {
@@ -43,7 +45,16 @@ public class Account {
     }
 
     public void setIndustry(Industry industry) {
-        this.industry = industry;
+        if (industry != null) {
+            this.industry  = industry ;
+        }
+        else {
+            Scanner aScanner = new Scanner(System.in);
+            System.out.println("Please provide the industry name\n Possible choices are: PRODUCE, ECOMMERCE, MANUFACTURING, MEDICAL, OTHER\n");
+            if (aScanner.hasNextLine()) {
+                setIndustry (CommandHandler.getRequiredIndustry(aScanner.next()));
+            }
+        }
     }
 
     public int getEmployeeCount() {
@@ -51,7 +62,16 @@ public class Account {
     }
 
     public void setEmployeeCount(int employeeCount) {
-        this.employeeCount = employeeCount;
+        if (employeeCount > 0) {
+            this.employeeCount = employeeCount;
+        }
+        else {
+            Scanner aScanner = new Scanner(System.in);
+            System.out.println("Please provide the number of company employees\n");
+            if (aScanner.hasNextLine()) {
+                setEmployeeCount(Integer.parseInt(aScanner.next()));
+            }
+        }
     }
 
     public String getCity() {
@@ -59,7 +79,16 @@ public class Account {
     }
 
     public void setCity(String city) {
-        this.city = city;
+        if (!city.isBlank()) {
+            this.city = city;
+        }
+        else {
+            Scanner aScanner = new Scanner(System.in);
+            System.out.println("Please provide the city name\n");
+            if (aScanner.hasNextLine()) {
+                setCity(aScanner.next());
+            }
+        }
     }
 
     public String getCountry() {
@@ -67,7 +96,16 @@ public class Account {
     }
 
     public void setCountry(String country) {
-        this.country = country;
+        if (!country.isBlank()) {
+            this.country = city;
+        }
+        else {
+            Scanner aScanner = new Scanner(System.in);
+            System.out.println("Please provide the country name\n");
+            if (aScanner.hasNextLine()) {
+                setCountry(aScanner.next());
+            }
+        }
     }
 
     public List<Contact> getContactList() {
