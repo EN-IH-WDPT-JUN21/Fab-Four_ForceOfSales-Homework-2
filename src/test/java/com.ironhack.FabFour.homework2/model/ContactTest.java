@@ -1,6 +1,5 @@
 package com.ironhack.FabFour.homework2.model;
 
-import com.ironhack.FabFour.homework2.common.Contact;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,10 +21,10 @@ public class ContactTest {
     @Test
     @DisplayName("Test: Contact Constructor. Validate ID Set.")
     public void ContactClass_ContactConstructor_CheckCorrectID() {
-        long currentID = Contact.getLeadIDCount();
+        long currentID = Contact.getContactIDCount();
         testContactTwo = new Contact("Rick","0208","rick@westley","Zombies");
-        long updatedID = Contact.getLeadIDCount();
-        assertTrue(updatedID == currentID + 1);
+        long updatedID = Contact.getContactIDCount();
+        assertTrue(updatedID == (currentID + 1));
     }
 
     @Test
