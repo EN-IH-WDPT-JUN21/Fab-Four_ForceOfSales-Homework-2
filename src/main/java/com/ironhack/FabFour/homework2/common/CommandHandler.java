@@ -33,10 +33,12 @@ public class CommandHandler {
             newQuantity = Integer.parseInt(aScanner.next());
         }
         //create new Opportunity with the above info
-        Product newProduct = getRequiredProduct(newProductString);
+        Product newProduct = EnumHandler.getRequiredProduct(newProductString);
         Opportunity newOpportunity = new Opportunity(newProduct, newQuantity, newContact);
+        System.out.println("Opportunity created. Lead ID: " + newOpportunity.getId());
         //Remove Lead
         removeLead(id);
+        System.out.println("Lead deleted. Lead ID: " + leadToConvert.getId());
         //return new Account
         return setupAccount(newOpportunity);
     }
@@ -61,50 +63,20 @@ public class CommandHandler {
         if (aScanner.hasNextLine()) {
             country = aScanner.next();
         }
-        Industry industry = getRequiredIndustry(industryString);
+        Industry industry = EnumHandler.getRequiredIndustry(industryString);
         List<Contact> contactList = new ArrayList<>();
         List<Opportunity> opportunityList = new ArrayList<>();
         contactList.add(opportunity.getDecisionMaker());
         opportunityList.add(opportunity);
         Account newAccount = new Account(industry, employeeCount, city, country, contactList, opportunityList);
+        System.out.println("Account created. Account ID: " + newAccount.getId());
         return newAccount;
     }
 
-    public static Product getRequiredProduct(String productString) {
-        Product product = null;
-        switch (productString.toUpperCase()) {
-            case "FLATBED":
-                product = Product.FLATBED;
-                break;
-            case "HYBRID":
-                product = Product.HYBRID;
-                break;
-            case "BOX":
-                product = Product.BOX;
-                break;
+    public static Scanner createScanner() {
+        Scanner aScanner = new Scanner(System.in);
+        System.out.println("Please provide the correct value");
+        if (aScanner.hasNextLine()) {
+            return aScanner;
         }
-        return product;
-    }
-
-    public static Industry getRequiredIndustry(String industryString) {
-        Industry industry = null;
-        switch (industryString.toUpperCase()) {
-            case "PRODUCE":
-                industry = industry.PRODUCE;
-                break;
-            case "ECOMMERCE":
-                industry = industry.ECOMMERCE;
-                break;
-            case "MANUFACTURING":
-                industry = industry.MANUFACTURING;
-                break;
-            case "MEDICAL":
-                industry = industry.MEDICAL;
-                break;
-            case "OTHER":
-                industry = industry.OTHER;
-                break;
-        }
-        return industry;
-    }
 }

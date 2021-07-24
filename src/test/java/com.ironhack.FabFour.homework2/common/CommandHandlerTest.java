@@ -60,5 +60,5 @@ public class CommandHandlerTest {
 
     @Test
     public void createOpportunityTest(){}//count opportunities + check type
-    
+
 }

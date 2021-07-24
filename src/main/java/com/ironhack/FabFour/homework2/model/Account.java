@@ -1,6 +1,7 @@
 package com.ironhack.FabFour.homework2.model;
 
 import com.ironhack.FabFour.homework2.common.CommandHandler;
+import com.ironhack.FabFour.homework2.common.EnumHandler;
 import com.ironhack.FabFour.homework2.enums.Industry;
 
 import java.util.List;
@@ -49,12 +50,12 @@ public class Account {
             this.industry  = industry ;
         }
         else {
-            Scanner aScanner = new Scanner(System.in);
-            System.out.println("Please provide the industry name\n Possible choices are: PRODUCE, ECOMMERCE, MANUFACTURING, MEDICAL, OTHER\n");
-            if (aScanner.hasNextLine()) {
-                setIndustry (CommandHandler.getRequiredIndustry(aScanner.next()));
-            }
+            setEnum(CommandHandler.createScanner());
         }
+    }
+
+    public void setEnum(Scanner sc) {
+        setIndustry(EnumHandler.getRequiredIndustry(sc.next()));
     }
 
     public int getEmployeeCount() {
@@ -66,12 +67,12 @@ public class Account {
             this.employeeCount = employeeCount;
         }
         else {
-            Scanner aScanner = new Scanner(System.in);
-            System.out.println("Please provide the number of company employees\n");
-            if (aScanner.hasNextLine()) {
-                setEmployeeCount(Integer.parseInt(aScanner.next()));
-            }
+            setInteger(CommandHandler.createScanner());
         }
+    }
+
+    public void setInteger(Scanner sc) {
+        setEmployeeCount(Integer.parseInt(sc.next()));
     }
 
     public String getCity() {
@@ -83,11 +84,7 @@ public class Account {
             this.city = city;
         }
         else {
-            Scanner aScanner = new Scanner(System.in);
-            System.out.println("Please provide the city name\n");
-            if (aScanner.hasNextLine()) {
-                setCity(aScanner.next());
-            }
+            setString("city", CommandHandler.createScanner());
         }
     }
 
@@ -100,11 +97,15 @@ public class Account {
             this.country = city;
         }
         else {
-            Scanner aScanner = new Scanner(System.in);
-            System.out.println("Please provide the country name\n");
-            if (aScanner.hasNextLine()) {
-                setCountry(aScanner.next());
-            }
+            setString("country", CommandHandler.createScanner());
+        }
+    }
+
+    public void setString(String attribute, Scanner sc) {
+        if(attribute.equals("city")) {
+            setCity(sc.next());
+        } else if(attribute.equals("country")) {
+            setCountry(sc.next());
         }
     }
 
@@ -133,3 +134,4 @@ public class Account {
     }
 
 }
+

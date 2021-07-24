@@ -1,11 +1,12 @@
 package com.ironhack.FabFour.homework2.model;
 
+import com.ironhack.FabFour.homework2.common.CommandHandler;
 import com.ironhack.FabFour.homework2.enums.Product;
 import com.ironhack.FabFour.homework2.enums.Status;
-import com.ironhack.FabFour.homework2.common.CommandHandler;
+import com.ironhack.FabFour.homework2.common.EnumHandler;
 
-import java.util.Objects;
 import java.util.Scanner;
+
 
 public class Opportunity {
     private static long opportunityIDCount = 1000;
@@ -49,12 +50,12 @@ public class Opportunity {
             this.product = product;
         }
         else {
-            Scanner aScanner = new Scanner(System.in);
-            System.out.println("Please provide the type of the product you're interested in\n Possible choices are: HYBRID, FLATBED, BOX\n");
-            if (aScanner.hasNextLine()) {
-                setProduct(CommandHandler.getRequiredProduct(aScanner.next()));
-            }
+            setEnum(CommandHandler.createScanner());
         }
+    }
+
+    public void setEnum(Scanner sc) {
+        setProduct(EnumHandler.getRequiredProduct(sc.next()));
     }
 
     public int getQuantity() {
@@ -66,12 +67,12 @@ public class Opportunity {
             this.quantity = quantity;
         }
         else {
-            Scanner aScanner = new Scanner(System.in);
-            System.out.println("Please provide the number of trucks you're interested in\n Maximum amount: 300");
-            if (aScanner.hasNextLine()) {
-                setQuantity(Integer.parseInt(aScanner.next()));
-            }
+            setInteger(CommandHandler.createScanner());
         }
+    }
+
+    public void setInteger(Scanner sc) {
+        setQuantity(Integer.parseInt(sc.next()));
     }
 
     public Contact getDecisionMaker() {
