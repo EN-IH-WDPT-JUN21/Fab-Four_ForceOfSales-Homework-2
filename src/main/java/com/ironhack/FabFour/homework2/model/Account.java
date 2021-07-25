@@ -133,5 +133,15 @@ public class Account {
         return id == account.id && employeeCount == account.employeeCount && industry == account.industry && city.equals(account.city) && country.equals(account.country) && contactList.equals(account.contactList) && opportunityList.equals(account.opportunityList);
     }
 
+    public Opportunity getOpportunity(String id) {
+        for(Opportunity opportunity : opportunityList) {
+            long temp = opportunity.getId();
+            if(Long.parseLong(id) == temp) {
+                return opportunity;
+            };
+        }
+        return null;
+    }
+
 }
 

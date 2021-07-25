@@ -7,8 +7,18 @@ import com.ironhack.FabFour.homework2.model.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import com.ironhack.FabFour.homework2.enums.Status;
+import com.ironhack.FabFour.homework2.model.Account;
+import com.ironhack.FabFour.homework2.model.Lead;
+import com.ironhack.FabFour.homework2.model.LeadList;
+import com.ironhack.FabFour.homework2.model.Opportunity;
+
+import java.util.List;
 
 public class CommandHandler {
+    //public?
+    public static List<Account> accountList;
+
 
     public Account convertLead(long id) {
         //lookup Lead with id = id
@@ -80,12 +90,13 @@ public class CommandHandler {
             return aScanner;
         }
     }
-  
+
     public static void main(String[] args) {
 
     }
 
     public void handleCommand(String command) {}
+
 
     public Lead createLead() {
         LeadList tester = new LeadList(); // created as a dummy whilst working out how to add objects to list
@@ -127,6 +138,28 @@ public class CommandHandler {
         }
     }
 
+    /*
     public void updateOpportunityStatus(long id) {}
+    -- REMOVED the method and split it in two
+     */
+
+    public void updateOpportunityStatusClosedLost(long id) {
+        for(Account account : accountList) {
+            Opportunity opportunity = account.getOpportunity(String.valueOf(id));
+            if(opportunity != null) {
+                opportunity.setStatus(Status.CLOSED_LOST);
+            }
+        }
+    }
+
+    public void updateOpportunityStatusClosedWin(long id) {
+        for(Account account : accountList) {
+            Opportunity opportunity = account.getOpportunity(String.valueOf(id));
+            if(opportunity != null) {
+                opportunity.setStatus(Status.CLOSED_WON);
+            }
+        }
+    }
+
     public void IOHandler(){}
 }
