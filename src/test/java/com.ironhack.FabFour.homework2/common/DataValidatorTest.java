@@ -1,12 +1,21 @@
 package com.ironhack.FabFour.homework2.common;
 
+import com.ironhack.FabFour.homework2.enums.Product;
+import com.ironhack.FabFour.homework2.model.Account;
+import com.ironhack.FabFour.homework2.model.Contact;
+import com.ironhack.FabFour.homework2.model.Lead;
+import com.ironhack.FabFour.homework2.model.Opportunity;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static com.ironhack.FabFour.homework2.common.DataValidator.validateEmail;
-import static com.ironhack.FabFour.homework2.common.DataValidator.validatePhoneNumber;
-import static com.ironhack.FabFour.homework2.common.DataValidator.isEmpty;
+import java.util.ArrayList;
+import java.util.List;
 
+import static com.ironhack.FabFour.homework2.common.CommandHandler.accountList;
+import static com.ironhack.FabFour.homework2.common.DataValidator.*;
+import static com.ironhack.FabFour.homework2.model.LeadList.getListOfLeads;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DataValidatorTest {
@@ -135,17 +144,68 @@ public class DataValidatorTest {
     TESTS FOR EMPTY CHECK
      */
     @Test
+    @DisplayName("Test: input doesn't have any signs")
     void isEmpty_noInput() {
         assertTrue(isEmpty(""));
     }
 
     @Test
+    @DisplayName("Test: input only contains white spaces")
     void isEmpty_withWhiteSpaces() {
         assertTrue(isEmpty("          "));
     }
 
     @Test
+    @DisplayName("Test: input only contains white spaces and a sign")
     void isEmpty_containsCharacter() {
         assertFalse(isEmpty("    .      "));
     }
+
+
+    /*
+    TESTS TO CHECK EXISTENCE
+     */
+
+    //TODO: Test needs to be checked, only works individually
+    /*
+    @Test
+    @DisplayName("Test: Lead exists")
+    void leadExists_IdExists() {
+        List<Lead> testListOfLeads = getListOfLeads();
+        Lead testLead = new Lead("Pablo", "123456789", "pablo@email.es", "Big Company");
+        testListOfLeads.add(testLead);
+        assertTrue(leadExists("1"));
+        testListOfLeads.remove(testLead);
+    }
+
+     */
+
+    @Test
+    @DisplayName("Test: Lead does not exist")
+    void leadExists_IdDoesNotExist() {
+        List<Lead> testListOfLeads2 = getListOfLeads();
+        Lead testLead = new Lead("Pablo", "123456789", "pablo@email.es", "Big Company");
+        testListOfLeads2.add(testLead);
+        assertFalse(leadExists("4"));
+        testListOfLeads2.remove(testLead);
+    }
+
+    //TODO
+    @Test
+    @DisplayName("Test: Opportunity exists")
+    void leadExists_OpportunityExists() {
+    }
+
+    @Test
+    void opportunityExists() {
+    }
+
+    @Test
+    void isDuplicateLead() {
+    }
+
+    @Test
+    void isDuplicateOpportunity() {
+    }
+
 }
