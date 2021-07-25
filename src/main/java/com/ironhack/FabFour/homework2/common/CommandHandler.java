@@ -89,6 +89,7 @@ public class CommandHandler {
         if (aScanner.hasNextLine()) {
             return aScanner;
         }
+        return null;
     }
 
     public static void main(String[] args) {
