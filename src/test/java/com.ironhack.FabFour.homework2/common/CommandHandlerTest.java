@@ -22,8 +22,6 @@ public class CommandHandlerTest {
     @BeforeEach
     public void setUp() {
         test = new CommandHandler();
-        newAccount = cm.convertLead(12);
-        newOpportunity = newAccount.getOpportunityList().get(0);
     }
 
 //    @Test
@@ -70,14 +68,7 @@ public class CommandHandlerTest {
         int updatedListSize = LeadList.getListOfLeads().size();
         assertTrue(currentListSize == updatedListSize);
     }
-  //test contact creation
-//test contact info = Lead info
-//test user input?
-//test opp creation
-//test opp info from input
-//test opp decisionMaker = Contact
-//test opp status = OPEN
-//test account creation
+ 
 
     @Test
     public void createContactTest(){}//count Contact objects?
@@ -85,11 +76,11 @@ public class CommandHandlerTest {
     @Test
     public void contactInfoTest(){
         Contact newDecisionMaker = newOpportunity.getDecisionMaker();
-        assertFalse(newDecisionMaker.getId(), newLead.getId());
-        assertEquals(newDecisionMaker.getContactName(), newLead.getContactName());
-        assertEquals(newDecisionMaker.getPhoneNumber(), newLead.getPhoneNumber());
-        assertEquals(newDecisionMaker.getEmail(), newLead.getEmail());
-        assertEquals(newDecisionMaker.getCompanyName(), newLead.getCompanyName());
+        assertFalse(newDecisionMaker.getId(), tempLeadOne.getId());
+        assertEquals(newDecisionMaker.getContactName(), tempLeadOne.getContactName());
+        assertEquals(newDecisionMaker.getPhoneNumber(), tempLeadOne.getPhoneNumber());
+        assertEquals(newDecisionMaker.getEmail(), tempLeadOne.getEmail());
+        assertEquals(newDecisionMaker.getCompanyName(), tempLeadOne.getCompanyName());
     }
 
 
