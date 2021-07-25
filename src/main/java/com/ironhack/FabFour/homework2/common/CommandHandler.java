@@ -7,6 +7,7 @@ import com.ironhack.FabFour.homework2.model.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import org.apache.commons.lang.WordUtils;
 import com.ironhack.FabFour.homework2.enums.Status;
 import com.ironhack.FabFour.homework2.model.Account;
 import com.ironhack.FabFour.homework2.model.Lead;
@@ -19,18 +20,13 @@ public class CommandHandler {
     //public?
     public static List<Account> accountList;
 
-
     public Account convertLead(long id) {
-        //lookup Lead with id = id
         Lead leadToConvert = lookupLead(id);
-        //extract Lead info
         String contactName = leadToConvert.getContactName();
         String contactPhoneNumber = leadToConvert.getPhoneNumber();
         String contactEmail = leadToConvert.getEmail();
         String contactCompany = leadToConvert.getCompanyName();
-        //create new Contact with Lead contact info and new id
         Contact newContact = new Contact(contactName, contactPhoneNumber, contactEmail, contactCompany);
-        //ask user for product and number of trucks
         String newProductString = "";
         int newQuantity = 0;
         Scanner aScanner = new Scanner(System.in);
@@ -42,19 +38,15 @@ public class CommandHandler {
         if (aScanner.hasNextLine()) {
             newQuantity = Integer.parseInt(aScanner.next());
         }
-        //create new Opportunity with the above info
         Product newProduct = EnumHandler.getRequiredProduct(newProductString);
         Opportunity newOpportunity = new Opportunity(newProduct, newQuantity, newContact);
         System.out.println("Opportunity created. Lead ID: " + newOpportunity.getId());
-        //Remove Lead
         removeLead(id);
         System.out.println("Lead deleted. Lead ID: " + leadToConvert.getId());
-        //return new Account
         return setupAccount(newOpportunity);
     }
 
     public Account setupAccount(Opportunity opportunity) {
-        //the user will be prompted for the industry, number of employees, city, and country of the organization
         String industryString = null; String city = null; int employeeCount = 0; String country = null;
         Scanner aScanner = new Scanner(System.in);
         System.out.println("Please provide the industry name\n Possible choices are: PRODUCE, ECOMMERCE, MANUFACTURING, MEDICAL, OTHER\n");
@@ -78,7 +70,7 @@ public class CommandHandler {
         List<Opportunity> opportunityList = new ArrayList<>();
         contactList.add(opportunity.getDecisionMaker());
         opportunityList.add(opportunity);
-        Account newAccount = new Account(industry, employeeCount, city, country, contactList, opportunityList);
+        Account newAccount = new Account(industry, employeeCount, WordUtils.capitalizeFully(city), WordUtils.capitalizeFully(country), contactList, opportunityList);
         System.out.println("Account created. Account ID: " + newAccount.getId());
         return newAccount;
     }
@@ -89,10 +81,14 @@ public class CommandHandler {
         if (aScanner.hasNextLine()) {
             return aScanner;
         }
+        return null;
     }
 
     public static void main(String[] args) {
-
+        CommandHandler cm = new CommandHandler();
+        Lead tempLeadOne = cm.createLead();
+        long tempId = tempLeadOne.getId();
+        Account newAccount = cm.convertLead(tempId);
     }
 
     public void handleCommand(String command) {}

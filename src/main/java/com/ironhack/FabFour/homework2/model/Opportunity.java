@@ -24,14 +24,6 @@ public class Opportunity {
         setStatus(Status.OPEN);
     }
 
-    public Opportunity(Product product, int quantity, Contact decisionMaker, Status status) {
-        setId(id);
-        setProduct(product);
-        setQuantity(quantity);
-        setDecisionMaker(decisionMaker);
-        setStatus(status);
-    }
-
     public long getId() {
         return Opportunity.opportunityIDCount;
     }
@@ -88,7 +80,9 @@ public class Opportunity {
     }
 
     public void setStatus(Status status) {
-        this.status = status;
+        if (status != null && (status == Status.CLOSED_LOST || status == Status.CLOSED_WON)) {
+            this.status = status;
+        }
     }
 
     @Override

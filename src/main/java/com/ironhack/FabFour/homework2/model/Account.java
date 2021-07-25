@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Account {
-    private static long accountIDCount = 1000;
+    private static long accountIDCount = 2000;
     private long id;
     private Industry industry;
     private int employeeCount;
@@ -94,7 +94,7 @@ public class Account {
 
     public void setCountry(String country) {
         if (!country.isBlank()) {
-            this.country = city;
+            this.country = country;
         }
         else {
             setString("country", CommandHandler.createScanner());

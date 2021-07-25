@@ -5,16 +5,20 @@ import com.ironhack.FabFour.homework2.model.Account;
 import com.ironhack.FabFour.homework2.model.Contact;
 import com.ironhack.FabFour.homework2.model.Lead;
 import com.ironhack.FabFour.homework2.model.Opportunity;
+
+import static com.ironhack.FabFour.homework2.common.CommandHandler.createScanner;
 import static org.junit.jupiter.api.Assertions.*;
 import com.ironhack.FabFour.homework2.model.Lead;
 import com.ironhack.FabFour.homework2.model.LeadList;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.Scanner;
 
 public class CommandHandlerTest {
 
-    public CommandHandler test;
+    CommandHandler test;
     Lead tempLeadOne = null;
     Account newAccount;
     Opportunity newOpportunity;
@@ -22,9 +26,8 @@ public class CommandHandlerTest {
     @BeforeEach
     public void setUp() {
         test = new CommandHandler();
-        newAccount = cm.convertLead(12);
-        newOpportunity = newAccount.getOpportunityList().get(0);
     }
+
 
 //    @Test
 //    @DisplayName("Test: createLead(). Validate that newly created lead is added to LeadList.")
@@ -70,47 +73,36 @@ public class CommandHandlerTest {
         int updatedListSize = LeadList.getListOfLeads().size();
         assertTrue(currentListSize == updatedListSize);
     }
-  //test contact creation
-//test contact info = Lead info
-//test user input?
-//test opp creation
-//test opp info from input
-//test opp decisionMaker = Contact
-//test opp status = OPEN
-//test account creation
 
     @Test
-    public void createContactTest(){}//count Contact objects?
-
-    @Test
-    public void contactInfoTest(){
-        Contact newDecisionMaker = newOpportunity.getDecisionMaker();
-        assertFalse(newDecisionMaker.getId(), newLead.getId());
-        assertEquals(newDecisionMaker.getContactName(), newLead.getContactName());
-        assertEquals(newDecisionMaker.getPhoneNumber(), newLead.getPhoneNumber());
-        assertEquals(newDecisionMaker.getEmail(), newLead.getEmail());
-        assertEquals(newDecisionMaker.getCompanyName(), newLead.getCompanyName());
-    }
-
-
-    @Test
-    public void opportunityInfoTest(){}//same as user input
-
-    /*
-    @Test
-    public void setDecisionMakerTest(){
-        assertTrue(newOpportunity.getDecisionMaker() instanceof Contact);
-        assertEquals(newOpportunity.getDecisionMaker().getEmail() instanceof String);
-    }//is a Contact object with correct data
-
-     */
-
-    @Test
-    public void setOpenStatusTest(){
-        assertEquals(newOpportunity.getStatus(), Status.OPEN);
+    @DisplayName("Test: createScanner(). Return scanner object as expected.")
+    public void CommandHandler_CreateScanner_ScannerCreated(){
+        assertTrue(createScanner() instanceof Scanner);
     }
 
     @Test
-    public void createOpportunityTest(){}//count opportunities + check type
+    @DisplayName("Test: convertLead(). Lead converted as expected.")
+    public void CommandHandler_ConvertLead_LeadConverted(){
+        InputStream in = new ByteArrayInputStream("anna".getBytes());
+        System.setIn(in);
+        Scanner sc = new Scanner(System.in);
+        Lead tempLeadOne = test.createLead();
+        long tempId = tempLeadOne.getId();
+//        String leadName = tempLeadOne.getContactName();
+//        String leadPhone = tempLeadOne.getPhoneNumber();
+//        String leadEmail = tempLeadOne.getEmail();
+//        Account newAccount = test.convertLead(tempId);
+//        assertEquals(leadName, newAccount.getContactList().get(0).getContactName());
+//        assertEquals(leadPhone, newAccount.getContactList().get(0).getPhoneNumber());
+//        assertEquals(leadEmail, newAccount.getContactList().get(0).getEmail());
+    }
+
+    @Test
+    @DisplayName("Test: setupAccount(). Account created as expected.")
+    public void CommandHandler_SetUpAccount_AccountCreated(){
+
+    }
+
+
 
 }

@@ -2,14 +2,13 @@ package com.ironhack.FabFour.homework2.model;
 
 import com.ironhack.FabFour.homework2.enums.Industry;
 import com.ironhack.FabFour.homework2.enums.Product;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class AccountTest {
 
@@ -54,7 +53,7 @@ public class AccountTest {
     }
 
     @Test
-    @DisplayName("Test: setEmployeeCount. EmployeeCount set as expected.")
+    @DisplayName("Test: setEmployeeCount(). EmployeeCount set as expected.")
     public void Account_SetEmployeeCount_EmployeeCountSet(){
         account.setEmployeeCount(15);
         assertEquals(15, account.getEmployeeCount());
