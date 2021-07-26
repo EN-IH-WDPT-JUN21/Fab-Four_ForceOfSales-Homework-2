@@ -19,7 +19,7 @@ public class LeadList {
         return listOfLeads.size();
     }
 
-    public void showLeads() {
+    public static void showLeads() {
         for (Lead lead : listOfLeads) {
             System.out.println("Lead ID: " + lead.getId() + ", Contact Name: " + lead.getContactName() + ". /n");
         }
