@@ -118,12 +118,7 @@ public class CommandHandler {
     }
 
     public static void main(String[] args) {
-        CommandHandler cm = new CommandHandler();
-        Lead tempLeadOne = cm.createLead();
-        long tempId = tempLeadOne.getId();
-        Account newAccount = cm.convertLead(tempId);
-//        cm.getEnumInput("product");
-//        cm.getIntInput("employees");
+       
     }
 
     public void handleCommand(String command) {}
