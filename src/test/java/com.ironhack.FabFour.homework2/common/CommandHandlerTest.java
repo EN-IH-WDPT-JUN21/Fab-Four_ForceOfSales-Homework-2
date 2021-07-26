@@ -22,7 +22,7 @@ public class CommandHandlerTest {
     @BeforeEach
     public void setUp() {
         test = new CommandHandler();
-        newAccount = cm.convertLead(12);
+        //newAccount = cm.convertLead(12);
         newOpportunity = newAccount.getOpportunityList().get(0);
     }
 
@@ -82,6 +82,7 @@ public class CommandHandlerTest {
     @Test
     public void createContactTest(){}//count Contact objects?
 
+    /*
     @Test
     public void contactInfoTest(){
         Contact newDecisionMaker = newOpportunity.getDecisionMaker();
@@ -91,6 +92,8 @@ public class CommandHandlerTest {
         assertEquals(newDecisionMaker.getEmail(), newLead.getEmail());
         assertEquals(newDecisionMaker.getCompanyName(), newLead.getCompanyName());
     }
+
+     */
 
 
     @Test

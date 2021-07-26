@@ -17,7 +17,7 @@ import java.util.List;
 
 public class CommandHandler {
     //public?
-    public static List<Account> accountList;
+    public static List<Account> accountList = new ArrayList<>();
 
 
     public Account convertLead(long id) {
@@ -89,6 +89,7 @@ public class CommandHandler {
         if (aScanner.hasNextLine()) {
             return aScanner;
         }
+        return null;
     }
 
     public static void main(String[] args) {

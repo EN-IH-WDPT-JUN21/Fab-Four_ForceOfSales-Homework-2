@@ -57,8 +57,6 @@ public class DataValidator {
         return false;
     }
 
-
-    //TODO: public static boolean opportunityExists()
     public static boolean opportunityExists(String input) {
         for(Account account : accountList) {
             Opportunity opportunity = account.getOpportunity(input);
