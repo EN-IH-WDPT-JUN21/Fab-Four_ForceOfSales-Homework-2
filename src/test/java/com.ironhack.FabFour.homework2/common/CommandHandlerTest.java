@@ -92,7 +92,6 @@ public class CommandHandlerTest {
         System.setIn(in);
         Scanner sc = new Scanner(System.in);
         assertTrue(createScanner() instanceof Scanner);
-    }
 
     @Test
     @DisplayName("Test: createScanner(). Scanner object not returned as invalid input provided.")
