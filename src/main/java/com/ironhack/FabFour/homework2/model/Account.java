@@ -1,14 +1,13 @@
 package com.ironhack.FabFour.homework2.model;
 
 import com.ironhack.FabFour.homework2.common.CommandHandler;
-import com.ironhack.FabFour.homework2.common.EnumHandler;
 import com.ironhack.FabFour.homework2.enums.Industry;
 
 import java.util.List;
 import java.util.Scanner;
 
 public class Account {
-    private static long accountIDCount = 1000;
+    private static long accountIDCount = 2000;
     private long id;
     private Industry industry;
     private int employeeCount;
@@ -46,16 +45,7 @@ public class Account {
     }
 
     public void setIndustry(Industry industry) {
-        if (industry != null) {
-            this.industry  = industry ;
-        }
-        else {
-            setEnum(CommandHandler.createScanner());
-        }
-    }
-
-    public void setEnum(Scanner sc) {
-        setIndustry(EnumHandler.getRequiredIndustry(sc.next()));
+        this.industry = industry;
     }
 
     public int getEmployeeCount() {
@@ -94,10 +84,7 @@ public class Account {
 
     public void setCountry(String country) {
         if (!country.isBlank()) {
-            this.country = city;
-        }
-        else {
-            setString("country", CommandHandler.createScanner());
+            this.country = country;
         }
     }
 
