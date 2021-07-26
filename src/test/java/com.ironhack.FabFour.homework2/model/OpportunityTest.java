@@ -1,7 +1,6 @@
 package com.ironhack.FabFour.homework2.model;
 
-import com.ironhack.FabFour.homework2.enums.Product;
-import com.ironhack.FabFour.homework2.enums.Status;
+import com.ironhack.FabFour.homework2.enums.*;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
@@ -80,29 +79,8 @@ public class OpportunityTest {
         InputStream in = new ByteArrayInputStream("0".getBytes());
         System.setIn(in);
         Scanner sc = new Scanner(System.in);
-
         in = new ByteArrayInputStream("400".getBytes());
         System.setIn(in);
         assertThrows(NullPointerException.class, () ->  opportunity.setInteger(sc));
     }
-
-    @Test
-    @DisplayName("Test: setEnum(). Enum attributes set as expected.")
-    public void Opportunity_SetEnum_EnumSet(){
-        InputStream in = new ByteArrayInputStream("flatBed".getBytes());
-        System.setIn(in);
-        Scanner sc = new Scanner(System.in);
-        opportunity.setEnum(sc);
-        assertEquals(opportunity.getProduct(), Product.FLATBED);
-    }
-
-    @Test
-    @DisplayName("Test: setEnum(). Enum attributes not set as invalid input provided.")
-    public void Opportunity_SetEnum_EnumNotSet(){
-        InputStream in = new ByteArrayInputStream("arts".getBytes());
-        System.setIn(in);
-        Scanner sc = new Scanner(System.in);
-        assertThrows(NullPointerException.class, () ->  opportunity.setEnum(sc));
-    }
-
 }

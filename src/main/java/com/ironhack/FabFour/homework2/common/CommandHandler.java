@@ -1,20 +1,12 @@
 package com.ironhack.FabFour.homework2.common;
 
-import com.ironhack.FabFour.homework2.enums.Industry;
-import com.ironhack.FabFour.homework2.enums.Product;
+import com.ironhack.FabFour.homework2.enums.*;
 import com.ironhack.FabFour.homework2.model.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import org.apache.commons.lang.WordUtils;
-import com.ironhack.FabFour.homework2.enums.Status;
-import com.ironhack.FabFour.homework2.model.Account;
-import com.ironhack.FabFour.homework2.model.Lead;
-import com.ironhack.FabFour.homework2.model.LeadList;
-import com.ironhack.FabFour.homework2.model.Opportunity;
+import java.util.*;
 
-import java.util.List;
+import org.apache.commons.lang.WordUtils;
+
 
 public class CommandHandler {
     //public?
@@ -27,52 +19,52 @@ public class CommandHandler {
         String contactEmail = leadToConvert.getEmail();
         String contactCompany = leadToConvert.getCompanyName();
         Contact newContact = new Contact(contactName, contactPhoneNumber, contactEmail, contactCompany);
-        String newProductString = "";
-        int newQuantity = 0;
-        Scanner aScanner = new Scanner(System.in);
-        System.out.println("Please provide the type of the product you're interested in\n Possible choices are: HYBRID, FLATBED, BOX\n");
-        if (aScanner.hasNextLine()) {
-            newProductString = aScanner.next();
-        }
-        System.out.println("Please provide the number of trucks you're interested in\n Maximum amount: 300");
-        if (aScanner.hasNextLine()) {
-            newQuantity = Integer.parseInt(aScanner.next());
-        }
-        Product newProduct = EnumHandler.getRequiredProduct(newProductString);
+        System.out.println("Please provide the type of the product you're interested in.\nPossible choices are: HYBRID, FLATBED, BOX");
+        Product newProduct = (Product) getEnumInput("product");
+        System.out.println("Please provide the number of trucks you're interested in.\nMaximum amount: 300");
+        int newQuantity = getIntInput("quantity");
         Opportunity newOpportunity = new Opportunity(newProduct, newQuantity, newContact);
         System.out.println("Opportunity created. Lead ID: " + newOpportunity.getId());
         removeLead(id);
         System.out.println("Lead deleted. Lead ID: " + leadToConvert.getId());
-        return setupAccount(newOpportunity);
+        return setupAccount(newOpportunity, getAccountInfo());
     }
 
-    public Account setupAccount(Opportunity opportunity) {
-        String industryString = null; String city = null; int employeeCount = 0; String country = null;
-        Scanner aScanner = new Scanner(System.in);
-        System.out.println("Please provide the industry name\n Possible choices are: PRODUCE, ECOMMERCE, MANUFACTURING, MEDICAL, OTHER\n");
-        if (aScanner.hasNextLine()) {
-            industryString = aScanner.next();
-        }
-        System.out.println("Please provide the number of company employees\n");
-        if (aScanner.hasNextLine()) {
-            employeeCount = Integer.parseInt(aScanner.next());
-        }
-        System.out.println("Please provide the city name\n");
-        if (aScanner.hasNextLine()) {
-            city = aScanner.next();
-        }
-        System.out.println("Please provide the country name\n");
-        if (aScanner.hasNextLine()) {
-            country = aScanner.next();
-        }
-        Industry industry = EnumHandler.getRequiredIndustry(industryString);
+    public List getAccountInfo() {
+        System.out.println("Please provide the industry name.\nPossible choices are: PRODUCE, ECOMMERCE, MANUFACTURING, MEDICAL, OTHER");
+        Industry newIndustry = (Industry) getEnumInput("industry");
+        System.out.println("Please provide the number of company employees");
+        int employeeCount = getIntInput("employees");
+        System.out.println("Please provide the city name");
+        String city = getUserInput();
+        System.out.println("Please provide the country name");
+        String country = getUserInput();
+        List<Object> accountInfoList = Arrays.asList(newIndustry, employeeCount, city, country);
+        return accountInfoList;
+    }
+
+    public Account setupAccount(Opportunity opportunity, List<Object> accountInfoList) {
+        Industry industry = (Industry) accountInfoList.get(0);
+        int employees = (int) accountInfoList.get(1);
+        String city = (String) accountInfoList.get(2);
+        String country = (String) accountInfoList.get(3);
         List<Contact> contactList = new ArrayList<>();
         List<Opportunity> opportunityList = new ArrayList<>();
         contactList.add(opportunity.getDecisionMaker());
         opportunityList.add(opportunity);
-        Account newAccount = new Account(industry, employeeCount, WordUtils.capitalizeFully(city), WordUtils.capitalizeFully(country), contactList, opportunityList);
+        Account newAccount = new Account(industry, employees, WordUtils.capitalizeFully(city), WordUtils.capitalizeFully(country), contactList, opportunityList);
         System.out.println("Account created. Account ID: " + newAccount.getId());
         return newAccount;
+    }
+
+    public boolean isInteger(String input) {
+        try {
+            Integer.parseInt(input);
+            return true;
+        }
+        catch(NumberFormatException e) {
+            return false;
+        }
     }
 
     public static Scanner createScanner() {
@@ -84,11 +76,54 @@ public class CommandHandler {
         return null;
     }
 
+    public Object getEnumInput(String enumType) {
+        Scanner aScanner = new Scanner(System.in);
+        Object result = null;
+        if (aScanner.hasNextLine()) {
+            if(enumType == "product") {
+                result = EnumHandler.getRequiredProduct(aScanner.next());
+            } else if(enumType == "industry") {
+                result = EnumHandler.getRequiredIndustry(aScanner.next());
+            }
+        }
+        if(result == null) {
+            System.out.println("Please provide the correct value.");
+            getEnumInput(enumType);
+        }
+        return result;
+    }
+
+    public int getIntInput(String intType) {
+        Scanner aScanner = new Scanner(System.in);
+        int result = 0;
+        if (aScanner.hasNextLine()) {
+            String userInput = aScanner.next();
+            if(isInteger(userInput)) {
+                result =  Integer.parseInt(userInput);
+            } else {
+                System.out.println("Please provide the correct value.");
+                getIntInput(intType);
+            }
+        }
+        return result;
+    }
+
+    public String getUserInput() {
+        Scanner aScanner = new Scanner(System.in);
+        String result = "";
+        if (aScanner.hasNextLine()) {
+            result = aScanner.next();
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
         CommandHandler cm = new CommandHandler();
         Lead tempLeadOne = cm.createLead();
         long tempId = tempLeadOne.getId();
         Account newAccount = cm.convertLead(tempId);
+//        cm.getEnumInput("product");
+//        cm.getIntInput("employees");
     }
 
     public void handleCommand(String command) {}

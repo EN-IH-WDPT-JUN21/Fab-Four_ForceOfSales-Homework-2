@@ -1,7 +1,6 @@
 package com.ironhack.FabFour.homework2.model;
 
-import com.ironhack.FabFour.homework2.enums.Industry;
-import com.ironhack.FabFour.homework2.enums.Product;
+import com.ironhack.FabFour.homework2.enums.*;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
@@ -80,7 +79,6 @@ public class AccountTest {
         System.setIn(in);
         Scanner sc = new Scanner(System.in);
         account.setString("city", sc);
-        assertTrue(account.getCity() instanceof String);
         assertEquals("Montreal", account.getCity());
     }
 
@@ -91,7 +89,6 @@ public class AccountTest {
         System.setIn(in);
         Scanner sc = new Scanner(System.in);
         account.setString("country", sc);
-        assertTrue(account.getCountry() instanceof String);
         assertEquals("Canada", account.getCountry());
     }
 
@@ -112,24 +109,5 @@ public class AccountTest {
         System.setIn(in);
         Scanner sc = new Scanner(System.in);
         assertThrows(NullPointerException.class, () ->  account.setInteger(sc));
-    }
-
-    @Test
-    @DisplayName("Test: setEnum(). Enum attributes set as expected.")
-    public void Account_SetEnum_EnumSet(){
-        InputStream in = new ByteArrayInputStream("medical".getBytes());
-        System.setIn(in);
-        Scanner sc = new Scanner(System.in);
-        account.setEnum(sc);
-        assertEquals(account.getIndustry(), Industry.MEDICAL);
-    }
-
-    @Test
-    @DisplayName("Test: setEnum(). Enum attributes not set as invalid input provided.")
-    public void Account_SetEnum_EnumNotSet(){
-        InputStream in = new ByteArrayInputStream("arts".getBytes());
-        System.setIn(in);
-        Scanner sc = new Scanner(System.in);
-        assertThrows(NullPointerException.class, () ->  account.setEnum(sc));
     }
 }

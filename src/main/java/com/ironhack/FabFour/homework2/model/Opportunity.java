@@ -38,16 +38,7 @@ public class Opportunity {
     }
 
     public void setProduct(Product product) {
-        if (product != null) {
-            this.product = product;
-        }
-        else {
-            setEnum(CommandHandler.createScanner());
-        }
-    }
-
-    public void setEnum(Scanner sc) {
-        setProduct(EnumHandler.getRequiredProduct(sc.next()));
+        this.product = product;
     }
 
     public int getQuantity() {
