@@ -11,6 +11,7 @@ public class CommandHandlerTest {
 
     @Test
     void getIdFromInput_test() {
+
         assertEquals(0, CommandHandler.getIdFromInput("test test"));
         assertEquals(12, CommandHandler.getIdFromInput("test 12"));
         assertEquals(133, CommandHandler.getIdFromInput("test 133         "));
