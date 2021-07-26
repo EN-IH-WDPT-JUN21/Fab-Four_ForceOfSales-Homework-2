@@ -28,7 +28,8 @@ public class CommandHandler {
                     createLead();
                     break;
                 case SHOW_LEADS:
-                    showLeads();
+                    LeadList leadList = new LeadList();
+                    leadList.showLeads();
                     break;
                 case HELP:
                     System.out.println("--------------------------------------------------\n" +

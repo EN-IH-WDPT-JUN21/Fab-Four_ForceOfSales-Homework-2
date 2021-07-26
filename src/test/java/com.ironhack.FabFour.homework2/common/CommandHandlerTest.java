@@ -1,5 +1,7 @@
 package com.ironhack.FabFour.homework2.common;
+
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.ironhack.FabFour.homework2.enums.*;
@@ -7,6 +9,7 @@ import com.ironhack.FabFour.homework2.model.*;
 
 import static com.ironhack.FabFour.homework2.common.CommandHandler.createScanner;
 import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.*;
 
 import java.io.ByteArrayInputStream;
@@ -16,7 +19,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CommandHandlerTest {
-  
+
     CommandHandler test;
     Lead tempLeadOne = null;
     Account newAccount;
@@ -41,7 +44,7 @@ public class CommandHandlerTest {
     @Test
     @DisplayName("Test: lookupLead(). Return the lead as expected.")
     public void CommandHandler_LookupLead_LeadReturned() {
-        tempLeadOne = new Lead("Buzz","0800","buzz@lightyear","Toy Story");
+        tempLeadOne = new Lead("Buzz", "0800", "buzz@lightyear", "Toy Story");
         LeadList.getListOfLeads().add(tempLeadOne);
         long tempID = tempLeadOne.getId();
         Lead tempLeadTwo = test.lookupLead(tempID);
@@ -58,7 +61,7 @@ public class CommandHandlerTest {
     @Test
     @DisplayName("Test: removeLead(). Remove the lead as expected.")
     public void CommandHandler_RemoveLead_LeadRemoved() {
-        tempLeadOne = new Lead("Buzz","0800","buzz@lightyear","Toy Story");
+        tempLeadOne = new Lead("Buzz", "0800", "buzz@lightyear", "Toy Story");
         LeadList.getListOfLeads().add(tempLeadOne);
         int currentListSize = LeadList.getListOfLeads().size();
         test.removeLead(1);
@@ -77,7 +80,7 @@ public class CommandHandlerTest {
 
     @Test
     @DisplayName("Test: isInteger(). Return correct boolean value.")
-    public void CommandHandler_isInteger_CorrectValueReturned(){
+    public void CommandHandler_isInteger_CorrectValueReturned() {
         InputStream in = new ByteArrayInputStream("11".getBytes());
         System.setIn(in);
         Scanner sc = new Scanner(System.in);
@@ -89,15 +92,17 @@ public class CommandHandlerTest {
 
     @Test
     @DisplayName("Test: createScanner(). Return scanner object as expected.")
-    public void CommandHandler_CreateScanner_ScannerCreated(){
+    public void CommandHandler_CreateScanner_ScannerCreated() {
         InputStream in = new ByteArrayInputStream("box".getBytes());
         System.setIn(in);
         Scanner sc = new Scanner(System.in);
         assertTrue(createScanner() instanceof Scanner);
 
+    }
+
     @Test
     @DisplayName("Test: createScanner(). Scanner object not returned as invalid input provided.")
-    public void CommandHandler_CreateScanner_ScannerNotCreated(){
+    public void CommandHandler_CreateScanner_ScannerNotCreated() {
         InputStream in = new ByteArrayInputStream("".getBytes());
         System.setIn(in);
         Scanner sc = new Scanner(System.in);
@@ -106,7 +111,7 @@ public class CommandHandlerTest {
 
     @Test
     @DisplayName("Test: getEnumInput(). Return correct enum value as expected.")
-    public void CommandHandler_GetEnumInput_EnumReturned(){
+    public void CommandHandler_GetEnumInput_EnumReturned() {
         InputStream in = new ByteArrayInputStream("box".getBytes());
         System.setIn(in);
         Scanner sc = new Scanner(System.in);
@@ -115,7 +120,7 @@ public class CommandHandlerTest {
 
     @Test
     @DisplayName("Test: getIntInput(). Return correct int value as expected.")
-    public void CommandHandler_GetIntInput_IntReturned(){
+    public void CommandHandler_GetIntInput_IntReturned() {
         InputStream in = new ByteArrayInputStream("10".getBytes());
         System.setIn(in);
         Scanner sc = new Scanner(System.in);
@@ -124,7 +129,7 @@ public class CommandHandlerTest {
 
     @Test
     @DisplayName("Test: getUserInput(). Return correct String value as expected.")
-    public void CommandHandler_GetUserInput_StringReturned(){
+    public void CommandHandler_GetUserInput_StringReturned() {
         InputStream in = new ByteArrayInputStream("Marion".getBytes());
         System.setIn(in);
         Scanner sc = new Scanner(System.in);
@@ -133,17 +138,18 @@ public class CommandHandlerTest {
 
     @Test
     @DisplayName("Test: setupAccount(). Account created as expected.")
-    public void CommandHandler_SetUpAccount_AccountCreated(){
+    public void CommandHandler_SetUpAccount_AccountCreated() {
         accountInfoList = Arrays.asList(Industry.PRODUCE, 25, "Boston", "USA");
-        newContact= new Contact("Peter Parker", "999888777", "peterP@yahoo.com", "Webs");
+        newContact = new Contact("Peter Parker", "999888777", "peterP@yahoo.com", "Webs");
         newOpportunity = new Opportunity(Product.FLATBED, 25, newContact);
         assertEquals(test.setupAccount(newOpportunity, accountInfoList).getIndustry(), Industry.PRODUCE);
         assertEquals(test.setupAccount(newOpportunity, accountInfoList).getOpportunityList().get(0), newOpportunity);
         assertEquals(test.setupAccount(newOpportunity, accountInfoList).getContactList().get(0), newContact);
 
-      
+    }
+
     @Test
-     public void handleCommand_getProperCommand() {
+    public void handleCommand_getProperCommand() {
         //TODO
     }
 
@@ -154,6 +160,6 @@ public class CommandHandlerTest {
         assertEquals(12, CommandHandler.getIdFromInput("test 12"));
         assertEquals(133, CommandHandler.getIdFromInput("test 133         "));
         assertEquals(0, CommandHandler.getIdFromInput("         133 /        "));
-      
+
     }
 }
