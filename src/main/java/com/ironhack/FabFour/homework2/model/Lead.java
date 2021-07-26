@@ -72,6 +72,16 @@ public class Lead {
     }
 
     @Override
+    public boolean equals(Object l) {
+        if (this == l) return true;
+        if (l == null || getClass() != l.getClass()) return false;
+        Lead that = (Lead) l;
+        return getId() == that.getId() && getCompanyName() == that.getCompanyName() &&
+                getEmail() == that.getEmail() && getContactName() == that.getContactName() &&
+                getPhoneNumber() == that.getPhoneNumber();
+    }
+
+    @Override
     public String toString() {
         return "Lead: " + this.getId() + ", Name of Contact: " + this.getContactName() + ", Phone Number: " +
                 this.getPhoneNumber() + ", Email: " + this.getEmail() + ", Company Name: " + this.getCompanyName();
