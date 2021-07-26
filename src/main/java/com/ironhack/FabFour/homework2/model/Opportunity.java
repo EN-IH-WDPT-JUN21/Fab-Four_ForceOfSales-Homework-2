@@ -24,14 +24,6 @@ public class Opportunity {
         setStatus(Status.OPEN);
     }
 
-    public Opportunity(Product product, int quantity, Contact decisionMaker, Status status) {
-        setId(id);
-        setProduct(product);
-        setQuantity(quantity);
-        setDecisionMaker(decisionMaker);
-        setStatus(status);
-    }
-
     public long getId() {
         return Opportunity.opportunityIDCount;
     }
@@ -46,16 +38,7 @@ public class Opportunity {
     }
 
     public void setProduct(Product product) {
-        if (product != null) {
-            this.product = product;
-        }
-        else {
-            setEnum(CommandHandler.createScanner());
-        }
-    }
-
-    public void setEnum(Scanner sc) {
-        setProduct(EnumHandler.getRequiredProduct(sc.next()));
+        this.product = product;
     }
 
     public int getQuantity() {
@@ -88,7 +71,9 @@ public class Opportunity {
     }
 
     public void setStatus(Status status) {
-        this.status = status;
+        if (status != null && (status == Status.CLOSED_LOST || status == Status.CLOSED_WON)) {
+            this.status = status;
+        }
     }
 
     @Override
