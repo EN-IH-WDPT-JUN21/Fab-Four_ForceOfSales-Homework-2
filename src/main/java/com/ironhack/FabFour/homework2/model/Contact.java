@@ -12,10 +12,6 @@ public class Contact extends Lead {
         return contactIDCount;
     }
 
-    public static void setContactIDCount(long contactIDCount) {
-        Contact.contactIDCount = contactIDCount;
-    }
-
     @Override
     public void setId() {
         this.id = contactIDCount;

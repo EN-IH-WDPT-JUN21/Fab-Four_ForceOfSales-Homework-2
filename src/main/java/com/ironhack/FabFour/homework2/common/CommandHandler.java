@@ -16,20 +16,19 @@ import java.io.IOException;
 import java.text.ParseException;
 
 public class CommandHandler {
-  
-    public void handleCommand(String command) {
+
+    public static void handleCommand(String command) {
         String upperCommand = command.trim().toUpperCase(); // delete all spaces around command
         String defaultInfo = "Command not recognised. Type HELP or try again!"; //default info message
         long id = getIdFromInput(upperCommand); // get id from the end of command - if there is no long value then method returns 0;
 
-        if(id<1) { // case when command hasn't any id at the end
-            switch(Command.getCommandType(upperCommand)) {
+        if (id < 1) { // case when command hasn't any id at the end
+            switch (Command.getCommandType(upperCommand)) {
                 case NEW_LEAD:
                     createLead();
                     break;
                 case SHOW_LEADS:
-                    LeadList leadList = new LeadList();
-                    leadList.showLeads();
+                    LeadList.showLeads();
                     break;
                 case HELP:
                     System.out.println("--------------------------------------------------\n" +
@@ -48,9 +47,9 @@ public class CommandHandler {
             }
         } else { // case when command has an id at the end
 
-            upperCommand = upperCommand.substring(0,upperCommand.length()-String.valueOf(id).length()).trim();
+            upperCommand = upperCommand.substring(0, upperCommand.length() - String.valueOf(id).length()).trim();
 
-            switch(Command.getCommandType(upperCommand)) {
+            switch (Command.getCommandType(upperCommand)) {
                 case CONVERT:
                     convertLead(id);
                     break;
@@ -73,16 +72,16 @@ public class CommandHandler {
         String[] words = command.trim().split("\\s");
 
         try {
-            return Long.parseLong(words[words.length-1]);
-        } catch(NumberFormatException ignored) {
+            return Long.parseLong(words[words.length - 1]);
+        } catch (NumberFormatException ignored) {
         }
         return 0; // It returns 0 because you cannot create id less than 0
     }
-  
+
     //public?
     public static List<Account> accountList = new ArrayList<>();
 
-    public Account convertLead(long id) {
+    public static Account convertLead(long id) {
         Lead leadToConvert = lookupLead(id);
         String contactName = leadToConvert.getContactName();
         String contactPhoneNumber = leadToConvert.getPhoneNumber();
@@ -100,7 +99,7 @@ public class CommandHandler {
         return setupAccount(newOpportunity, getAccountInfo());
     }
 
-    public List getAccountInfo() {
+    public static List getAccountInfo() {
         System.out.println("Please provide the industry name.\nPossible choices are: PRODUCE, ECOMMERCE, MANUFACTURING, MEDICAL, OTHER");
         Industry newIndustry = (Industry) getEnumInput("industry");
         System.out.println("Please provide the number of company employees");
@@ -113,7 +112,7 @@ public class CommandHandler {
         return accountInfoList;
     }
 
-    public Account setupAccount(Opportunity opportunity, List<Object> accountInfoList) {
+    public static Account setupAccount(Opportunity opportunity, List<Object> accountInfoList) {
         Industry industry = (Industry) accountInfoList.get(0);
         int employees = (int) accountInfoList.get(1);
         String city = (String) accountInfoList.get(2);
@@ -127,12 +126,11 @@ public class CommandHandler {
         return newAccount;
     }
 
-    public boolean isInteger(String input) {
+    public static boolean isInteger(String input) {
         try {
             Integer.parseInt(input);
             return true;
-        }
-        catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return false;
         }
     }
@@ -146,30 +144,30 @@ public class CommandHandler {
         return null;
     }
 
-    public Object getEnumInput(String enumType) {
+    public static Object getEnumInput(String enumType) {
         Scanner aScanner = new Scanner(System.in);
         Object result = null;
         if (aScanner.hasNextLine()) {
-            if(enumType == "product") {
+            if (enumType == "product") {
                 result = EnumHandler.getRequiredProduct(aScanner.next());
-            } else if(enumType == "industry") {
+            } else if (enumType == "industry") {
                 result = EnumHandler.getRequiredIndustry(aScanner.next());
             }
         }
-        if(result == null) {
+        if (result == null) {
             System.out.println("Please provide the correct value.");
             getEnumInput(enumType);
         }
         return result;
     }
 
-    public int getIntInput(String intType) {
+    public static int getIntInput(String intType) {
         Scanner aScanner = new Scanner(System.in);
         int result = 0;
         if (aScanner.hasNextLine()) {
             String userInput = aScanner.next();
-            if(isInteger(userInput)) {
-                result =  Integer.parseInt(userInput);
+            if (isInteger(userInput)) {
+                result = Integer.parseInt(userInput);
             } else {
                 System.out.println("Please provide the correct value.");
                 getIntInput(intType);
@@ -178,7 +176,7 @@ public class CommandHandler {
         return result;
     }
 
-    public String getUserInput() {
+    public static String getUserInput() {
         Scanner aScanner = new Scanner(System.in);
         String result = "";
         if (aScanner.hasNextLine()) {
@@ -187,14 +185,12 @@ public class CommandHandler {
         return result;
     }
 
-    public static void main(String[] args) {
-       
-    }
-
-    public Lead createLead() {
+    public static Lead createLead() {
         LeadList tester = new LeadList(); // created as a dummy whilst working out how to add objects to list
-        String tempName; String tempNumber;
-        String tempEmail; String tempCompany;
+        String tempName;
+        String tempNumber;
+        String tempEmail;
+        String tempCompany;
         Lead tempLead = null;
         Scanner aScanner = new Scanner(System.in);
         System.out.println("Please enter their contact name.");
@@ -205,13 +201,13 @@ public class CommandHandler {
         tempEmail = aScanner.next();
         System.out.println("Please enter their company's name");
         tempCompany = aScanner.next();
-        tempLead = new Lead(tempName,tempNumber,tempEmail,tempCompany);
+        tempLead = new Lead(tempName, tempNumber, tempEmail, tempCompany);
         LeadList.getListOfLeads().add(tempLead);
         System.out.println("Lead created. Lead ID: " + tempLead.getId());
         return tempLead;
     }
 
-    public Lead lookupLead(long id) {
+    public static Lead lookupLead(long id) {
         Lead foundLead = null;
         for (Lead aLead : LeadList.getListOfLeads()) {
             if (aLead.getId() == id) {
@@ -222,7 +218,7 @@ public class CommandHandler {
         return foundLead;
     }
 
-    public void removeLead(long id) {
+    public static void removeLead(long id) {
         for (Lead aLead : LeadList.getListOfLeads()) {
             if (aLead.getId() == id) {
                 LeadList.getListOfLeads().remove(aLead);
@@ -236,23 +232,24 @@ public class CommandHandler {
     -- REMOVED the method and split it in two
      */
 
-    public void updateOpportunityStatusClosedLost(long id) {
-        for(Account account : accountList) {
+    public static void updateOpportunityStatusClosedLost(long id) {
+        for (Account account : accountList) {
             Opportunity opportunity = account.getOpportunity(String.valueOf(id));
-            if(opportunity != null) {
+            if (opportunity != null) {
                 opportunity.setStatus(Status.CLOSED_LOST);
             }
         }
     }
 
-    public void updateOpportunityStatusClosedWin(long id) {
-        for(Account account : accountList) {
+    public static void updateOpportunityStatusClosedWin(long id) {
+        for (Account account : accountList) {
             Opportunity opportunity = account.getOpportunity(String.valueOf(id));
-            if(opportunity != null) {
+            if (opportunity != null) {
                 opportunity.setStatus(Status.CLOSED_WON);
             }
         }
     }
 
-    public void IOHandler(){}
+    public void IOHandler() {
+    }
 }

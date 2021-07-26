@@ -8,6 +8,7 @@ import com.ironhack.FabFour.homework2.enums.*;
 import com.ironhack.FabFour.homework2.model.*;
 
 import static com.ironhack.FabFour.homework2.common.CommandHandler.createScanner;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.*;
@@ -37,7 +38,13 @@ public class CommandHandlerTest {
 //    @DisplayName("Test: createLead(). Validate that newly created lead is added to LeadList.")
 //    public void CommandHandler_CreateLeadTest_ValidateLeadAddedToList() {
 //        var currentListSize = LeadList.getListOfLeads().size();
-////        test.createLead();
+//        String username= "Jack"; String phoneNumber= "0208"; String email = "test@test"; String company = "Company";
+//        test.createLead();
+//        System.setIn(new ByteArrayInputStream(username.getBytes()));
+//        System.setIn(new ByteArrayInputStream(phoneNumber.getBytes()));
+//        System.setIn(new ByteArrayInputStream(email.getBytes()));
+//        System.setIn(new ByteArrayInputStream(company.getBytes()));
+//        test.main(null);
 //        assertTrue(LeadList.getListOfLeads().size() == currentListSize + 1);
 //    }
 
