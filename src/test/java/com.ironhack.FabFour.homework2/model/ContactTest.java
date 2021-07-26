@@ -50,5 +50,4 @@ public class ContactTest {
     public void ContactTest_CompanyNameTest_SetAsExpected() {
         assertEquals("A New Company",testContactOne.getCompanyName());
     }
-
 }

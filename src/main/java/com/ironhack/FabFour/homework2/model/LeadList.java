@@ -11,17 +11,13 @@ public class LeadList {
         return listOfLeads;
     }
 
-    public static void setListOfLeads(List<Lead> listOfLeads) {
-        LeadList.listOfLeads = listOfLeads;
-    }
-
-    public int countLeads() {
+    public static int countLeads() {
         return listOfLeads.size();
     }
 
-    public void showLeads() {
+    public static void showLeads() {
         for (Lead lead : listOfLeads) {
-            System.out.println("Lead ID: " + lead.getId() + ", Contact Name: " + lead.getContactName() + ". /n");
+            System.out.println("Lead ID: " + lead.getId() + ", Contact Name: " + lead.getContactName() + ".\n");
         }
     }
 }
