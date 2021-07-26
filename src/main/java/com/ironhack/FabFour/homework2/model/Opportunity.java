@@ -1,18 +1,22 @@
 package com.ironhack.FabFour.homework2.model;
 
+import com.ironhack.FabFour.homework2.common.CommandHandler;
 import com.ironhack.FabFour.homework2.enums.Product;
 import com.ironhack.FabFour.homework2.enums.Status;
+import com.ironhack.FabFour.homework2.common.EnumHandler;
 
-import java.util.Objects;
+import java.util.Scanner;
+
 
 public class Opportunity {
+    private static long opportunityIDCount = 1000;
     private long id;
     private Product product;
     private int quantity;
     private Contact decisionMaker;
     private Status status;
 
-    public Opportunity(long id, Product product, int quantity, Contact decisionMaker) {
+    public Opportunity(Product product, int quantity, Contact decisionMaker) {
         setId(id);
         setProduct(product);
         setQuantity(quantity);
@@ -20,20 +24,13 @@ public class Opportunity {
         setStatus(Status.OPEN);
     }
 
-    public Opportunity(long id, Product product, int quantity, Contact decisionMaker, Status status) {
-        setId(id);
-        setProduct(product);
-        setQuantity(quantity);
-        setDecisionMaker(decisionMaker);
-        setStatus(status);
-    }
-
     public long getId() {
-        return id;
+        return Opportunity.opportunityIDCount;
     }
 
     public void setId(long id) {
-        this.id = id;
+        this.id = opportunityIDCount;
+        opportunityIDCount++;
     }
 
     public Product getProduct() {
@@ -49,7 +46,16 @@ public class Opportunity {
     }
 
     public void setQuantity(int quantity) {
-        this.quantity = quantity;
+        if (quantity > 0 && quantity <= 300) {
+            this.quantity = quantity;
+        }
+        else {
+            setInteger(CommandHandler.createScanner());
+        }
+    }
+
+    public void setInteger(Scanner sc) {
+        setQuantity(Integer.parseInt(sc.next()));
     }
 
     public Contact getDecisionMaker() {
@@ -65,7 +71,9 @@ public class Opportunity {
     }
 
     public void setStatus(Status status) {
-        this.status = status;
+        if (status != null && (status == Status.CLOSED_LOST || status == Status.CLOSED_WON)) {
+            this.status = status;
+        }
     }
 
     @Override
