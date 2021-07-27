@@ -81,6 +81,6 @@ public class Opportunity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Opportunity that = (Opportunity) o;
-        return id == that.id && quantity == that.quantity && product == that.product && decisionMaker.equals(that.decisionMaker) && status == that.status;
+        return quantity == that.quantity && product == that.product && decisionMaker.equals(that.decisionMaker) && status == that.status;
     }
 }
