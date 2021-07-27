@@ -110,4 +110,33 @@ public class AccountTest {
         Scanner sc = new Scanner(System.in);
         assertThrows(NullPointerException.class, () ->  account.setInteger(sc));
     }
+
+    @Test
+    void getOpportunity_correct() {
+        List<Contact> testContactList = new ArrayList<Contact>();
+        Contact testContact = new Contact("Rick","0208","rick@westley","Zombies");
+        testContactList.add(testContact);
+
+        List<Opportunity> testOpportunityList = new ArrayList<Opportunity>();
+        Opportunity testOpportunity = new Opportunity(Product.HYBRID, 3, testContact);
+        String opportunityId = String.valueOf(testOpportunity.getId());
+        testOpportunityList.add(testOpportunity);
+
+        Account testAccount = new Account(Industry.ECOMMERCE, 2, "Berlin", "Germany", testContactList, testOpportunityList);
+        assertEquals(testOpportunity, testAccount.getOpportunity(opportunityId));
+    }
+
+    @Test
+    void getOpportunity_wrong() {
+        List<Contact> testContactList = new ArrayList<Contact>();
+        Contact testContact = new Contact("Rick","0208","rick@westley","Zombies");
+        testContactList.add(testContact);
+
+        List<Opportunity> testOpportunityList = new ArrayList<Opportunity>();
+        Opportunity testOpportunity = new Opportunity(Product.HYBRID, 3, testContact);
+        testOpportunityList.add(testOpportunity);
+
+        Account testAccount = new Account(Industry.ECOMMERCE, 2, "Berlin", "Germany", testContactList, testOpportunityList);
+        assertEquals(null, testAccount.getOpportunity("900"));
+    }
 }

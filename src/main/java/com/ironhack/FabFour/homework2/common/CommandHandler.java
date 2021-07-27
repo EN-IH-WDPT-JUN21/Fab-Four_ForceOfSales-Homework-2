@@ -15,6 +15,8 @@ import org.apache.commons.lang.WordUtils;
 import java.io.IOException;
 import java.text.ParseException;
 
+import static com.ironhack.FabFour.homework2.model.AccountList.accountList;
+
 public class CommandHandler {
 
     public static void handleCommand(String command) {
@@ -77,9 +79,6 @@ public class CommandHandler {
         }
         return 0; // It returns 0 because you cannot create id less than 0
     }
-
-    //public?
-    public static List<Account> accountList;
 
     public static Account convertLead(long id) {
         Lead leadToConvert = lookupLead(id);
@@ -250,6 +249,7 @@ public class CommandHandler {
         }
     }
 
+    // Remove?
     public void IOHandler() {
     }
 }

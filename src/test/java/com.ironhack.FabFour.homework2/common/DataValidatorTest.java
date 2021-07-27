@@ -1,20 +1,20 @@
 package com.ironhack.FabFour.homework2.common;
 
+import com.ironhack.FabFour.homework2.enums.Industry;
 import com.ironhack.FabFour.homework2.enums.Product;
+import com.ironhack.FabFour.homework2.enums.Status;
 import com.ironhack.FabFour.homework2.model.Account;
 import com.ironhack.FabFour.homework2.model.Contact;
 import com.ironhack.FabFour.homework2.model.Lead;
 import com.ironhack.FabFour.homework2.model.Opportunity;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.ironhack.FabFour.homework2.common.CommandHandler.accountList;
 import static com.ironhack.FabFour.homework2.common.DataValidator.*;
+import static com.ironhack.FabFour.homework2.model.AccountList.accountList;
 import static com.ironhack.FabFour.homework2.model.LeadList.getListOfLeads;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -86,29 +86,11 @@ public class DataValidatorTest {
         assertTrue(validatePhoneNumber("+49123456789"));
     }
 
-    /*
-    @Test
-    @DisplayName("Test: correct phone number with parentheses")
-    void validatePhoneNumber_correctNumberWithParentheses() {
-        assertTrue(validatePhoneNumber("(030)123456789"));
-    }
-
-     */
-
     @Test
     @DisplayName("Test: correct phone number with spaces")
     void validatePhoneNumber_correctNumberWithSpaces() {
         assertTrue(validatePhoneNumber("123 456 789"));
     }
-
-    /*
-    @Test
-    @DisplayName("Test: correct phone number with hyphen")
-    void validatePhoneNumber_correctNumberWithHyphen() {
-        assertTrue(validatePhoneNumber("12-45-67-89"));
-    }
-
-     */
 
     @Test
     @DisplayName("Test: Empty phone number")
@@ -165,47 +147,146 @@ public class DataValidatorTest {
     /*
     TESTS TO CHECK EXISTENCE
      */
-
-    //TODO: Test needs to be checked, only works individually
-    /*
     @Test
     @DisplayName("Test: Lead exists")
-    void leadExists_IdExists() {
+    void DataValidatorClass_leadExists_PositiveTest() {
         List<Lead> testListOfLeads = getListOfLeads();
-        Lead testLead = new Lead("Pablo", "123456789", "pablo@email.es", "Big Company");
+        Lead testLead = new Lead("Peter", "987654321", "peter@email.de", "Small Company");
+        Long testLeadId = testLead.getId();
         testListOfLeads.add(testLead);
-        assertTrue(leadExists("1"));
+        assertTrue(leadExists(testLeadId.toString()));
         testListOfLeads.remove(testLead);
+    }
+
+    @Test
+    @DisplayName("Test: Lead does not exist")
+    void DataValidatorClass_leadExists_NegativeTest() {
+        List<Lead> testListOfLeads2 = getListOfLeads();
+        Lead testLead2 = new Lead("Pablo", "123456789", "pablo@email.es", "Big Company");
+        testListOfLeads2.add(testLead2);
+        assertFalse(leadExists("4"));
+        testListOfLeads2.remove(testLead2);
+    }
+
+
+    /*
+    TODO: Will be updated
+    @Test
+    @DisplayName("Test: Invoke NumberFormatException")
+    void DataValidatorClass_leadExists_ExceptionTest() {
+        List<Lead> testListOfLeads3 = getListOfLeads();
+        Lead testLead3 = new Lead("Pablo", "123456789", "pablo@email.es", "Big Company");
+        testListOfLeads3.add(testLead3);
+        assertThrows(NumberFormatException.class, () -> leadExists(45));
+        testListOfLeads3.remove(testLead3);
     }
 
      */
 
     @Test
-    @DisplayName("Test: Lead does not exist")
-    void leadExists_IdDoesNotExist() {
-        List<Lead> testListOfLeads2 = getListOfLeads();
-        Lead testLead = new Lead("Pablo", "123456789", "pablo@email.es", "Big Company");
-        testListOfLeads2.add(testLead);
-        assertFalse(leadExists("4"));
-        testListOfLeads2.remove(testLead);
-    }
-
-    //TODO
-    @Test
     @DisplayName("Test: Opportunity exists")
-    void leadExists_OpportunityExists() {
+    void opportunityExists_IdExists() {
+        List<Contact> testContactList2 = new ArrayList<Contact>();
+        Contact testContact2 = new Contact("Rick","0208","rick@westley","Zombies");
+        testContactList2.add(testContact2);
+
+        List<Opportunity> testOpportunityList2 = new ArrayList<Opportunity>();
+        Opportunity testOpportunity2 = new Opportunity(Product.HYBRID, 3, testContact2);
+        Long opportunityId = testOpportunity2.getId();
+        testOpportunityList2.add(testOpportunity2);
+
+        Account testAccount2 = new Account(Industry.ECOMMERCE, 2, "Berlin", "Germany", testContactList2, testOpportunityList2);
+        accountList.add(testAccount2);
+
+        assertTrue(opportunityExists(opportunityId.toString()));
     }
 
     @Test
-    void opportunityExists() {
+    @DisplayName("Test: Opportunity does not exist")
+    void opportunityExists_wrong() {
+        List<Contact> testContactList = new ArrayList<Contact>();
+        Contact testContact = new Contact("Nick","1234567","nick@yahoo.fr","Company Zero");
+        testContactList.add(testContact);
+
+        List<Opportunity> testOpportunityList = new ArrayList<Opportunity>();
+        Opportunity testOpportunity = new Opportunity(Product.HYBRID, 3, testContact);
+        testOpportunityList.add(testOpportunity);
+
+        Account testAccount = new Account(Industry.ECOMMERCE, 2, "Berlin", "Germany", testContactList, testOpportunityList);
+        accountList.add(testAccount);
+
+        assertFalse(opportunityExists("1234"));
+    }
+
+    /*
+    TESTS TO CHECK DUPLICATES
+     */
+/*
+    TODO: Will be updated
+    @Test
+    void isDuplicateLead_correct() {
+        List<Lead> testListOfLeads = getListOfLeads();
+        Lead testLead3 = new Lead("Peter", "987654321", "peter@email.de", "Small Company");
+        testListOfLeads.add(testLead3);
+
+        Lead testLead4 = new Lead("Peter", "987654321", "peter@email.de", "Small Company");
+        assertTrue(isDuplicateLead(testLead4));
+
+        testListOfLeads.remove(testLead3);
     }
 
     @Test
-    void isDuplicateLead() {
+    void isDuplicateLead_wrong() {
+        Lead testLead1 = new Lead("Peter", "987654321", "peter@email.de", "Small Company");
+        Lead testLead2 = new Lead("Petra", "987654321", "peter@email.de", "Small Company");
+        List<Lead> listOfLeads = getListOfLeads();
+        listOfLeads.add(testLead1);
+
+        assertFalse(isDuplicateLead(testLead2));
+
+        listOfLeads.remove(testLead1);
+    }
+
+
+    @Test
+    void isDuplicateOpportunity_correct() {
+        List<Contact> testContactList = new ArrayList<>();
+        Contact testContact = new Contact("Nick","1234567","nick@yahoo.fr","Company Zero");
+        testContactList.add(testContact);
+
+        List<Opportunity> testOpportunityList = new ArrayList<>();
+        Opportunity testOpportunity = new Opportunity(Product.HYBRID, 3, testContact);
+        Status testStatus = testOpportunity.getStatus();
+        testOpportunityList.add(testOpportunity);
+
+        Account testAccount = new Account(Industry.ECOMMERCE, 2, "Berlin", "Germany", testContactList, testOpportunityList);
+        accountList.add(testAccount);
+
+        Opportunity testOpportunity2 = new Opportunity(Product.HYBRID, 3, testContact);
+        testOpportunity2.setStatus(testStatus);
+
+        assertTrue(isDuplicateOpportunity(testOpportunity2));
+
+        accountList.remove(testAccount);
     }
 
     @Test
-    void isDuplicateOpportunity() {
+    void isDuplicateOpportunity_wrong() {
+        List<Contact> testContactList = new ArrayList<>();
+        Contact testContact = new Contact("Nick","1234567","nick@yahoo.fr","Company Zero");
+        testContactList.add(testContact);
+
+        List<Opportunity> testOpportunityList = new ArrayList<>();
+        Opportunity testOpportunity = new Opportunity(Product.HYBRID, 3, testContact);
+        Opportunity testOpportunity2 = new Opportunity(Product.BOX, 3, testContact);
+
+        testOpportunityList.add(testOpportunity);
+
+        Account testAccount = new Account(Industry.ECOMMERCE, 2, "Berlin", "Germany", testContactList, testOpportunityList);
+        accountList.add(testAccount);
+
+        assertFalse(isDuplicateOpportunity(testOpportunity2));
     }
 
+     */
 }

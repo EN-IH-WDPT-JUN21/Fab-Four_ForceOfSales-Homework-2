@@ -83,4 +83,5 @@ public class Opportunity {
         Opportunity that = (Opportunity) o;
         return quantity == that.quantity && product == that.product && decisionMaker.equals(that.decisionMaker) && status == that.status;
     }
+    //id == that.id &&
 }
