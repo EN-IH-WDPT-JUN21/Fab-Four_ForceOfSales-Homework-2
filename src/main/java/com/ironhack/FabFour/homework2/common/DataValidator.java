@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.ironhack.FabFour.homework2.common.CommandHandler.accountList;
+import static com.ironhack.FabFour.homework2.model.AccountList.accountList;
 import static com.ironhack.FabFour.homework2.model.LeadList.getListOfLeads;
 
 public class DataValidator {
@@ -67,11 +67,8 @@ public class DataValidator {
         return false;
     }
 
-    /*
-    public boolean inputLength() {return false;}
-    -- REMOVE? As it is already in the handleCommand method
-     */
-
+// DO NOT USE YET, TODO: Needs to be updated
+ /*
     //Method to check if the lead already exists
     public static boolean isDuplicateLead(Lead newLead) {
         List<Lead> listOfLeads = getListOfLeads();
@@ -82,12 +79,17 @@ public class DataValidator {
         return false;
     }
 
-    //TODO: public static boolean isDuplicateOpportunity
+
     public static boolean isDuplicateOpportunity(Opportunity inputOpportunity) {
         for(Account account : accountList) {
-            for(Opportunity opportunity : account.getOpportunityList())
-            if(inputOpportunity.equals(opportunity)) return true;
+            for(int i = 0; i < account.getOpportunityList().size(); i++) {
+                String id = String.valueOf(1000 + i);
+                Opportunity opportunity = account.getOpportunity(id);
+                if (inputOpportunity.equals(opportunity)) return true;
+            }
         }
         return false;
     }
+
+     */
 }
