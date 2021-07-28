@@ -226,11 +226,6 @@ public class CommandHandler {
         }
     }
 
-    /*
-    public void updateOpportunityStatus(long id) {}
-    -- REMOVED the method and split it in two
-     */
-
     public static void updateOpportunityStatusClosedLost(long id) {
         for (Account account : accountList) {
             Opportunity opportunity = account.getOpportunity(String.valueOf(id));
@@ -249,7 +244,4 @@ public class CommandHandler {
         }
     }
 
-    // Remove?
-    public void IOHandler() {
-    }
 }

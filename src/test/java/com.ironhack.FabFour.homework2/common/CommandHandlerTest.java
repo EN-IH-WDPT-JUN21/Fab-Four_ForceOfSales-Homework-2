@@ -2,12 +2,12 @@ package com.ironhack.FabFour.homework2.common;
 
 import org.junit.jupiter.api.Test;
 
+import static com.ironhack.FabFour.homework2.common.CommandHandler.*;
+import static com.ironhack.FabFour.homework2.model.AccountList.accountList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.ironhack.FabFour.homework2.enums.*;
 import com.ironhack.FabFour.homework2.model.*;
-
-import static com.ironhack.FabFour.homework2.common.CommandHandler.createScanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,6 +15,7 @@ import org.junit.jupiter.api.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -168,5 +169,85 @@ public class CommandHandlerTest {
         assertEquals(133, CommandHandler.getIdFromInput("test 133         "));
         assertEquals(0, CommandHandler.getIdFromInput("         133 /        "));
 
+    }
+
+    @Test
+    void CommandHandler_updateOpportunityStatusClosedWin_PositiveTest() {
+        List<Contact> testContactList = new ArrayList<>();
+        Contact testContact = new Contact ("John Smith", "14243434", "johnsmith@gmx.de", "Smith Lab");
+        testContactList.add(testContact);
+
+        List<Opportunity> testOpportunityList = new ArrayList<>();
+        Opportunity testOpportunity = new Opportunity(Product.BOX, 12, testContact);
+        testOpportunityList.add(testOpportunity);
+
+        Account testAccount = new Account(Industry.MANUFACTURING, 345, "New York", "USA", testContactList, testOpportunityList);
+        accountList.add(testAccount);
+
+        Long id = testOpportunity.getId();
+        updateOpportunityStatusClosedWin(id);
+        assertEquals(Status.CLOSED_WON, testOpportunity.getStatus());
+
+        accountList.remove(testAccount);
+    }
+
+    @Test
+    void CommandHandler_updateOpportunityStatusClosedWin_NegativeTest() {
+        List<Contact> testContactList = new ArrayList<>();
+        Contact testContact = new Contact ("John Smith", "14243434", "johnsmith@gmx.de", "Smith Lab");
+        testContactList.add(testContact);
+
+        List<Opportunity> testOpportunityList = new ArrayList<>();
+        Opportunity testOpportunity = new Opportunity(Product.BOX, 12, testContact);
+        testOpportunityList.add(testOpportunity);
+
+        Account testAccount = new Account(Industry.MANUFACTURING, 345, "New York", "USA", testContactList, testOpportunityList);
+        accountList.add(testAccount);
+
+        Long id = testOpportunity.getId();
+        updateOpportunityStatusClosedWin(id);
+        assertFalse(Status.OPEN == testOpportunity.getStatus());
+
+        accountList.remove(testAccount);
+    }
+
+    @Test
+    void updateOpportunityStatusClosedLost_PositiveTest() {
+        List<Contact> testContactList = new ArrayList<>();
+        Contact testContact = new Contact ("John Smith", "14243434", "johnsmith@gmx.de", "Smith Lab");
+        testContactList.add(testContact);
+
+        List<Opportunity> testOpportunityList = new ArrayList<>();
+        Opportunity testOpportunity = new Opportunity(Product.BOX, 12, testContact);
+        testOpportunityList.add(testOpportunity);
+
+        Account testAccount = new Account(Industry.MANUFACTURING, 345, "New York", "USA", testContactList, testOpportunityList);
+        accountList.add(testAccount);
+
+        Long id = testOpportunity.getId();
+        updateOpportunityStatusClosedLost(id);
+        assertEquals(Status.CLOSED_LOST, testOpportunity.getStatus());
+
+        accountList.remove(testAccount);
+    }
+
+    @Test
+    void updateOpportunityStatusClosedLost_NegativeTest() {
+        List<Contact> testContactList = new ArrayList<>();
+        Contact testContact = new Contact ("John Smith", "14243434", "johnsmith@gmx.de", "Smith Lab");
+        testContactList.add(testContact);
+
+        List<Opportunity> testOpportunityList = new ArrayList<>();
+        Opportunity testOpportunity = new Opportunity(Product.BOX, 12, testContact);
+        testOpportunityList.add(testOpportunity);
+
+        Account testAccount = new Account(Industry.MANUFACTURING, 345, "New York", "USA", testContactList, testOpportunityList);
+        accountList.add(testAccount);
+
+        Long id = testOpportunity.getId();
+        updateOpportunityStatusClosedLost(id);
+        assertFalse(Status.OPEN == testOpportunity.getStatus());
+
+        accountList.remove(testAccount);
     }
 }
