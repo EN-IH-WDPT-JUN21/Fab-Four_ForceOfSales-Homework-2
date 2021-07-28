@@ -21,7 +21,7 @@ public class CommandHandler {
 
     public static void handleCommand(String command) {
         String upperCommand = command.trim().toUpperCase(); // delete all spaces around command
-        String defaultInfo = "Command not recognised. Type HELP or try again!"; //default info message
+        String defaultInfo = "Command not recognised. Try again or type: help"; //default info message
         long id = getIdFromInput(upperCommand); // get id from the end of command - if there is no long value then method returns 0;
 
         if (id < 1) { // case when command hasn't any id at the end
@@ -33,7 +33,7 @@ public class CommandHandler {
                     LeadList.showLeads();
                     break;
                 case HELP:
-                    System.out.println("--------------------------------------------------\n" +
+                    System.out.println(
                             " Type one of below statement to execute :\n" +
                             " > new lead - " + "to create new lead\n" +
                             " > show leads - to show all of leads\n" +
@@ -41,7 +41,7 @@ public class CommandHandler {
                             " > convert {id} - to convert lead to an opportunity\n" +
                             " > close-win {id} - to close case after sale\n" +
                             " > close-lost {id} - to  close case without sale\n" +
-                            "--------------------------------------------------"
+                            " > quit - to leave the app"
                     );
                     break;
                 default:
@@ -68,6 +68,7 @@ public class CommandHandler {
                     System.out.println(defaultInfo);
             }
         }
+        System.out.println("--------------------------------------------------");
     }
 
     public static long getIdFromInput(String command) {
