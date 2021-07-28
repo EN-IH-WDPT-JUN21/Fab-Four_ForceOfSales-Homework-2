@@ -44,16 +44,13 @@ public class DataValidator {
         List<Lead> listOfLeads = getListOfLeads();
         boolean exists;
 
-        try {
-            long inputAsLong = Long.parseLong(input);
+        long inputAsLong = Long.parseLong(input);
 
-            for(Lead lead : listOfLeads) {
-                long leadId = lead.getId();
-                if(leadId == inputAsLong) return true;
-            }
-        } catch (NumberFormatException nfe) {
-            System.out.println("NumberFormatException: The input value must be a number of type long.");
+        for(Lead lead : listOfLeads) {
+            long leadId = lead.getId();
+            if(leadId == inputAsLong) return true;
         }
+
         return false;
     }
 
@@ -67,8 +64,6 @@ public class DataValidator {
         return false;
     }
 
-// DO NOT USE YET, TODO: Needs to be updated
- /*
     //Method to check if the lead already exists
     public static boolean isDuplicateLead(Lead newLead) {
         List<Lead> listOfLeads = getListOfLeads();
@@ -82,14 +77,12 @@ public class DataValidator {
 
     public static boolean isDuplicateOpportunity(Opportunity inputOpportunity) {
         for(Account account : accountList) {
-            for(int i = 0; i < account.getOpportunityList().size(); i++) {
-                String id = String.valueOf(1000 + i);
-                Opportunity opportunity = account.getOpportunity(id);
-                if (inputOpportunity.equals(opportunity)) return true;
+            List<Opportunity> opportunityList = account.getOpportunityList();
+            for(Opportunity opportunity : opportunityList) {
+                if(opportunity.equals(inputOpportunity)) return true;
             }
         }
         return false;
     }
 
-     */
 }

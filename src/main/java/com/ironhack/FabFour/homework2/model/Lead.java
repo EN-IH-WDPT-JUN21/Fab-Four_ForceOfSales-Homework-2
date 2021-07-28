@@ -76,7 +76,7 @@ public class Lead {
         if (this == l) return true;
         if (l == null || getClass() != l.getClass()) return false;
         Lead that = (Lead) l;
-        return getId() == that.getId() && getCompanyName() == that.getCompanyName() &&
+        return getCompanyName() == that.getCompanyName() &&
                 getEmail() == that.getEmail() && getContactName() == that.getContactName() &&
                 getPhoneNumber() == that.getPhoneNumber();
     }

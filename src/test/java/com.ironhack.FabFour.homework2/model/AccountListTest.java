@@ -33,7 +33,6 @@ class AccountListTest {
 
         account = new Account(Industry.ECOMMERCE, 12, "Paris", "France", contactList, opportunityList);
         accountList.add(account);
-        accountIdAsString = String.valueOf(account.getId());
 
         assertEquals(opportunity.toString(), lookUpOpportunity(opportunityIdAsString));
     }
@@ -43,18 +42,23 @@ class AccountListTest {
         assertEquals(null, lookUpOpportunity("9876"));
     }
 
-    /* TODO: Needs to be updated
     @Test
     void lookUpAccount_correct() {
 
-        Account account2 = new Account(Industry.MANUFACTURING, 25, "Berlin", "Germany", contactList, opportunityList);
+        Contact contact2 = new Contact("Peter Parker", "123456789", "peter_parker@yahoo.com", "Parker Company");
+        List<Contact> contactList2 = new ArrayList<>();
+        contactList2.add(contact2);
+
+        Opportunity opportunity2 = new Opportunity(Product.HYBRID, 15, contact2);
+        List<Opportunity> opportunityList2 = new ArrayList<>();
+        opportunityList2.add(opportunity2);
+
+        Account account2 = new Account(Industry.MANUFACTURING, 25, "Berlin", "Germany", contactList2, opportunityList2);
         accountList.add(account2);
-        accountIdAsString = String.valueOf(account2.getId());
+        String accountIdAsString2 = String.valueOf(account2.getId());
 
-        assertEquals(account2.toString(), lookUpAccount(accountIdAsString));
+        assertEquals(account2.toString(), lookUpAccount(accountIdAsString2));
     }
-
-     */
 
     @Test
     void lookUpAccount_wrong() {
