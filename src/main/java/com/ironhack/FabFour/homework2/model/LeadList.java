@@ -16,8 +16,11 @@ public class LeadList {
     }
 
     public static void showLeads() {
-        for (Lead lead : listOfLeads) {
-            System.out.println("Lead ID: " + lead.getId() + ", Contact Name: " + lead.getContactName() + ".\n");
-        }
+
+        if(listOfLeads.size()>0) {
+            for (Lead lead : listOfLeads) {
+                System.out.println("Lead ID: " + lead.getId() + ", Contact Name: " + lead.getContactName() + ".\n");
+            }
+        } else System.out.println("There is no leads! Try to add some by 'new lead' command");
     }
 }
