@@ -82,21 +82,41 @@ public class CommandHandler {
     }
 
     public static Account convertLead(long id) {
-        Lead leadToConvert = lookupLead(id);
+        if(!DataValidator.leadExists(Long.toString(id))){
+            System.out.println("Lead doesn't exist. Please provide the correct id.");
+        } else {
+            Lead lead = lookupLead(id);
+            Opportunity newOpportunity = createOpportunity(id, createContact(lead));
+            return setupAccount(newOpportunity, getAccountInfo());
+        }
+        return null;
+    }
+
+    public static Contact createContact(Lead leadToConvert) {
         String contactName = leadToConvert.getContactName();
         String contactPhoneNumber = leadToConvert.getPhoneNumber();
         String contactEmail = leadToConvert.getEmail();
         String contactCompany = leadToConvert.getCompanyName();
         Contact newContact = new Contact(contactName, contactPhoneNumber, contactEmail, contactCompany);
+        return newContact;
+    }
+    public static Opportunity createOpportunity(long id, Contact newContact){
+        //think about splitting this out/in logic -> separate function? Would it be more testable?
         System.out.println("Please provide the type of the product you're interested in.\nPossible choices are: HYBRID, FLATBED, BOX");
         Product newProduct = (Product) getEnumInput("product");
         System.out.println("Please provide the number of trucks you're interested in.\nMaximum amount: 300");
         int newQuantity = getIntInput("quantity");
         Opportunity newOpportunity = new Opportunity(newProduct, newQuantity, newContact);
-        System.out.println("Opportunity created. Lead ID: " + newOpportunity.getId());
-        removeLead(id);
-        System.out.println("Lead deleted. Lead ID: " + leadToConvert.getId());
-        return setupAccount(newOpportunity, getAccountInfo());
+        Lead leadToConvert = lookupLead(id);
+        if(!DataValidator.isDuplicateOpportunity(newOpportunity)) {
+            System.out.println("Opportunity created. Lead ID: " + newOpportunity.getId());
+            removeLead(id);
+            System.out.println("Lead deleted. Lead ID: " + leadToConvert.getId());
+            return newOpportunity;
+        } else {
+            System.out.println("Opportunity already exists.");
+        }
+        return null;
     }
 
     public static List getAccountInfo() {
@@ -117,6 +137,7 @@ public class CommandHandler {
         int employees = (int) accountInfoList.get(1);
         String city = (String) accountInfoList.get(2);
         String country = (String) accountInfoList.get(3);
+        //should I create new ones each time???????? - IMPORTANT, discuss and test
         List<Contact> contactList = new ArrayList<>();
         List<Opportunity> opportunityList = new ArrayList<>();
         contactList.add(opportunity.getDecisionMaker());
@@ -166,7 +187,7 @@ public class CommandHandler {
         int result = 0;
         if (aScanner.hasNextLine()) {
             String userInput = aScanner.next();
-            if (isInteger(userInput)) {
+            if (isInteger(userInput) && Integer.parseInt(userInput) > 0) {
                 result = Integer.parseInt(userInput);
             } else {
                 System.out.println("Please provide the correct value.");

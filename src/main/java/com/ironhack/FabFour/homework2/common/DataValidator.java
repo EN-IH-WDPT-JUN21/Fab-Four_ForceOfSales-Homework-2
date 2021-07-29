@@ -39,7 +39,7 @@ public class DataValidator {
     }
 
     // Method to check if lead exists
-
+    //change input to long fot id
     public static boolean leadExists(String input) {
         List<Lead> listOfLeads = getListOfLeads();
         boolean exists;
@@ -63,6 +63,7 @@ public class DataValidator {
         }
         return false;
     }
+
 
     //Method to check if the lead already exists
     public static boolean isDuplicateLead(Lead newLead) {
