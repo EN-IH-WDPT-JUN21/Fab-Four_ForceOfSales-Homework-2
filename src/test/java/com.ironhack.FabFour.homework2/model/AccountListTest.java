@@ -23,7 +23,7 @@ class AccountListTest {
     private String accountIdAsString;
 
     @Test
-    void lookUpOpportunity_correct() {
+    void AccountList_lookUpOpportunity_PositiveTest() {
         contact = new Contact("Mary Jane", "333222111", "maryJ@yahoo.com", "Jane's Emporium");
         contactList.add(contact);
 
@@ -35,15 +35,17 @@ class AccountListTest {
         accountList.add(account);
 
         assertEquals(opportunity.toString(), lookUpOpportunity(opportunityIdAsString));
+
+        accountList.remove(account);
     }
 
     @Test
-    void lookUpOpportunity_wrong() {
+    void AccountList_lookUpOpportunity_NegativeTest() {
         assertEquals(null, lookUpOpportunity("9876"));
     }
 
     @Test
-    void lookUpAccount_correct() {
+    void AccountList_lookUpAccount_PositiveTest() {
 
         Contact contact2 = new Contact("Peter Parker", "123456789", "peter_parker@yahoo.com", "Parker Company");
         List<Contact> contactList2 = new ArrayList<>();
@@ -55,13 +57,15 @@ class AccountListTest {
 
         Account account2 = new Account(Industry.MANUFACTURING, 25, "Berlin", "Germany", contactList2, opportunityList2);
         accountList.add(account2);
-        String accountIdAsString2 = String.valueOf(account2.getId());
+        accountIdAsString = String.valueOf(account2.getId());
 
-        assertEquals(account2.toString(), lookUpAccount(accountIdAsString2));
+        assertEquals(account2.toString(), lookUpAccount(accountIdAsString));
+
+        accountList.remove(account2);
     }
 
     @Test
-    void lookUpAccount_wrong() {
+    void AccountList_lookUpAccount_NegativeTest() {
         assertEquals(null, lookUpAccount("12345"));
     }
 }

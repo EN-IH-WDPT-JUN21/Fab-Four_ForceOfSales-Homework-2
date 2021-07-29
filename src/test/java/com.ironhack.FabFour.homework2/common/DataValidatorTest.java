@@ -184,6 +184,8 @@ public class DataValidatorTest {
         accountList.add(testAccount2);
 
         assertTrue(opportunityExists(opportunityId.toString()));
+
+        accountList.remove(testAccount2);
     }
 
     @Test
@@ -201,6 +203,8 @@ public class DataValidatorTest {
         accountList.add(testAccount);
 
         assertFalse(opportunityExists("1234"));
+
+        accountList.remove(testAccount);
     }
 
     /*
@@ -268,6 +272,8 @@ public class DataValidatorTest {
         accountList.add(testAccount);
 
         assertFalse(isDuplicateOpportunity(testOpportunity2));
+
+        accountList.remove(testAccount);
     }
 
 }
