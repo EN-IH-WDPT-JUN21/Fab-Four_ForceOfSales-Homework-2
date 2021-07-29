@@ -3,7 +3,6 @@ package com.ironhack.FabFour.homework2.model;
 import com.ironhack.FabFour.homework2.common.CommandHandler;
 import com.ironhack.FabFour.homework2.enums.Product;
 import com.ironhack.FabFour.homework2.enums.Status;
-import com.ironhack.FabFour.homework2.common.EnumHandler;
 
 import java.util.Scanner;
 

@@ -11,12 +11,12 @@ import java.util.Scanner;
 
 public class AccountTest {
 
+    static Account account;
+    Account account1;
     static Contact contact;
     static Opportunity opportunity;
     static Contact contact1;
-    static Account account;
     static InputStream standardIn;
-    Account account1;
     static List<Contact> contactList = new ArrayList<>();
     static List<Opportunity> opportunityList = new ArrayList<>();
 
@@ -39,9 +39,10 @@ public class AccountTest {
     @Test
     @DisplayName("Test: setId(). Id incremented as expected.")
     public void Account_SetId_IdIncremented(){
-        assertEquals(2001, account.getId());
+        long AccountId = account.getId();
+        assertEquals(2002, AccountId);
         account1 = new Account(Industry.OTHER, 4, "NY", "USA", contactList, opportunityList);
-        assertEquals(2002, account1.getId());
+        assertEquals(++AccountId, account1.getId());
     }
 
     @Test
@@ -93,26 +94,8 @@ public class AccountTest {
     }
 
     @Test
-    @DisplayName("Test: setInteger(). Integer attributes set as expected.")
-    public void Account_SetInteger_IntegerSet(){
-        InputStream in = new ByteArrayInputStream("210".getBytes());
-        System.setIn(in);
-        Scanner sc = new Scanner(System.in);
-        account.setInteger(sc);
-        assertEquals(account.getEmployeeCount(), 210);
-    }
-
-    @Test
-    @DisplayName("Test: setInteger(). Integer attributes not set as invalid input provided.")
-    public void Account_SetInteger_IntegerNotSet(){
-        InputStream in = new ByteArrayInputStream("0".getBytes());
-        System.setIn(in);
-        Scanner sc = new Scanner(System.in);
-        assertThrows(NullPointerException.class, () ->  account.setInteger(sc));
-    }
-
-    @Test
-    void getOpportunity_correct() {
+    @DisplayName("Test: getOpportunity(). Return correct Opportunity object as expected.")
+    void Account_getOpportunity_correct_OpportunityReturned() {
         List<Contact> testContactList = new ArrayList<Contact>();
         Contact testContact = new Contact("Rick","0208","rick@westley","Zombies");
         testContactList.add(testContact);
@@ -127,7 +110,8 @@ public class AccountTest {
     }
 
     @Test
-    void getOpportunity_wrong() {
+    @DisplayName("Test: getOpportunity(). Return nul as Opportunity doesn't exist.")
+    void Account_getOpportunity_correct_OpportunityNotReturned() {
         List<Contact> testContactList = new ArrayList<Contact>();
         Contact testContact = new Contact("Rick","0208","rick@westley","Zombies");
         testContactList.add(testContact);
@@ -138,5 +122,14 @@ public class AccountTest {
 
         Account testAccount = new Account(Industry.ECOMMERCE, 2, "Berlin", "Germany", testContactList, testOpportunityList);
         assertEquals(null, testAccount.getOpportunity("900"));
+    }
+
+    @Test
+    @DisplayName("Test: equals(). Two Account objects are equal as expected.")
+    public void Account_equals_areEqual(){
+        account = new Account(Industry.ECOMMERCE, 12, "Paris", "France", contactList, opportunityList);
+        Account equalAccount = new Account(Industry.ECOMMERCE, 12, "Paris", "France", contactList, opportunityList);
+        assertTrue(account.equals(account));
+        assertTrue(account.equals(equalAccount));
     }
 }

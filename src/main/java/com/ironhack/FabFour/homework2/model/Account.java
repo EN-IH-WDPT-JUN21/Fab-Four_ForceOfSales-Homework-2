@@ -1,6 +1,7 @@
 package com.ironhack.FabFour.homework2.model;
 
 import com.ironhack.FabFour.homework2.common.CommandHandler;
+import com.ironhack.FabFour.homework2.common.DataValidator;
 import com.ironhack.FabFour.homework2.enums.Industry;
 
 import java.util.List;
@@ -53,16 +54,7 @@ public class Account {
     }
 
     public void setEmployeeCount(int employeeCount) {
-        if (employeeCount > 0) {
-            this.employeeCount = employeeCount;
-        }
-        else {
-            setInteger(CommandHandler.createScanner());
-        }
-    }
-
-    public void setInteger(Scanner sc) {
-        setEmployeeCount(Integer.parseInt(sc.next()));
+        this.employeeCount = employeeCount;
     }
 
     public String getCity() {
@@ -70,7 +62,7 @@ public class Account {
     }
 
     public void setCity(String city) {
-        if (!city.isBlank()) {
+        if(!DataValidator.isEmpty(city)) {
             this.city = city;
         }
         else {
@@ -83,8 +75,11 @@ public class Account {
     }
 
     public void setCountry(String country) {
-        if (!country.isBlank()) {
+        if(!DataValidator.isEmpty(country)) {
             this.country = country;
+        }
+        else {
+            setString("country", CommandHandler.createScanner());
         }
     }
 
@@ -117,7 +112,7 @@ public class Account {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Account account = (Account) o;
-        return id == account.id && employeeCount == account.employeeCount && industry == account.industry && city.equals(account.city) && country.equals(account.country) && contactList.equals(account.contactList) && opportunityList.equals(account.opportunityList);
+        return employeeCount == account.employeeCount && industry == account.industry && city.equals(account.city) && country.equals(account.country) && contactList.equals(account.contactList) && opportunityList.equals(account.opportunityList);
     }
 
     public Opportunity getOpportunity(String id) {

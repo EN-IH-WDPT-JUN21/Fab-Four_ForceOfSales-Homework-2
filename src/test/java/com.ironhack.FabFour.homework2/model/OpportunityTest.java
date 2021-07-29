@@ -83,4 +83,19 @@ public class OpportunityTest {
         System.setIn(in);
         assertThrows(NullPointerException.class, () ->  opportunity.setInteger(sc));
     }
+
+    @Test
+    @DisplayName("Test: equals(). Two Opportunity objects are equal as expected.")
+    public void Opportunity_equals_areEqual(){
+        opportunity = new Opportunity(Product.FLATBED, 25, contact);
+        Opportunity equalOpportunity = new Opportunity(Product.FLATBED, 25, contact);
+        assertTrue(opportunity.equals(opportunity));
+        assertTrue(opportunity.equals(equalOpportunity));
+    }
+
+    @Test
+    @DisplayName("Test: getDecisionMaker(). DecisionMaker object is an instance of Contact class as expected.")
+    public void Opportunity_getDecisionMaker_isContactInstance(){
+        assertTrue(opportunity.getDecisionMaker() instanceof Contact);
+    }
 }

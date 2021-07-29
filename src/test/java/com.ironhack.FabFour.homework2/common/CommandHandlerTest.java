@@ -24,6 +24,7 @@ public class CommandHandlerTest {
 
     CommandHandler test;
     Lead tempLeadOne = null;
+    Lead tempLeadTwo;
     Account newAccount;
     Opportunity newOpportunity;
     Contact newContact;
@@ -85,6 +86,15 @@ public class CommandHandlerTest {
         int updatedListSize = LeadList.getListOfLeads().size();
         assertTrue(currentListSize == updatedListSize);
     }
+
+//    @Test
+//    @DisplayName("Test: createContact(). Contact created as expected.")
+//    public void CommandHandler_CreateContact_ContactCreated() {
+//        tempLeadTwo = new Lead("Mick", "080099", "mick@j", "Stones");
+//        Contact newContact = createContact(tempLeadTwo);
+//        removeLead(tempLeadTwo.getId());
+//        assertEquals("080099", newContact.getPhoneNumber());
+//    }
 
     @Test
     @DisplayName("Test: isInteger(). Return correct boolean value.")
@@ -153,8 +163,16 @@ public class CommandHandlerTest {
         assertEquals(test.setupAccount(newOpportunity, accountInfoList).getIndustry(), Industry.PRODUCE);
         assertEquals(test.setupAccount(newOpportunity, accountInfoList).getOpportunityList().get(0), newOpportunity);
         assertEquals(test.setupAccount(newOpportunity, accountInfoList).getContactList().get(0), newContact);
-
     }
+
+//    @Test
+//    @DisplayName("Test: createContact(). Contact created as expected.")
+//    public void CommandHandler_CreateContact_ContactCreated() {
+//        tempLeadTwo = new Lead("Mick", "080099", "mick@j", "Stones");
+//        Contact newContact = createContact(tempLeadTwo);
+//        assertEquals("080099", newContact.getPhoneNumber());
+//        removeLead(tempLeadTwo.getId());
+//    }
 
     @Test
     public void handleCommand_getProperCommand() {
