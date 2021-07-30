@@ -7,32 +7,30 @@ public class AccountList {
     public static List<Account> accountList = new ArrayList<>();
 
     //Method that looks for the opportunity and prints it when found
-    public static String lookUpOpportunity(String id) {
-        String foundOpportunity = null;
+    public static Opportunity lookUpOpportunity(String id) {
+        Opportunity foundOpportunity = null;
         for(Account account : accountList) {
             Opportunity opportunity = account.getOpportunity(id);
             if(opportunity != null) {
-                foundOpportunity = opportunity.toString();
-                System.out.println(foundOpportunity);
+                foundOpportunity = opportunity;
                 break;}}
         if(foundOpportunity == null) {
-            System.out.println("There is no opportunity with this ID. Please try again.");
+            System.out.println("There is no opportunity with id " + id);
         }
 
         return foundOpportunity;
     }
 
     //Method that looks for the account and prints it when found
-    public static String lookUpAccount(String id) {
-        String foundAccount = null;
+    public static Account lookUpAccount(String id) {
+        Account foundAccount = null;
         for(Account account : accountList) {
             long accountId = account.getId();
             if(Long.parseLong(id) == accountId) {
-                foundAccount = account.toString();
-                System.out.println(foundAccount);
+                foundAccount = account;
                 break;}}
         if(foundAccount == null) {
-            System.out.println("There is no account with this ID. Please try again.");
+            System.out.println("There is no account with id " + id);
         }
         return foundAccount;
     }

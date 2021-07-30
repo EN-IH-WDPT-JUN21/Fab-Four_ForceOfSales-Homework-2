@@ -61,10 +61,10 @@ public class CommandHandler {
                     voidChecker(lookupLead(id));
                     break;
                 case LOOKUP_OPPORTUNITY:
-                    lookUpOpportunity(String.valueOf(id));
+                    voidChecker(lookUpOpportunity(String.valueOf(id)));
                     break;
                 case LOOKUP_ACCOUNT:
-                    lookUpAccount(String.valueOf(id));
+                    voidChecker(lookUpAccount(String.valueOf(id)));
                     break;
                 case CLOSE_WON:
                     updateOpportunityStatusClosedWin(id);
