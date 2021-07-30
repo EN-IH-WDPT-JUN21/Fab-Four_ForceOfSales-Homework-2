@@ -57,7 +57,7 @@ public class Lead {
         Scanner aScanner = new Scanner(System.in);
         String input = phoneNumber;
         while (!validatePhoneNumber(input)) {
-            System.out.println("Please provide a valid phone number. It must be between 6 and 15 digits, and can have spaces, hyphens or +.");
+            System.out.println("Please provide a valid phone number. It must be between 6 and 15 digits, and can have hyphens or +. Spaces are not allowed.");
             input = aScanner.next();
         }
         this.phoneNumber = input;

@@ -23,7 +23,7 @@ public class DataValidator {
 
     //Method to check if the input for the phone number has a correct form
     public static boolean validatePhoneNumber(String input) {
-        String inputWithoutSpaces = input.replaceAll("\\s+","").replaceAll("-", "");
+        String inputWithoutSpaces = input.replaceAll("-", "");
         final String regex = "^\\+?\\d{6,15}"; // Phone number should contain 6-15 digits and can include the country code
 
         Pattern pattern = Pattern.compile(regex);
