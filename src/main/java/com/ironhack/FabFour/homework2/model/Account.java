@@ -129,7 +129,7 @@ public class Account {
     public String toString() {
         return "Account: " + this.getId() + ", Industry: " + this.getIndustry() + ", Number of employees: " +
                 this.getEmployeeCount() + ", City: " + this.getCity() + ", Country: " + this.getCountry() +
-                ", Contact:" + this.getContactList().get(0).getContactName() + ", Opportunity ID:" + this.getOpportunityList().get(0).getId();
+                ", Contact: " + this.getContactList().get(0).getContactName() + ", Opportunity ID:" + this.getOpportunityList().get(0).getId();
     }
 }
 

@@ -14,7 +14,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,9 +31,18 @@ public class CommandHandlerTest {
     Contact newContact;
     List<Object> accountInfoList;
 
+    private final PrintStream standardOut = System.out;
+    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+
     @BeforeEach
     public void setUp() {
         test = new CommandHandler();
+        System.setOut(new PrintStream(outputStreamCaptor));
+    }
+
+    @AfterEach
+    public void tearDown() {
+        System.setOut(standardOut);
     }
 
     @Test
@@ -301,5 +312,23 @@ public class CommandHandlerTest {
         assertFalse(Status.OPEN == testOpportunity.getStatus());
 
         accountList.remove(testAccount);
+    }
+
+    @Test
+    @DisplayName("Test: voidChecker(). Returns error.")
+    public void CommandHandler_VoidCheckerTest_ErrorExpected() {
+        Lead testLead = null;
+        voidChecker(testLead);
+        assertEquals("That does not exist. Please try again.", outputStreamCaptor.toString()
+                .trim());
+    }
+
+    @Test
+    @DisplayName("Test: voidChecker(). Returns expected String value.")
+    public void CommandHandler_VoidCheckerTest_CorrectValueExpected() {
+        Lead testLead = new Lead("John Smith", "14243434", "johnsmith@gmx.de", "Smith Lab");
+        voidChecker(testLead);
+        assertEquals(testLead.toString(), outputStreamCaptor.toString()
+                .trim());
     }
 }
