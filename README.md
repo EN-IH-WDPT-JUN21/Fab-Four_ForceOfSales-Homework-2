@@ -7,9 +7,9 @@
     1. [Lead](#Lead)
     2. [Opportunity](#Opportunity)
     3. [Account](#Account)
-3. [User Tutorial](#User Tutorial)
-4. [Class Diagram](#Class Diagram)
-5. [Use Case Diagram](#Use Case Diagram)
+3. [User Tutorial](#User-Tutorial)
+4. [Class Diagram](#Class-Diagram)
+5. [Use Case Diagram](#Use-Case-Diagram)
 ### Introduction
 
 Force of Sales is a compact, modern **CRM** (Customer Relationship Management) system for tracking prospective and existing customers through the sales process.
