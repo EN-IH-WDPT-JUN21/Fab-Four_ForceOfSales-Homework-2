@@ -86,6 +86,7 @@ public class CommandHandler {
     }
 
     public static Account convertLead(long id) {
+        //Wrapper method for converting Lead and setting up the Account object
         if(!DataValidator.leadExists(Long.toString(id))){
             System.out.println("Lead doesn't exist. Please provide the correct id.");
             return null;
@@ -101,6 +102,7 @@ public class CommandHandler {
     }
 
     public static Contact createContact(Lead leadToConvert) {
+        //Creates Contact object from Lead
         String contactName = leadToConvert.getContactName();
         String contactPhoneNumber = leadToConvert.getPhoneNumber();
         String contactEmail = leadToConvert.getEmail();
@@ -109,6 +111,7 @@ public class CommandHandler {
         return newContact;
     }
     public static Opportunity createOpportunity(long id, Contact newContact){
+        //Creates Opportunity object from Contact
         System.out.println("Please provide the type of the product you're interested in.\nPossible choices are: HYBRID, FLATBED, BOX");
         Product newProduct = (Product) getEnumInput("product");
         System.out.println("Please provide the number of trucks you're interested in.\nMaximum amount: 300");
@@ -122,6 +125,8 @@ public class CommandHandler {
     }
 
     public static List getAccountInfo() {
+        //Gets additional Account details from user input and
+        //stores them in a List
         System.out.println("Please provide the industry name.\nPossible choices are: PRODUCE, ECOMMERCE, MANUFACTURING, MEDICAL, OTHER");
         Industry newIndustry = (Industry) getEnumInput("industry");
         System.out.println("Please provide the number of company employees");
@@ -135,11 +140,11 @@ public class CommandHandler {
     }
 
     public static Account setupAccount(Opportunity opportunity, List<Object> accountInfoList) {
+        //Returns new Account Object from Opportunity and List of Account details
         Industry industry = (Industry) accountInfoList.get(0);
         int employees = (int) accountInfoList.get(1);
         String city = (String) accountInfoList.get(2);
         String country = (String) accountInfoList.get(3);
-        //should I create new ones each time???????? - IMPORTANT, discuss and test
         List<Contact> contactList = new ArrayList<>();
         List<Opportunity> opportunityList = new ArrayList<>();
         contactList.add(opportunity.getDecisionMaker());
@@ -150,6 +155,7 @@ public class CommandHandler {
     }
 
     public static boolean isInteger(String input) {
+        //Checks if the input String can be parsed into Integer
         try {
             Integer.parseInt(input);
             return true;
@@ -159,6 +165,7 @@ public class CommandHandler {
     }
 
     public static Scanner createScanner() {
+        //Creates new Scanner object after wrong user input is provided
         Scanner aScanner = new Scanner(System.in);
         System.out.println("Please provide the correct value");
         if (aScanner.hasNextLine()) {
@@ -168,6 +175,7 @@ public class CommandHandler {
     }
 
     public static Object getEnumInput(String enumType) {
+        //Processes user input used for setting enum  values
         Scanner aScanner = new Scanner(System.in);
         Object result = null;
         if (aScanner.hasNextLine()) {
@@ -185,6 +193,7 @@ public class CommandHandler {
     }
 
     public static int getIntInput(String intType) {
+        //Processes user input used for setting int values
         Scanner aScanner = new Scanner(System.in);
         int result = 0;
         int range = (intType == "quantity") ? 300 : 3000000;
@@ -201,6 +210,7 @@ public class CommandHandler {
     }
 
     public static String getUserInput() {
+        //Processes user input used for setting String values
         Scanner aScanner = new Scanner(System.in);
         String result = "";
         if (aScanner.hasNextLine()) {

@@ -88,7 +88,7 @@ public class AccountTest {
     }
 
     @Test
-    @DisplayName("Test: setCountry(). Country set as expected despite empty input.")
+    @DisplayName("Test: setCountry(). Country set as expected despite empty initial input.")
     public void Account_SetCountry_CountrySetAfterEmptyInputProvided(){
         InputStream in = new ByteArrayInputStream("Italy".getBytes());
         System.setIn(in);
@@ -98,7 +98,7 @@ public class AccountTest {
     }
 
     @Test
-    @DisplayName("Test: setCity(). City set as expected despite empty input.")
+    @DisplayName("Test: setCity(). City set as expected despite empty initial input.")
     public void Account_SetCity_CitySetAfterEmptyInputProvided(){
         InputStream in = new ByteArrayInputStream("Los Angeles".getBytes());
         System.setIn(in);

@@ -34,7 +34,6 @@ public class StartApp {
             System.out.print(">>> ");
             command = scanner.nextLine();
             readCommands(command);
-
         }
     }
 
