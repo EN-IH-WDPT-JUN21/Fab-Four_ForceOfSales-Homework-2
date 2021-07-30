@@ -23,13 +23,11 @@ public class DataValidator {
 
     //Method to check if the input for the phone number has a correct form
     public static boolean validatePhoneNumber(String input) {
-        final String regex =
-               // "^(\\+\\d{1,3}( )?)?((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}$"
-                "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?){2}\\d{3}$"
-                + "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?)(\\d{2}[ ]?){2}\\d{2}$";
+        String inputWithoutSpaces = input.replaceAll("\\s+","").replaceAll("-", "");
+        final String regex = "^\\+?\\d{6,15}";
 
         Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(input);
+        Matcher matcher = pattern.matcher(inputWithoutSpaces);
         return matcher.matches();
     }
 

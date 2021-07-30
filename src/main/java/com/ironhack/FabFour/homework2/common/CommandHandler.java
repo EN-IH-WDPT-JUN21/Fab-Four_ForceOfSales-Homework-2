@@ -256,20 +256,34 @@ public class CommandHandler {
     }
 
     public static void updateOpportunityStatusClosedLost(long id) {
+        boolean found = false;
         for (Account account : accountList) {
             Opportunity opportunity = account.getOpportunity(String.valueOf(id));
             if (opportunity != null) {
                 opportunity.setStatus(Status.CLOSED_LOST);
+                System.out.println("The opportunity status has been set to 'closed-lost'.");
+                found = true;
+                break;
             }
+        }
+        if(found = false) {
+            System.out.println("No opportunity has been found with this ID. Please try again.");
         }
     }
 
     public static void updateOpportunityStatusClosedWin(long id) {
+        boolean found = false;
         for (Account account : accountList) {
             Opportunity opportunity = account.getOpportunity(String.valueOf(id));
             if (opportunity != null) {
                 opportunity.setStatus(Status.CLOSED_WON);
+                System.out.println("The opportunity status has been set to 'closed-win'.");
+                found = true;
+                break;
             }
+        }
+        if(found = false) {
+            System.out.println("No opportunity has been found with this ID. Please try again.");
         }
     }
 }

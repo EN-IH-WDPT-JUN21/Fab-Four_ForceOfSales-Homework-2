@@ -10,9 +10,7 @@ public class AccountList {
         for(Account account : accountList) {
             Opportunity opportunity = account.getOpportunity(id);
             if(opportunity != null) {
-                return opportunity.toString();
-            }
-        }
+                return opportunity.toString();}}
         return null;
     }
 
@@ -20,9 +18,7 @@ public class AccountList {
         for(Account account : accountList) {
             long accountId = account.getId();
             if(Long.parseLong(id) == accountId) {
-                return account.toString();
-            }
-        }
+                return account.toString();}}
         return null;
     }
 }
