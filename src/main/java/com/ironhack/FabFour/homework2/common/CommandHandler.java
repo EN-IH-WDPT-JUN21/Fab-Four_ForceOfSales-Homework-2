@@ -61,10 +61,10 @@ public class CommandHandler {
                     voidChecker(lookupLead(id));
                     break;
                 case LOOKUP_OPPORTUNITY:
-                    lookUpOpportunity(String.valueOf(id));
+                    voidChecker(lookUpOpportunity(String.valueOf(id)));
                     break;
                 case LOOKUP_ACCOUNT:
-                    lookUpAccount(String.valueOf(id));
+                    voidChecker(lookUpAccount(String.valueOf(id)));
                     break;
                 case CLOSE_WON:
                     updateOpportunityStatusClosedWin(id);
@@ -81,7 +81,7 @@ public class CommandHandler {
 
     public static void voidChecker(Object o) {
         if (o == null) {
-            System.out.println("That does not exist. Please try again.");
+            System.out.println("Please try again.");
         }
         else {
             System.out.println(o.toString());

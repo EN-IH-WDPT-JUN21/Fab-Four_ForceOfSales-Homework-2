@@ -107,7 +107,7 @@ public class Lead {
 
     @Override
     public String toString() {
-        return "Lead: " + this.getId() + ", Name of Contact: " + this.getContactName() + ", Phone Number: " +
+        return "Lead: " + this.getId() + ", Contact: " + this.getContactName() + ", Phone Number: " +
                 this.getPhoneNumber() + ", Email: " + this.getEmail() + ", Company Name: " + this.getCompanyName();
     }
 }
