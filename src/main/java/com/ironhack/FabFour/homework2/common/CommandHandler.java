@@ -81,7 +81,7 @@ public class CommandHandler {
 
     public static void voidChecker(Object o) {
         if (o == null) {
-            System.out.println("That does not exist. Please try again.");
+            System.out.println("Please try again.");
         }
         else {
             System.out.println(o.toString());
