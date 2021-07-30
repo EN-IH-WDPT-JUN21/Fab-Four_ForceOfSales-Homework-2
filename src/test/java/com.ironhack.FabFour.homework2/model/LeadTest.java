@@ -21,7 +21,7 @@ public class LeadTest {
     @BeforeEach
     public void setUp() {
         System.setOut(new PrintStream(outputStreamCaptor));
-        testLead = new Lead("Marie","01234 5678","marie@email.com","A New Company");
+        testLead = new Lead("Marie","012345678","marie@email.com","A New Company");
     }
 
     @AfterEach
@@ -33,7 +33,7 @@ public class LeadTest {
     @DisplayName("Test: Lead Constructor. Validate Correct ID Set.")
     public void LeadClass_LeadConstructor_CheckCorrectID() {
         long currentID = Lead.getLeadIDCount();
-        testLeadTwo = new Lead("Rick","01234 5678","rick@westley.com","Zombies");
+        testLeadTwo = new Lead("Rick","012345678","rick@westley.com","Zombies");
         long updatedID = Lead.getLeadIDCount();
         assertTrue(updatedID == currentID + 1);
     }
@@ -47,7 +47,7 @@ public class LeadTest {
     @Test
     @DisplayName("Test: Lead Constructor. Validate Correct Phone Number Set.")
     public void LeadClass_LeadConstructor_CheckCorrectPhoneNumber() {
-        assertEquals("01234 5678", testLead.getPhoneNumber());
+        assertEquals("012345678", testLead.getPhoneNumber());
     }
 
     @Test
@@ -99,7 +99,7 @@ public class LeadTest {
     @Test
     @DisplayName("Test: toString(). Positive Test.")
     public void LeadClass_ToStringTest_ValidateString() {
-        testLeadTwo = new Lead("Caddie", "01234 5678", "caddie@test.com","A Third Company");
+        testLeadTwo = new Lead("Caddie", "012345678", "caddie@test.com","A Third Company");
         String testString = "Lead: " + testLeadTwo.getId() + ", Contact: " + testLeadTwo.getContactName() + ", Phone Number: " +
                 testLeadTwo.getPhoneNumber() + ", Email: " + testLeadTwo.getEmail() + ", Company Name: " + testLeadTwo.getCompanyName();
         assertTrue(testString.equals(testLeadTwo.toString()));
@@ -108,7 +108,7 @@ public class LeadTest {
     @Test
     @DisplayName(("Test: equals(). Negative Test."))
     public void LeadClass_EqualsTest_NegativeTest() {
-        testLeadTwo = new Lead("Rick","01234 5678","rick@westley.com","Zombies");
+        testLeadTwo = new Lead("Rick","012345678","rick@westley.com","Zombies");
         assertFalse(testLeadTwo.equals(testLead));
     }
 
@@ -116,7 +116,7 @@ public class LeadTest {
     @DisplayName(("Test: equals(). Positive Test."))
     public void LeadClass_EqualsTest_PositiveTest() {
         long testId = testLead.getId();
-        testLeadTwo = new Lead("Marie","01234 5678","marie@email.com","A New Company");
+        testLeadTwo = new Lead("Marie","012345678","marie@email.com","A New Company");
         testLeadTwo.id = testId;
         assertTrue(testLeadTwo.equals(testLead));
     }

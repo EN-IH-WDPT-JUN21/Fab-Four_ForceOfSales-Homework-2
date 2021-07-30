@@ -14,15 +14,15 @@ public class ContactTest {
 
     @BeforeAll
     public static void setUp() {
-        testContactOne = new Contact("Marie","01234 5678","marie@email.com","A New Company");
-        testContactTwo = new Contact("Barry", "07949 2222", "barry@test.com","Another Company");
+        testContactOne = new Contact("Marie","012345678","marie@email.com","A New Company");
+        testContactTwo = new Contact("Barry", "079492222", "barry@test.com","Another Company");
     }
 
     @Test
     @DisplayName("Test: Contact Constructor. Validate ID Set.")
     public void ContactClass_ContactConstructor_CheckCorrectID() {
         long currentID = Contact.getContactIDCount();
-        testContactTwo = new Contact("Rick","07949 2222","rick@westley.com","Zombies");
+        testContactTwo = new Contact("Rick","079492222","rick@westley.com","Zombies");
         long updatedID = Contact.getContactIDCount();
         assertTrue(updatedID == (currentID + 1));
     }

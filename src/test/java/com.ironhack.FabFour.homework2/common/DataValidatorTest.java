@@ -87,12 +87,6 @@ public class DataValidatorTest {
     }
 
     @Test
-    @DisplayName("Test: correct phone number with spaces")
-    void DataValidator_validatePhoneNumber_correctNumberWithSpaces() {
-        assertTrue(validatePhoneNumber("    0 7 949 22222  2  "));
-    }
-
-    @Test
     @DisplayName("Test: correct phone number with hyphen")
     void DataValidator_validatePhoneNumber_correctNumberWithHyphens() {
         assertTrue(validatePhoneNumber("123-456-789"));
@@ -114,6 +108,12 @@ public class DataValidatorTest {
     @DisplayName("Test: phone number too long")
     void DataValidator_validatePhoneNumber_wrongNumberTooLong() {
         assertFalse(validatePhoneNumber("01234567891234567890"));
+    }
+
+    @Test
+    @DisplayName("Test: wrong phone number with spaces")
+    void DataValidator_validatePhoneNumber_correctNumberWithSpaces() {
+        assertFalse(validatePhoneNumber("    0 7 949 22222  2  "));
     }
 
     @Test
@@ -178,7 +178,7 @@ public class DataValidatorTest {
     @DisplayName("Test: Opportunity exists")
     void DataValidator_opportunityExists_PositiveTest() {
         List<Contact> testContactList2 = new ArrayList<Contact>();
-        Contact testContact2 = new Contact("Rick","07949 2222","rick@westley.com","Zombies");
+        Contact testContact2 = new Contact("Rick","079492222","rick@westley.com","Zombies");
         testContactList2.add(testContact2);
 
         List<Opportunity> testOpportunityList2 = new ArrayList<Opportunity>();

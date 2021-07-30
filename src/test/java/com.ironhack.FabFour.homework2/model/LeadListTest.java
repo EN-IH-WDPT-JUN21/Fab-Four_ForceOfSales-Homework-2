@@ -18,8 +18,8 @@ public class LeadListTest {
 
     @BeforeAll
     public static void setUp() {
-        testOne = new Lead("Buzz","07949 2222","buzz@lightyear.com","A Company");
-        testTwo = new Lead("Woody","07949 2222","woody@pixar.com","A Company");
+        testOne = new Lead("Buzz","079492222","buzz@lightyear.com","A Company");
+        testTwo = new Lead("Woody","079492222","woody@pixar.com","A Company");
     }
 
     @BeforeEach
