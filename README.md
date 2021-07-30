@@ -35,7 +35,9 @@ Our current client is the LBL Trucking Company which sells fleets of Trucks to l
  company: industry type(*PRODUCE*, *ECOMMERCE*, *MANUFACTURING*, *MEDICAL*, *OTHER*), number of employees,
  city and country
 ### User Tutorial
-- You can run the program by typing the command **run** in the terminal from the project directory 
+- You can run the program by typing the command **run** in the terminal from the project directory(you will need to have Maven
+ installed on your machine)
+- OR you can start the program by running the Main class
 - All the commands are case-insensitive
 - The menu offers the **help** option which lists all the possible commands as well as the ability to quit 
  the program  
