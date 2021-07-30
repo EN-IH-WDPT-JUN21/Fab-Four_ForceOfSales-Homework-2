@@ -14,8 +14,8 @@ public class ContactTest {
 
     @BeforeAll
     public static void setUp() {
-        testContactOne = new Contact("Marie","0000 1234","marie@email.com","A New Company");
-        testContactTwo = new Contact("Barry", "1234 5678", "barry@test.com","Another Company");
+        testContactOne = new Contact("Marie","01234 5678","marie@email.com","A New Company");
+        testContactTwo = new Contact("Barry", "07949 2222", "barry@test.com","Another Company");
     }
 
     @Test
@@ -36,7 +36,7 @@ public class ContactTest {
     @Test
     @DisplayName("Test: Contact Constructor. Phone Number Set as expected.")
     public void ContactTest_PhoneNumberTest_SetAsExpected() {
-        assertEquals("0000 1234",testContactOne.getPhoneNumber());
+        assertEquals("01234 5678",testContactOne.getPhoneNumber());
     }
 
     @Test

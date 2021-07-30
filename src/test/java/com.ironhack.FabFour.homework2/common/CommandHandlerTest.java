@@ -10,13 +10,13 @@ import com.ironhack.FabFour.homework2.enums.*;
 import com.ironhack.FabFour.homework2.model.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mockStatic;
-import static org.mockito.Mockito.verify;
+//import static org.mockito.Mockito.mockStatic;
+//import static org.mockito.Mockito.verify;
 
 import org.junit.jupiter.api.*;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
-import org.powermock.api.mockito.PowerMockito;
+//import org.mockito.MockedStatic;
+//import org.mockito.Mockito;
+//import org.powermock.api.mockito.PowerMockito;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -41,19 +41,20 @@ public class CommandHandlerTest {
     }
 
 
-//    @Test
-//    @DisplayName("Test: createLead(). Validate that newly created lead is added to LeadList.")
-//    public void CommandHandler_CreateLeadTest_ValidateLeadAddedToList() {
-//        var currentListSize = LeadList.getListOfLeads().size();
-//        String username= "Jack"; String phoneNumber= "0208"; String email = "test@test"; String company = "Company";
-//        test.createLead();
-//        System.setIn(new ByteArrayInputStream(username.getBytes()));
-//        System.setIn(new ByteArrayInputStream(phoneNumber.getBytes()));
-//        System.setIn(new ByteArrayInputStream(email.getBytes()));
-//        System.setIn(new ByteArrayInputStream(company.getBytes()));
-//        test.main(null);
-//        assertTrue(LeadList.getListOfLeads().size() == currentListSize + 1);
-//    }
+    @Test
+    @DisplayName("Test: createLead(). Validate that newly created lead is added to LeadList.")
+    public void CommandHandler_CreateLeadTest_ValidateLeadAddedToList() {
+        var currentListSize = LeadList.getListOfLeads().size();
+        String username= "Jack"; String phoneNumber= "0208"; String email = "test@test"; String company = "Company";
+        String simulatedInput = username + System.getProperty("line.separator") +
+                phoneNumber +  System.getProperty("line.separator") + email +
+                System.getProperty("line.separator") + company +  System.getProperty("line.separator");
+        InputStream savedStandardInputStream = System.in;
+        System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+        test.createLead();
+        System.setIn(savedStandardInputStream);
+        assertTrue(LeadList.getListOfLeads().size() == currentListSize + 1);
+    }
 
     @Test
     @DisplayName("Test: lookupLead(). Return the lead as expected.")
@@ -78,7 +79,7 @@ public class CommandHandlerTest {
         tempLeadOne = new Lead("Buzz", "0800", "buzz@lightyear", "Toy Story");
         LeadList.getListOfLeads().add(tempLeadOne);
         int currentListSize = LeadList.getListOfLeads().size();
-        test.removeLead(1);
+        test.removeLead(tempLeadOne.getId());
         int updatedListSize = LeadList.getListOfLeads().size();
         assertTrue(currentListSize == updatedListSize + 1);
     }
