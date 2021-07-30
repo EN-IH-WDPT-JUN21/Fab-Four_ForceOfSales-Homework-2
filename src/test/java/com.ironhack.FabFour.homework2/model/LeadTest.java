@@ -1,10 +1,12 @@
 package com.ironhack.FabFour.homework2.model;
 
 import com.ironhack.FabFour.homework2.model.Lead;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,16 +15,25 @@ public class LeadTest {
     public static Lead testLead = null;
     public static Lead testLeadTwo = null;
 
-    @BeforeAll
-    public static void setUp() {
+    private final PrintStream standardOut = System.out;
+    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+
+    @BeforeEach
+    public void setUp() {
+        System.setOut(new PrintStream(outputStreamCaptor));
         testLead = new Lead("Marie","01234 5678","marie@email.com","A New Company");
+    }
+
+    @AfterEach
+    public void tearDown() {
+        System.setOut(standardOut);
     }
 
     @Test
     @DisplayName("Test: Lead Constructor. Validate Correct ID Set.")
     public void LeadClass_LeadConstructor_CheckCorrectID() {
         long currentID = Lead.getLeadIDCount();
-        testLeadTwo = new Lead("Rick","0208","rick@westley","Zombies");
+        testLeadTwo = new Lead("Rick","01234 5678","rick@westley.com","Zombies");
         long updatedID = Lead.getLeadIDCount();
         assertTrue(updatedID == currentID + 1);
     }
@@ -53,9 +64,42 @@ public class LeadTest {
     }
 
     @Test
+    @DisplayName("Test: setPhoneNumber(). Message shown when incorrect value provided")
+    public void LeadClass_SetPhoneNumberTest_IncorrectValueProvided() {
+        String simulatedInput = "123456789";
+        InputStream savedStandardInputStream = System.in;
+        System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+        testLead.setPhoneNumber("0101");
+        System.setIn(savedStandardInputStream);
+        assertEquals("123456789",testLead.getPhoneNumber());
+    }
+
+    @Test
+    @DisplayName("Test: setEmail(). Message shown when incorrect value provided")
+    public void LeadClass_SetEmailTest_IncorrectValueProvided() {
+        String simulatedInput = "test@buzz.com";
+        InputStream savedStandardInputStream = System.in;
+        System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+        testLead.setEmail("0101");
+        System.setIn(savedStandardInputStream);
+        assertEquals("test@buzz.com",testLead.getEmail());
+    }
+
+    @Test
+    @DisplayName("Test: setCompanyName(). Message shown when incorrect value provided")
+    public void LeadClass_SetCompanyNameTest_IncorrectValueProvided() {
+        String simulatedInput = "A Company Name";
+        InputStream savedStandardInputStream = System.in;
+        System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+        testLead.setCompanyName("");
+        System.setIn(savedStandardInputStream);
+        assertEquals("A Company Name",testLead.getCompanyName());
+    }
+
+    @Test
     @DisplayName("Test: toString(). Positive Test.")
     public void LeadClass_ToStringTest_ValidateString() {
-        testLeadTwo = new Lead("Caddie", "1234 5678", "caddie@test.com","A Third Company");
+        testLeadTwo = new Lead("Caddie", "01234 5678", "caddie@test.com","A Third Company");
         String testString = "Lead: " + testLeadTwo.getId() + ", Name of Contact: " + testLeadTwo.getContactName() + ", Phone Number: " +
                 testLeadTwo.getPhoneNumber() + ", Email: " + testLeadTwo.getEmail() + ", Company Name: " + testLeadTwo.getCompanyName();
         assertTrue(testString.equals(testLeadTwo.toString()));
@@ -64,7 +108,7 @@ public class LeadTest {
     @Test
     @DisplayName(("Test: equals(). Negative Test."))
     public void LeadClass_EqualsTest_NegativeTest() {
-        testLeadTwo = new Lead("Rick","0208","rick@westley","Zombies");
+        testLeadTwo = new Lead("Rick","01234 5678","rick@westley.com","Zombies");
         assertFalse(testLeadTwo.equals(testLead));
     }
 

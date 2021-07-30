@@ -22,7 +22,7 @@ public class ContactTest {
     @DisplayName("Test: Contact Constructor. Validate ID Set.")
     public void ContactClass_ContactConstructor_CheckCorrectID() {
         long currentID = Contact.getContactIDCount();
-        testContactTwo = new Contact("Rick","0208","rick@westley","Zombies");
+        testContactTwo = new Contact("Rick","07949 2222","rick@westley.com","Zombies");
         long updatedID = Contact.getContactIDCount();
         assertTrue(updatedID == (currentID + 1));
     }

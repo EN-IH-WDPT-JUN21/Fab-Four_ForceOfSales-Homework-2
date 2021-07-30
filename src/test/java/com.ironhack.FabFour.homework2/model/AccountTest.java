@@ -88,7 +88,7 @@ public class AccountTest {
     }
 
     @Test
-    @DisplayName("Test: setCountry(). Country set as expected despite empty input.")
+    @DisplayName("Test: setCountry(). Country set as expected despite empty initial input.")
     public void Account_SetCountry_CountrySetAfterEmptyInputProvided(){
         InputStream in = new ByteArrayInputStream("Italy".getBytes());
         System.setIn(in);
@@ -98,7 +98,7 @@ public class AccountTest {
     }
 
     @Test
-    @DisplayName("Test: setCity(). City set as expected despite empty input.")
+    @DisplayName("Test: setCity(). City set as expected despite empty initial input.")
     public void Account_SetCity_CitySetAfterEmptyInputProvided(){
         InputStream in = new ByteArrayInputStream("Los Angeles".getBytes());
         System.setIn(in);
@@ -130,8 +130,8 @@ public class AccountTest {
     @Test
     @DisplayName("Test: getOpportunity(). Return correct Opportunity object as expected.")
     void Account_getOpportunity_correct_OpportunityReturned() {
-        List<Contact> testContactList = new ArrayList<>();
-        Contact testContact = new Contact("Rick","0208","rick@westley","Zombies");
+        List<Contact> testContactList = new ArrayList<Contact>();
+        Contact testContact = new Contact("Rick","07949 2222","rick@westley.com","Zombies");
         testContactList.add(testContact);
 
         List<Opportunity> testOpportunityList = new ArrayList<Opportunity>();
@@ -146,8 +146,8 @@ public class AccountTest {
     @Test
     @DisplayName("Test: getOpportunity(). Return nul as Opportunity doesn't exist.")
     void Account_getOpportunity_correct_OpportunityNotReturned() {
-        List<Contact> testContactList = new ArrayList<>();
-        Contact testContact = new Contact("Rick","0208","rick@westley","Zombies");
+        List<Contact> testContactList = new ArrayList<Contact>();
+        Contact testContact = new Contact("Rick","07949 2222","rick@westley.com","Zombies");
         testContactList.add(testContact);
 
         List<Opportunity> testOpportunityList = new ArrayList<Opportunity>();

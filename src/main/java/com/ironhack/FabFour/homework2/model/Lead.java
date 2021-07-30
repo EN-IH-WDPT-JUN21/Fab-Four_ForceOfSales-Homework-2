@@ -54,14 +54,13 @@ public class Lead {
 
     public void setPhoneNumber(String phoneNumber) {
         // Verifies that input is not empty, and is also a valid phone number
-        if (!phoneNumber.isEmpty() && validatePhoneNumber(phoneNumber)) {
-            this.phoneNumber = phoneNumber;
+        Scanner aScanner = new Scanner(System.in);
+        String input = phoneNumber;
+        while (!validatePhoneNumber(input)) {
+            System.out.println("Please provide a valid phone number. It must be between 6 and 15 digits, and can have spaces, hyphens or +.");
+            input = aScanner.next();
         }
-        else {
-            Scanner aScanner = new Scanner(System.in);
-            System.out.println("Valid phone number not provided. Please try again");
-            setPhoneNumber(aScanner.next());
-        }
+        this.phoneNumber = input;
     }
 
     public String getEmail() {
@@ -70,14 +69,13 @@ public class Lead {
 
     public void setEmail(String email) {
         // Verifies that input is not empty, and is also a valid email
-        if (!email.isEmpty() && validateEmail(email)) {
-            this.email = email;
+        Scanner aScanner = new Scanner(System.in);
+        String input = email;
+        while (!validateEmail(input)) {
+            System.out.println("Please provide a valid email.");
+            input = aScanner.next();
         }
-        else {
-            Scanner aScanner = new Scanner(System.in);
-            System.out.println("Valid email not provided. Please try again");
-            setEmail(aScanner.next());
-        }
+        this.email = input;
     }
 
     public String getCompanyName() {
@@ -86,14 +84,13 @@ public class Lead {
 
     public void setCompanyName(String companyName) {
         // Verifies that input is not empty
-        if (!companyName.isBlank()) {
-            this.companyName = companyName;
+        Scanner aScanner = new Scanner(System.in);
+        String input = companyName;
+        while (input.isEmpty()) {
+            System.out.println("Please provide a valid company name.");
+            input = aScanner.nextLine();
         }
-        else {
-            Scanner aScanner = new Scanner(System.in);
-            System.out.println("Company name cannot be blank. Please try again");
-            setCompanyName(aScanner.next());
-        }
+        this.companyName = input;
     }
 
     // Checks that leads are not duplicated on each attribute except ID. As the ID is auto-incremented, it is assumed
