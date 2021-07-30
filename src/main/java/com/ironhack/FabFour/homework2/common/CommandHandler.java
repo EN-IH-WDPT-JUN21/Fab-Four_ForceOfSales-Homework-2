@@ -247,7 +247,7 @@ public class CommandHandler {
             System.out.println("Please enter their contact name.");
             tempName = aScanner.next();
             Thread.sleep(500);
-            System.out.println("Please enter their phone number.");
+            System.out.println("Please enter their phone number. Do not include spaces.");
             tempNumber = aScanner.next();
             Thread.sleep(500);
             System.out.println("Please enter their email address.");
