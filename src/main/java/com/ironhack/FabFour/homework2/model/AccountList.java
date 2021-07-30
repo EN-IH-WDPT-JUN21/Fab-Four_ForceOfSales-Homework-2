@@ -5,7 +5,6 @@ import java.util.List;
 
 public class AccountList {
     public static List<Account> accountList = new ArrayList<>();
-
     //Method that looks for the opportunity and prints it when found
     public static Opportunity lookUpOpportunity(String id) {
         Opportunity foundOpportunity = null;
@@ -17,10 +16,8 @@ public class AccountList {
         if(foundOpportunity == null) {
             System.out.println("There is no opportunity with id " + id);
         }
-
         return foundOpportunity;
     }
-
     //Method that looks for the account and prints it when found
     public static Account lookUpAccount(String id) {
         Account foundAccount = null;

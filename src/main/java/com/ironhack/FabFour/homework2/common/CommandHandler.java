@@ -242,18 +242,27 @@ public class CommandHandler {
         String tempEmail;
         String tempCompany;
         Lead tempLead = null;
-        Scanner aScanner = new Scanner(System.in);
-        System.out.println("Please enter their contact name.");
-        tempName = aScanner.next();
-        System.out.println("Please enter their phone number.");
-        tempNumber = aScanner.next();
-        System.out.println("Please enter their email address.");
-        tempEmail = aScanner.next();
-        System.out.println("Please enter their company's name");
-        tempCompany = aScanner.next();
-        tempLead = new Lead(tempName, tempNumber, tempEmail, tempCompany);
-        LeadList.getListOfLeads().add(tempLead);
-        System.out.println("Lead created. Lead ID: " + tempLead.getId());
+        try {
+            Scanner aScanner = new Scanner(System.in);
+            System.out.println("Please enter their contact name.");
+            tempName = aScanner.next();
+            Thread.sleep(500);
+            System.out.println("Please enter their phone number.");
+            tempNumber = aScanner.next();
+            Thread.sleep(500);
+            System.out.println("Please enter their email address.");
+            tempEmail = aScanner.next();
+            Thread.sleep(1000);
+            System.out.println("Please enter their company's name");
+            tempCompany = aScanner.next();
+            Thread.sleep(1000);
+            tempLead = new Lead(tempName, tempNumber, tempEmail, tempCompany);
+            LeadList.getListOfLeads().add(tempLead);
+            System.out.println("Lead created. Lead ID: " + tempLead.getId());
+        }
+        catch (Exception e) {
+            System.out.println("Exception: " + e);
+        }
         return tempLead;
     }
 
