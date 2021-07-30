@@ -178,7 +178,7 @@ public class DataValidatorTest {
     @DisplayName("Test: Opportunity exists")
     void DataValidator_opportunityExists_PositiveTest() {
         List<Contact> testContactList2 = new ArrayList<Contact>();
-        Contact testContact2 = new Contact("Rick","0208","rick@westley","Zombies");
+        Contact testContact2 = new Contact("Rick","07949 2222","rick@westley.com","Zombies");
         testContactList2.add(testContact2);
 
         List<Opportunity> testOpportunityList2 = new ArrayList<Opportunity>();
@@ -198,7 +198,7 @@ public class DataValidatorTest {
     @DisplayName("Test: Opportunity does not exist")
     void DataValidator_opportunityExists_NegativeTest() {
         List<Contact> testContactList = new ArrayList<Contact>();
-        Contact testContact = new Contact("Nick","1234567","nick@yahoo.fr","Company Zero");
+        Contact testContact = new Contact("Nick","123456789","nick@yahoo.fr","Company Zero");
         testContactList.add(testContact);
 
         List<Opportunity> testOpportunityList = new ArrayList<Opportunity>();
