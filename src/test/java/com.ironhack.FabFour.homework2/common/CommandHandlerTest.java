@@ -25,7 +25,6 @@ public class CommandHandlerTest {
     CommandHandler test;
     Lead tempLeadOne = null;
     Lead tempLeadTwo;
-    Account newAccount;
     Opportunity newOpportunity;
     Contact newContact;
     List<Object> accountInfoList;
@@ -34,7 +33,6 @@ public class CommandHandlerTest {
     public void setUp() {
         test = new CommandHandler();
     }
-
 
     @Test
     @DisplayName("Test: createLead(). Validate that newly created lead is added to LeadList.")
@@ -88,14 +86,29 @@ public class CommandHandlerTest {
         assertTrue(currentListSize == updatedListSize);
     }
 
-//    @Test
-//    @DisplayName("Test: createContact(). Contact created as expected.")
-//    public void CommandHandler_CreateContact_ContactCreated() {
-//        tempLeadTwo = new Lead("Mick", "080099", "mick@j", "Stones");
-//        Contact newContact = createContact(tempLeadTwo);
-//        removeLead(tempLeadTwo.getId());
-//        assertEquals("080099", newContact.getPhoneNumber());
-//    }
+    @Test
+    @DisplayName("Test: createContact(). Contact created as expected.")
+    public void CommandHandler_CreateContact_ContactCreated() {
+        tempLeadTwo = new Lead("Mick", "987654321", "mick@yahoo.com", "Stones");
+        Contact newContact = createContact(tempLeadTwo);
+        assertEquals("987654321", newContact.getPhoneNumber());
+    }
+
+    @Test
+    @DisplayName("Test: getAccountInfo(). Account Info list returned as expected.")
+    public void CommandHandler_getAccountInfo_AccountInfoListReturned() {
+        String industry = "other";
+        String numOfEmployees = "12";
+        String city = "Paris";
+        String country = "France";
+        String simulatedInput = industry + System.getProperty("line.separator") + numOfEmployees + System.getProperty("line.separator") + city + System.getProperty("line.separator") + country + System.getProperty("line.separator");
+        InputStream savedStandardInputStream = System.in;
+        System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+        List<Object> obj = test.getAccountInfo();
+        System.setIn(savedStandardInputStream);
+        assertTrue(obj.size() > 0);
+        assertEquals(Industry.OTHER, obj.get(0));
+    }
 
     @Test
     @DisplayName("Test: isInteger(). Return correct boolean value.")
@@ -110,13 +123,38 @@ public class CommandHandlerTest {
     }
 
     @Test
+    @DisplayName("Test: convertLead(). Lead not converted as it doesn't exist.")
+    public void CommandHandler_convertLead_LeadNotConvertedNoSuchLead() {
+        assertEquals(null, convertLead(000));
+    }
+
+    @Test
+    @DisplayName("Test: createOpportunity(). Opportunity created as expected.")
+    public void CommandHandler_createOpportunity_OpportunityCreated() {
+        String newProduct = "hybrid"; String numOfTrucks = "200";
+        tempLeadTwo = new Lead("Mick", "987654321", "mick@yahoo.com", "Stones");
+        long leadId = tempLeadTwo.getId();
+        LeadList.getListOfLeads().add(tempLeadTwo);
+        Contact newContact = createContact(tempLeadTwo);
+        String simulatedInput = newProduct + System.getProperty("line.separator") + numOfTrucks + System.getProperty("line.separator");
+        InputStream savedStandardInputStream = System.in;
+        System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+        Opportunity opportunity = test.createOpportunity(leadId, newContact);
+        System.setIn(savedStandardInputStream);
+        assertTrue(opportunity.getDecisionMaker() instanceof Contact);
+        assertEquals("Stones", opportunity.getDecisionMaker().getCompanyName());
+        assertEquals(Product.HYBRID, opportunity.getProduct());
+        assertEquals(Status.OPEN, opportunity.getStatus());
+        assertEquals(false, DataValidator.leadExists(Long.toString(leadId)));
+    }
+
+    @Test
     @DisplayName("Test: createScanner(). Return scanner object as expected.")
     public void CommandHandler_CreateScanner_ScannerCreated() {
         InputStream in = new ByteArrayInputStream("box".getBytes());
         System.setIn(in);
         Scanner sc = new Scanner(System.in);
         assertTrue(createScanner() instanceof Scanner);
-
     }
 
     @Test
@@ -134,16 +172,16 @@ public class CommandHandlerTest {
         InputStream in = new ByteArrayInputStream("box".getBytes());
         System.setIn(in);
         Scanner sc = new Scanner(System.in);
-        assertEquals(test.getEnumInput("product"), Product.BOX);
+        assertEquals(Product.BOX, getEnumInput("product"));
     }
 
     @Test
     @DisplayName("Test: getIntInput(). Return correct int value as expected.")
     public void CommandHandler_GetIntInput_IntReturned() {
-        InputStream in = new ByteArrayInputStream("10".getBytes());
+        InputStream in = new ByteArrayInputStream("200".getBytes());
         System.setIn(in);
         Scanner sc = new Scanner(System.in);
-        assertEquals(test.getIntInput("10"), 10);
+        assertEquals(200, test.getIntInput("quantity"));
     }
 
     @Test
@@ -152,7 +190,7 @@ public class CommandHandlerTest {
         InputStream in = new ByteArrayInputStream("Marion".getBytes());
         System.setIn(in);
         Scanner sc = new Scanner(System.in);
-        assertEquals(test.getUserInput(), "Marion");
+        assertEquals("Marion", test.getUserInput());
     }
 
     @Test
@@ -161,19 +199,10 @@ public class CommandHandlerTest {
         accountInfoList = Arrays.asList(Industry.PRODUCE, 25, "Boston", "USA");
         newContact = new Contact("Peter Parker", "999888777", "peterP@yahoo.com", "Webs");
         newOpportunity = new Opportunity(Product.FLATBED, 25, newContact);
-        assertEquals(test.setupAccount(newOpportunity, accountInfoList).getIndustry(), Industry.PRODUCE);
-        assertEquals(test.setupAccount(newOpportunity, accountInfoList).getOpportunityList().get(0), newOpportunity);
-        assertEquals(test.setupAccount(newOpportunity, accountInfoList).getContactList().get(0), newContact);
+        assertEquals(Industry.PRODUCE, test.setupAccount(newOpportunity, accountInfoList).getIndustry());
+        assertEquals(newOpportunity, test.setupAccount(newOpportunity, accountInfoList).getOpportunityList().get(0));
+        assertEquals(newContact, test.setupAccount(newOpportunity, accountInfoList).getContactList().get(0));
     }
-
-//    @Test
-//    @DisplayName("Test: createContact(). Contact created as expected.")
-//    public void CommandHandler_CreateContact_ContactCreated() {
-//        tempLeadTwo = new Lead("Mick", "080099", "mick@j", "Stones");
-//        Contact newContact = createContact(tempLeadTwo);
-//        assertEquals("080099", newContact.getPhoneNumber());
-//        removeLead(tempLeadTwo.getId());
-//    }
 
     @Test
     void CommandHandler_getIdFromInput_PositiveTest() {

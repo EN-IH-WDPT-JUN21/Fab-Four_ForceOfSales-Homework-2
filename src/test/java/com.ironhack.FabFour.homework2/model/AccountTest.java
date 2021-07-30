@@ -74,6 +74,40 @@ public class AccountTest {
     }
 
     @Test
+    @DisplayName("Test: getContactList(). ContactList is of type List and size of 1 as expected.")
+    public void Account_getContactList_ContactListIsAListOfLength1() {
+        assertTrue(account.getContactList() instanceof List);
+        assertEquals(1, account.getContactList().size());
+    }
+
+    @Test
+    @DisplayName("Test: getOpportunityList(). OpportunityList is of type List and size of 1 as expected.")
+    public void Account_getOpportunityList_OpportunityListIsAListOfLength1() {
+        assertTrue(account.getOpportunityList() instanceof List);
+        assertEquals(1, account.getOpportunityList().size());
+    }
+
+    @Test
+    @DisplayName("Test: setCountry(). Country set as expected despite empty input.")
+    public void Account_SetCountry_CountrySetAfterEmptyInputProvided(){
+        InputStream in = new ByteArrayInputStream("Italy".getBytes());
+        System.setIn(in);
+        Scanner sc = new Scanner(System.in);
+        account.setCountry("");
+        assertFalse(account.getCountry().equals(""));
+    }
+
+    @Test
+    @DisplayName("Test: setCity(). City set as expected despite empty input.")
+    public void Account_SetCity_CitySetAfterEmptyInputProvided(){
+        InputStream in = new ByteArrayInputStream("Los Angeles".getBytes());
+        System.setIn(in);
+        Scanner sc = new Scanner(System.in);
+        account.setCity("");
+        assertFalse(account.getCity().equals(""));
+    }
+
+    @Test
     @DisplayName("Test: setString(). String attributes set as expected.")
     public void Account_SetString_CityStringSet() {
         InputStream in = new ByteArrayInputStream("Montreal".getBytes());
