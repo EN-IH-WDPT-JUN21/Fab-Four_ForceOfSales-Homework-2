@@ -39,7 +39,7 @@ public class CommandHandler {
                             " > show leads - to show all of leads\n" +
                             " > lookup lead {id} - to show specific lead\n" +
                             " > convert {id} - to convert lead to an opportunity\n" +
-                            " > close-win {id} - to close case after sale\n" +
+                            " > close-won {id} - to close case after sale\n" +
                             " > close-lost {id} - to  close case without sale\n" +
                             " > quit - to leave the app"
                     );
