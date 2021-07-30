@@ -89,7 +89,7 @@ public class DataValidatorTest {
     @Test
     @DisplayName("Test: correct phone number with spaces")
     void DataValidator_validatePhoneNumber_correctNumberWithSpaces() {
-        assertTrue(validatePhoneNumber("07949 222222"));
+        assertTrue(validatePhoneNumber("    0 7 949 22222  2  "));
     }
 
     @Test

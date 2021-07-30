@@ -272,6 +272,7 @@ public class CommandHandler {
         }
     }
 
+    // Update opportunity status to closed-lost
     public static void updateOpportunityStatusClosedLost(long id) {
         boolean found = false;
         for (Account account : accountList) {
@@ -288,6 +289,7 @@ public class CommandHandler {
         }
     }
 
+    // Update opportunity status to closed-won
     public static void updateOpportunityStatusClosedWin(long id) {
         boolean found = false;
         for (Account account : accountList) {
