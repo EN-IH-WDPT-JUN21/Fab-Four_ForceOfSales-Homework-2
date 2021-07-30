@@ -57,6 +57,11 @@ public class Lead {
         if (!phoneNumber.isEmpty() && validatePhoneNumber(phoneNumber)) {
             this.phoneNumber = phoneNumber;
         }
+        else {
+            Scanner aScanner = new Scanner(System.in);
+            System.out.println("Valid phone number not provided. Please try again");
+            setPhoneNumber(aScanner.next());
+        }
     }
 
     public String getEmail() {
@@ -68,6 +73,11 @@ public class Lead {
         if (!email.isEmpty() && validateEmail(email)) {
             this.email = email;
         }
+        else {
+            Scanner aScanner = new Scanner(System.in);
+            System.out.println("Valid email not provided. Please try again");
+            setEmail(aScanner.next());
+        }
     }
 
     public String getCompanyName() {
@@ -78,6 +88,11 @@ public class Lead {
         // Verifies that input is not empty
         if (!companyName.isBlank()) {
             this.companyName = companyName;
+        }
+        else {
+            Scanner aScanner = new Scanner(System.in);
+            System.out.println("Company name cannot be blank. Please try again");
+            setCompanyName(aScanner.next());
         }
     }
 
