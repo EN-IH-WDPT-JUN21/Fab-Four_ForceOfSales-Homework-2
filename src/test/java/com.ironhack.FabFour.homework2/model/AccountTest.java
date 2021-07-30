@@ -166,4 +166,13 @@ public class AccountTest {
         assertTrue(account.equals(account));
         assertTrue(account.equals(equalAccount));
     }
+
+    @Test
+    @DisplayName("Test: toString(). Positive Test.")
+    public void Account_ToStringTest_ValidateString() {
+        String testString = "Account: " + account.getId() + ", Industry: " + account.getIndustry() + ", Number of employees: " +
+                account.getEmployeeCount() + ", City: " + account.getCity() + ", Country: " + account.getCountry() +
+                    ", Contact:" + account.getContactList().get(0).getContactName() + ", Opportunity ID:" + account.getOpportunityList().get(0).getId();
+        assertTrue(testString.equals(account.toString()));
+    }
 }

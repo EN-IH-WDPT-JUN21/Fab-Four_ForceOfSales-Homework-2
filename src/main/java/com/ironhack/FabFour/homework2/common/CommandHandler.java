@@ -15,7 +15,7 @@ import org.apache.commons.lang.WordUtils;
 import java.io.IOException;
 import java.text.ParseException;
 
-import static com.ironhack.FabFour.homework2.model.AccountList.accountList;
+import static com.ironhack.FabFour.homework2.model.AccountList.*;
 
 public class CommandHandler {
 
@@ -39,8 +39,10 @@ public class CommandHandler {
                             " > show leads - to show all of leads\n" +
                             " > lookup lead {id} - to show specific lead\n" +
                             " > convert {id} - to convert lead to an opportunity\n" +
+                            " > lookup opportunity {id} - to show specific opportunity\n" +
+                            " > lookup account {id} - to show specific account\n" +
                             " > close-won {id} - to close case after sale\n" +
-                            " > close-lost {id} - to  close case without sale\n" +
+                            " > close-lost {id} - to close case without sale\n" +
                             " > quit - to leave the app"
                     );
                     break;
@@ -57,6 +59,12 @@ public class CommandHandler {
                     break;
                 case LOOKUP_LEAD:
                     lookupLead(id);
+                    break;
+                case LOOKUP_OPPORTUNITY:
+                    lookUpOpportunity(String.valueOf(id));
+                    break;
+                case LOOKUP_ACCOUNT:
+                    lookUpAccount(String.valueOf(id));
                     break;
                 case CLOSE_WON:
                     updateOpportunityStatusClosedWin(id);
@@ -276,8 +284,8 @@ public class CommandHandler {
                 break;
             }
         }
-        if(found = false) {
-            System.out.println("No opportunity has been found with this ID. Please try again.");
+        if(found == false) {
+            System.out.println("There is no opportunity with this ID. Please try again.");
         }
     }
 
@@ -292,8 +300,8 @@ public class CommandHandler {
                 break;
             }
         }
-        if(found = false) {
-            System.out.println("No opportunity has been found with this ID. Please try again.");
+        if(found == false) {
+            System.out.println("There is no opportunity with this ID. Please try again.");
         }
     }
 }
