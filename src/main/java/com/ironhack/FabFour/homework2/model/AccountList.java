@@ -14,7 +14,7 @@ public class AccountList {
                 foundOpportunity = opportunity.toString();
                 break;}}
         if(foundOpportunity == null) {
-            System.out.println("There is no lead with this ID. Please try again.");
+            System.out.println("There is no opportunity with this ID. Please try again.");
         }
 
         return foundOpportunity;
