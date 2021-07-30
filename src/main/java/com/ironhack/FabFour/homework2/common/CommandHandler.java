@@ -49,7 +49,7 @@ public class CommandHandler {
             }
         } else { // case when command has an id at the end
 
-            upperCommand = upperCommand.substring(0, upperCommand.length() - String.valueOf(id).length()).trim();
+            upperCommand = getTextWithoutId(upperCommand);
 
             switch (Command.getCommandType(upperCommand)) {
                 case CONVERT:
@@ -79,6 +79,10 @@ public class CommandHandler {
         } catch (NumberFormatException ignored) {
         }
         return 0; // It returns 0 because you cannot create id less than 0
+    }
+
+    public static String getTextWithoutId(String text) {
+        return text.substring(0, text.length() - String.valueOf(getIdFromInput(text)).length()).trim();
     }
 
     public static Account convertLead(long id) {
@@ -236,6 +240,10 @@ public class CommandHandler {
                 break;
             }
         }
+        if(foundLead == null) {
+            System.out.println("There is no lead with id "+id);
+        }
+
         return foundLead;
     }
 
@@ -265,5 +273,4 @@ public class CommandHandler {
             }
         }
     }
-
 }
