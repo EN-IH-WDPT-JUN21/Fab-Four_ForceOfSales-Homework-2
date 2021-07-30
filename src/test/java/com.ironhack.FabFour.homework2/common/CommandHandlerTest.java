@@ -10,8 +10,13 @@ import com.ironhack.FabFour.homework2.enums.*;
 import com.ironhack.FabFour.homework2.model.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mockStatic;
+import static org.mockito.Mockito.verify;
 
 import org.junit.jupiter.api.*;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
+import org.powermock.api.mockito.PowerMockito;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -175,18 +180,22 @@ public class CommandHandlerTest {
 //    }
 
     @Test
-    public void handleCommand_getProperCommand() {
-        //TODO
-    }
-
-    @Test
-    void getIdFromInput_test() {
+    void CommandHandler_getIdFromInput_PositiveTest() {
 
         assertEquals(0, CommandHandler.getIdFromInput("test test"));
         assertEquals(12, CommandHandler.getIdFromInput("test 12"));
         assertEquals(133, CommandHandler.getIdFromInput("test 133         "));
         assertEquals(0, CommandHandler.getIdFromInput("         133 /        "));
+        assertEquals(0, CommandHandler.getIdFromInput("test12"));
+    }
 
+    @Test
+    void CommandHandler_getTextWithoutId_PositiveTest() {
+        String text = getTextWithoutId("lookup lead 12");
+        String text2 = getTextWithoutId("lookup lead               12");
+
+        assertEquals(text,"lookup lead");
+        assertEquals(text2,"lookup lead");
     }
 
     @Test
