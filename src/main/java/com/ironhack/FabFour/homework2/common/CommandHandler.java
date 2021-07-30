@@ -156,6 +156,7 @@ public class CommandHandler {
         opportunityList.add(opportunity);
         Account newAccount = new Account(industry, employees, WordUtils.capitalizeFully(city), WordUtils.capitalizeFully(country), contactList, opportunityList);
         System.out.println("Account created. Account ID: " + newAccount.getId());
+        accountList.add(newAccount);
         return newAccount;
     }
 
