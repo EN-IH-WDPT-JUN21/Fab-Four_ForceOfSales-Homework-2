@@ -2,7 +2,6 @@ package com.ironhack.FabFour.homework2.common;
 
 import com.ironhack.FabFour.homework2.enums.Product;
 import com.ironhack.FabFour.homework2.enums.Industry;
-import com.ironhack.FabFour.homework2.enums.Status;
 
 public class EnumHandler {
 
