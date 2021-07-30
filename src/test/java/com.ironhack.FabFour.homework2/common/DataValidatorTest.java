@@ -89,13 +89,19 @@ public class DataValidatorTest {
     @Test
     @DisplayName("Test: correct phone number with spaces")
     void DataValidator_validatePhoneNumber_correctNumberWithSpaces() {
-        assertTrue(validatePhoneNumber("123 456 789"));
+        assertTrue(validatePhoneNumber("07949 222222"));
+    }
+
+    @Test
+    @DisplayName("Test: correct phone number with hyphen")
+    void DataValidator_validatePhoneNumber_correctNumberWithHyphens() {
+        assertTrue(validatePhoneNumber("123-456-789"));
     }
 
     @Test
     @DisplayName("Test: Empty phone number")
     void DataValidator_validatePhoneNumber_wrongNumberEmpty() {
-        assertFalse(validatePhoneNumber("123"));
+        assertFalse(validatePhoneNumber(""));
     }
 
     @Test
@@ -107,7 +113,7 @@ public class DataValidatorTest {
     @Test
     @DisplayName("Test: phone number too long")
     void DataValidator_validatePhoneNumber_wrongNumberTooLong() {
-        assertFalse(validatePhoneNumber("01234567891234567"));
+        assertFalse(validatePhoneNumber("01234567891234567890"));
     }
 
     @Test
