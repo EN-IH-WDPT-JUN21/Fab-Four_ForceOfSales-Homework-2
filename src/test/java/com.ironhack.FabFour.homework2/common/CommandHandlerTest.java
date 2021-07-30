@@ -10,13 +10,8 @@ import com.ironhack.FabFour.homework2.enums.*;
 import com.ironhack.FabFour.homework2.model.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mockStatic;
-import static org.mockito.Mockito.verify;
 
 import org.junit.jupiter.api.*;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
-import org.powermock.api.mockito.PowerMockito;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
