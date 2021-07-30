@@ -79,6 +79,6 @@ public class Opportunity {
     @Override
     public String toString() {
         return "Opportunity: " + this.getId() + ", Product: " + this.getProduct() + ", Quantity: " +
-                this.getQuantity() + ", Contact:" + this.getDecisionMaker().getContactName() + ", Status: " + this.getStatus();
+                this.getQuantity() + ", Contact: " + this.getDecisionMaker().getContactName() + ", Status: " + this.getStatus();
     }
 }

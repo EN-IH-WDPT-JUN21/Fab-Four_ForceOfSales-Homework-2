@@ -16,7 +16,7 @@ public class AccountList {
         if(foundOpportunity == null) {
             System.out.println("There is no opportunity with this ID. Please try again.");
         }
-
+        System.out.println(foundOpportunity);
         return foundOpportunity;
     }
 
@@ -30,6 +30,7 @@ public class AccountList {
         if(foundAccount == null) {
             System.out.println("There is no account with this ID. Please try again.");
         }
+        System.out.println(foundAccount);
         return foundAccount;
     }
 }
