@@ -75,4 +75,10 @@ public class Opportunity {
         Opportunity that = (Opportunity) o;
         return quantity == that.quantity && product == that.product && decisionMaker.equals(that.decisionMaker) && status == that.status;
     }
+
+    @Override
+    public String toString() {
+        return "Opportunity: " + this.getId() + ", Product: " + this.getProduct() + ", Quantity: " +
+                this.getQuantity() + ", Contact:" + this.getDecisionMaker().getContactName() + ", Status: " + this.getStatus();
+    }
 }

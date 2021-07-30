@@ -130,7 +130,7 @@ public class AccountTest {
     @Test
     @DisplayName("Test: getOpportunity(). Return correct Opportunity object as expected.")
     void Account_getOpportunity_correct_OpportunityReturned() {
-        List<Contact> testContactList = new ArrayList<Contact>();
+        List<Contact> testContactList = new ArrayList<>();
         Contact testContact = new Contact("Rick","0208","rick@westley","Zombies");
         testContactList.add(testContact);
 
@@ -146,7 +146,7 @@ public class AccountTest {
     @Test
     @DisplayName("Test: getOpportunity(). Return nul as Opportunity doesn't exist.")
     void Account_getOpportunity_correct_OpportunityNotReturned() {
-        List<Contact> testContactList = new ArrayList<Contact>();
+        List<Contact> testContactList = new ArrayList<>();
         Contact testContact = new Contact("Rick","0208","rick@westley","Zombies");
         testContactList.add(testContact);
 
@@ -165,5 +165,14 @@ public class AccountTest {
         Account equalAccount = new Account(Industry.ECOMMERCE, 12, "Paris", "France", contactList, opportunityList);
         assertTrue(account.equals(account));
         assertTrue(account.equals(equalAccount));
+    }
+
+    @Test
+    @DisplayName("Test: toString(). Positive Test.")
+    public void Account_ToStringTest_ValidateString() {
+        String testString = "Account: " + account.getId() + ", Industry: " + account.getIndustry() + ", Number of employees: " +
+                account.getEmployeeCount() + ", City: " + account.getCity() + ", Country: " + account.getCountry() +
+                    ", Contact:" + account.getContactList().get(0).getContactName() + ", Opportunity ID:" + account.getOpportunityList().get(0).getId();
+        assertTrue(testString.equals(account.toString()));
     }
 }
