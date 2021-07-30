@@ -58,7 +58,7 @@ public class CommandHandler {
                     convertLead(id);
                     break;
                 case LOOKUP_LEAD:
-                    lookupLead(id);
+                    voidChecker(lookupLead(id));
                     break;
                 case LOOKUP_OPPORTUNITY:
                     lookUpOpportunity(String.valueOf(id));
@@ -77,6 +77,15 @@ public class CommandHandler {
             }
         }
         System.out.println("--------------------------------------------------");
+    }
+
+    public static void voidChecker(Object o) {
+        if (o == null) {
+            System.out.println("That does not exist. Please try again.");
+        }
+        else {
+            System.out.println(o.toString());
+        }
     }
 
     public static long getIdFromInput(String command) {

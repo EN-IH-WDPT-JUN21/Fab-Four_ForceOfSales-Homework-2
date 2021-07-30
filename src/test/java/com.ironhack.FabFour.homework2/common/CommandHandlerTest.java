@@ -38,7 +38,7 @@ public class CommandHandlerTest {
     @DisplayName("Test: createLead(). Validate that newly created lead is added to LeadList.")
     public void CommandHandler_CreateLeadTest_ValidateLeadAddedToList() {
         var currentListSize = LeadList.getListOfLeads().size();
-        String username= "Jack"; String phoneNumber= "0208"; String email = "test@test"; String company = "Company";
+        String username= "Jack"; String phoneNumber= "0794922"; String email = "test@test.com"; String company = "Company";
         String simulatedInput = username + System.getProperty("line.separator") +
                 phoneNumber +  System.getProperty("line.separator") + email +
                 System.getProperty("line.separator") + company +  System.getProperty("line.separator");
@@ -52,7 +52,7 @@ public class CommandHandlerTest {
     @Test
     @DisplayName("Test: lookupLead(). Return the lead as expected.")
     public void CommandHandler_LookupLead_LeadReturned() {
-        tempLeadOne = new Lead("Buzz", "0800", "buzz@lightyear", "Toy Story");
+        tempLeadOne = new Lead("Buzz", "0794922", "buzz@lightyear.com", "Toy Story");
         LeadList.getListOfLeads().add(tempLeadOne);
         long tempID = tempLeadOne.getId();
         Lead tempLeadTwo = test.lookupLead(tempID);
@@ -69,7 +69,7 @@ public class CommandHandlerTest {
     @Test
     @DisplayName("Test: removeLead(). Remove the lead as expected.")
     public void CommandHandler_RemoveLead_LeadRemoved() {
-        tempLeadOne = new Lead("Buzz", "0800", "buzz@lightyear", "Toy Story");
+        tempLeadOne = new Lead("Buzz", "07949222", "buzz@lightyear.com", "Toy Story");
         LeadList.getListOfLeads().add(tempLeadOne);
         int currentListSize = LeadList.getListOfLeads().size();
         test.removeLead(tempLeadOne.getId());
