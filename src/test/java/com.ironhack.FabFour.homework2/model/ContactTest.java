@@ -36,7 +36,7 @@ public class ContactTest {
     @Test
     @DisplayName("Test: Contact Constructor. Phone Number Set as expected.")
     public void ContactTest_PhoneNumberTest_SetAsExpected() {
-        assertEquals("01234 5678",testContactOne.getPhoneNumber());
+        assertEquals("012345678",testContactOne.getPhoneNumber());
     }
 
     @Test
