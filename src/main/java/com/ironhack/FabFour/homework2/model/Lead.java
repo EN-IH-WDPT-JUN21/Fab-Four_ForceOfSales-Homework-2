@@ -7,7 +7,7 @@ import static com.ironhack.FabFour.homework2.common.DataValidator.validatePhoneN
 
 public class Lead {
 
-    // Value for the lead ID, automatically incremented on each creationg
+    // Value for the lead ID, automatically incremented on each creation
     private static int leadIDCount = 1;
 
     protected long id;
