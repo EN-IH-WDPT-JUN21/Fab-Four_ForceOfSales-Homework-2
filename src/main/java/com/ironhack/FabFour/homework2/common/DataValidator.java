@@ -24,7 +24,7 @@ public class DataValidator {
     //Method to check if the input for the phone number has a correct form
     public static boolean validatePhoneNumber(String input) {
         String inputWithoutSpaces = input.replaceAll("\\s+","").replaceAll("-", "");
-        final String regex = "^\\+?\\d{6,15}";
+        final String regex = "^\\+?\\d{6,15}"; // Phone number should contain 6-15 digits and can include the country code
 
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(inputWithoutSpaces);
@@ -36,11 +36,9 @@ public class DataValidator {
         return input.isBlank();
     }
 
-    // Method to check if lead exists
-    //change input to long fot id
+    //Method to check if lead exists
     public static boolean leadExists(String input) {
         List<Lead> listOfLeads = getListOfLeads();
-        boolean exists;
 
         long inputAsLong = Long.parseLong(input);
 
@@ -52,6 +50,7 @@ public class DataValidator {
         return false;
     }
 
+    //Method to check if the opportunity exists
     public static boolean opportunityExists(String input) {
         for(Account account : accountList) {
             Opportunity opportunity = account.getOpportunity(input);
@@ -61,7 +60,6 @@ public class DataValidator {
         }
         return false;
     }
-
 
     //Method to check if the lead already exists
     public static boolean isDuplicateLead(Lead newLead) {

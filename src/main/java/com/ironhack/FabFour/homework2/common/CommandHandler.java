@@ -164,6 +164,7 @@ public class CommandHandler {
         contactList.add(opportunity.getDecisionMaker());
         opportunityList.add(opportunity);
         Account newAccount = new Account(industry, employees, WordUtils.capitalizeFully(city), WordUtils.capitalizeFully(country), contactList, opportunityList);
+        accountList.add(newAccount);
         System.out.println("Account created. Account ID: " + newAccount.getId());
         accountList.add(newAccount);
         return newAccount;
@@ -289,6 +290,7 @@ public class CommandHandler {
         }
     }
 
+    // Update opportunity status to closed-lost
     public static void updateOpportunityStatusClosedLost(long id) {
         boolean found = false;
         for (Account account : accountList) {
@@ -305,13 +307,14 @@ public class CommandHandler {
         }
     }
 
+    // Update opportunity status to closed-won
     public static void updateOpportunityStatusClosedWin(long id) {
         boolean found = false;
         for (Account account : accountList) {
             Opportunity opportunity = account.getOpportunity(String.valueOf(id));
             if (opportunity != null) {
                 opportunity.setStatus(Status.CLOSED_WON);
-                System.out.println("The opportunity status has been set to 'closed-win'.");
+                System.out.println("The opportunity status has been set to 'closed-won'.");
                 found = true;
                 break;
             }

@@ -34,7 +34,7 @@ class AccountListTest {
         account = new Account(Industry.ECOMMERCE, 12, "Paris", "France", contactList, opportunityList);
         accountList.add(account);
 
-        assertEquals(opportunity.toString(), lookUpOpportunity(opportunityIdAsString));
+        assertEquals(opportunity, lookUpOpportunity(opportunityIdAsString));
 
         accountList.remove(account);
     }
@@ -59,7 +59,7 @@ class AccountListTest {
         accountList.add(account2);
         accountIdAsString = String.valueOf(account2.getId());
 
-        assertEquals(account2.toString(), lookUpAccount(accountIdAsString));
+        assertEquals(account2, lookUpAccount(accountIdAsString));
 
         accountList.remove(account2);
     }
