@@ -97,7 +97,7 @@ public class AccountTest {
     @DisplayName("Test: getOpportunity(). Return correct Opportunity object as expected.")
     void Account_getOpportunity_correct_OpportunityReturned() {
         List<Contact> testContactList = new ArrayList<Contact>();
-        Contact testContact = new Contact("Rick","0208","rick@westley","Zombies");
+        Contact testContact = new Contact("Rick","07949 2222","rick@westley.com","Zombies");
         testContactList.add(testContact);
 
         List<Opportunity> testOpportunityList = new ArrayList<Opportunity>();
@@ -113,7 +113,7 @@ public class AccountTest {
     @DisplayName("Test: getOpportunity(). Return nul as Opportunity doesn't exist.")
     void Account_getOpportunity_correct_OpportunityNotReturned() {
         List<Contact> testContactList = new ArrayList<Contact>();
-        Contact testContact = new Contact("Rick","0208","rick@westley","Zombies");
+        Contact testContact = new Contact("Rick","07949 2222","rick@westley.com","Zombies");
         testContactList.add(testContact);
 
         List<Opportunity> testOpportunityList = new ArrayList<Opportunity>();
