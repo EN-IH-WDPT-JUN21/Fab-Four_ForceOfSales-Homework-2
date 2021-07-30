@@ -101,12 +101,9 @@ public class CommandHandler {
         } else {
             Lead lead = lookupLead(id);
             Opportunity newOpportunity = createOpportunity(id, createContact(lead));
-            if(!DataValidator.isDuplicateOpportunity(newOpportunity)) {
-                return setupAccount(newOpportunity, getAccountInfo());
-            }
+            Account newAccount = setupAccount(newOpportunity, getAccountInfo());
+            return newAccount;
         }
-        System.out.println("Opportunity already exists!");
-        return null;
     }
 
     public static Contact createContact(Lead leadToConvert) {
@@ -126,7 +123,7 @@ public class CommandHandler {
         int newQuantity = getIntInput("quantity");
         Opportunity newOpportunity = new Opportunity(newProduct, newQuantity, newContact);
         Lead leadToConvert = lookupLead(id);
-        System.out.println("Opportunity created. Lead ID: " + newOpportunity.getId());
+        System.out.println("Opportunity created. Opportunity ID: " + newOpportunity.getId());
         removeLead(id);
         System.out.println("Lead deleted. Lead ID: " + leadToConvert.getId());
         return newOpportunity;
@@ -160,6 +157,7 @@ public class CommandHandler {
         Account newAccount = new Account(industry, employees, WordUtils.capitalizeFully(city), WordUtils.capitalizeFully(country), contactList, opportunityList);
         accountList.add(newAccount);
         System.out.println("Account created. Account ID: " + newAccount.getId());
+        accountList.add(newAccount);
         return newAccount;
     }
 
