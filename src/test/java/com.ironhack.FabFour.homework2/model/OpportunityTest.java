@@ -29,9 +29,9 @@ public class OpportunityTest {
     @Test
     @DisplayName("Test: setId(). Id incremented as expected.")
     public void Opportunity_SetId_IdIncremented() {
-        assertEquals(1001, opportunity.getId());
+        long idBeforeIncrement = opportunity.getId();
         opportunity1 = new Opportunity(Product.HYBRID, 200, contact1);
-        assertEquals(1002, opportunity1.getId());
+        assertEquals(++idBeforeIncrement, opportunity1.getId());
     }
 
     @Test

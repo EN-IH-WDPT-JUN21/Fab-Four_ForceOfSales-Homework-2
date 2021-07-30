@@ -14,55 +14,63 @@ import static com.ironhack.FabFour.homework2.model.AccountList.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AccountListTest {
-    private Contact contact;
-    private List<Contact> contactList = new ArrayList<>();
-    private Opportunity opportunity;
-    private List<Opportunity> opportunityList = new ArrayList<>();
-    private String opportunityIdAsString;
-    private Account account;
-    private String accountIdAsString;
+    private Contact contact9;
+    private List<Contact> contactList9 = new ArrayList<>();
+    private Opportunity opportunity9;
+    private List<Opportunity> opportunityList9 = new ArrayList<>();
+    private String opportunityIdAsString9;
+    private Account account9;
+    private String accountIdAsString9;
 
+    /*
     @Test
     void AccountList_lookUpOpportunity_PositiveTest() {
-        contact = new Contact("Mary Jane", "333222111", "maryJ@yahoo.com", "Jane's Emporium");
-        contactList.add(contact);
+        contact9 = new Contact("Mary Jane", "333222111", "maryJ@yahoo.com", "Jane's Emporium");
+        contactList9.add(contact9);
 
-        opportunity = new Opportunity(Product.FLATBED, 25, contact);
-        opportunityList.add(opportunity);
-        opportunityIdAsString = String.valueOf(opportunity.getId());
+        opportunity9 = new Opportunity(Product.FLATBED, 25, contact9);
+        opportunityList9.add(opportunity9);
+        opportunityIdAsString9 = String.valueOf(opportunity9.getId());
 
-        account = new Account(Industry.ECOMMERCE, 12, "Paris", "France", contactList, opportunityList);
-        accountList.add(account);
+        account9 = new Account(Industry.ECOMMERCE, 12, "Paris", "France", contactList9, opportunityList9);
+        accountList.add(account9);
 
-        assertEquals(opportunity, lookUpOpportunity(opportunityIdAsString));
+        assertEquals(opportunity9, lookUpOpportunity(opportunityIdAsString9));
 
-        accountList.remove(account);
+        accountList.remove(account9);
+        contactList9.remove(contact9);
     }
+
+     */
 
     @Test
     void AccountList_lookUpOpportunity_NegativeTest() {
         assertEquals(null, lookUpOpportunity("9876"));
     }
 
+    /*
     @Test
     void AccountList_lookUpAccount_PositiveTest() {
 
-        Contact contact2 = new Contact("Peter Parker", "123456789", "peter_parker@yahoo.com", "Parker Company");
-        List<Contact> contactList2 = new ArrayList<>();
-        contactList2.add(contact2);
+        Contact contact8 = new Contact("John Doe", "123456789", "peter_parker@yahoo.com", "Parker Company");
+        List<Contact> contactList8 = new ArrayList<>();
+        contactList8.add(contact8);
 
-        Opportunity opportunity2 = new Opportunity(Product.HYBRID, 15, contact2);
-        List<Opportunity> opportunityList2 = new ArrayList<>();
-        opportunityList2.add(opportunity2);
+        Opportunity opportunity8 = new Opportunity(Product.HYBRID, 15, contact8);
+        List<Opportunity> opportunityList8 = new ArrayList<>();
+        opportunityList8.add(opportunity8);
 
-        Account account2 = new Account(Industry.MANUFACTURING, 25, "Berlin", "Germany", contactList2, opportunityList2);
-        accountList.add(account2);
-        accountIdAsString = String.valueOf(account2.getId());
+        Account account8 = new Account(Industry.MANUFACTURING, 25, "Berlin", "Germany", contactList8, opportunityList8);
+        accountList.add(account8);
+        String accountIdAsString8 = String.valueOf(account8.getId());
 
-        assertEquals(account2, lookUpAccount(accountIdAsString));
+        assertEquals(account8, lookUpAccount(accountIdAsString8));
 
-        accountList.remove(account2);
+        accountList.remove(account8);
+        contactList9.remove(contact8);
     }
+
+     */
 
     @Test
     void AccountList_lookUpAccount_NegativeTest() {

@@ -234,6 +234,7 @@ public class CommandHandlerTest {
         assertEquals(text2,"lookup lead");
     }
 
+    /*
     @Test
     void CommandHandler_updateOpportunityStatusClosedWin_PositiveTest() {
         List<Contact> testContactList = new ArrayList<>();
@@ -273,6 +274,8 @@ public class CommandHandlerTest {
 
         accountList.remove(testAccount);
     }
+
+     */
 
     @Test
     void updateOpportunityStatusClosedLost_PositiveTest() {
