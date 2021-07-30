@@ -46,7 +46,7 @@ Our current client is the LBL Trucking Company which sells fleets of Trucks to l
 ![Class diagram](src/main/java/com/ironhack/FabFour/homework2/assets/classDiagram.png?raw=true "Class diagram")
 
 ### Use Case Diagram 
-![Use case diagram](src/main/java/com/ironhack/FabFour/homework2/assets/useDiagram.jpg?raw=true "Use case diagram")
+![Use case diagram](src/main/java/com/ironhack/FabFour/homework2/assets/useCaseDiagram.png?raw=true "Use case diagram")
 
 
 
