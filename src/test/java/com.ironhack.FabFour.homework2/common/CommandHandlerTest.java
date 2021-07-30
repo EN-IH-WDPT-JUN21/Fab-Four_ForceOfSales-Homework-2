@@ -319,7 +319,7 @@ public class CommandHandlerTest {
     public void CommandHandler_VoidCheckerTest_ErrorExpected() {
         Lead testLead = null;
         voidChecker(testLead);
-        assertEquals("That does not exist. Please try again.", outputStreamCaptor.toString()
+        assertEquals("Please try again.", outputStreamCaptor.toString()
                 .trim());
     }
 

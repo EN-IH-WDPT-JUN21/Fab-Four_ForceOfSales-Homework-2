@@ -100,7 +100,7 @@ public class LeadTest {
     @DisplayName("Test: toString(). Positive Test.")
     public void LeadClass_ToStringTest_ValidateString() {
         testLeadTwo = new Lead("Caddie", "01234 5678", "caddie@test.com","A Third Company");
-        String testString = "Lead: " + testLeadTwo.getId() + ", Name of Contact: " + testLeadTwo.getContactName() + ", Phone Number: " +
+        String testString = "Lead: " + testLeadTwo.getId() + ", Contact: " + testLeadTwo.getContactName() + ", Phone Number: " +
                 testLeadTwo.getPhoneNumber() + ", Email: " + testLeadTwo.getEmail() + ", Company Name: " + testLeadTwo.getCompanyName();
         assertTrue(testString.equals(testLeadTwo.toString()));
     }
