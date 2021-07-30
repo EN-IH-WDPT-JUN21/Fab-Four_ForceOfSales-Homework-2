@@ -56,15 +56,26 @@ public class Opportunity {
         return status;
     }
 
-    public void setStatus(Status status) {
+//    public void setStatus(Status status) {
+//        Status currentStatus = this.status;
+//        if(currentStatus == Status.CLOSED_LOST || currentStatus == Status.CLOSED_WON && status == Status.OPEN) {
+//            this.status = currentStatus;
+//        } else {
+//            this.status = status;
+//        }
+//        if (currentStatus == Status.OPEN && status == Status.CLOSED_LOST || status == Status.CLOSED_WON) {
+//            this.status = status;
+//        }
+//    }
+
+ public void setStatus(Status status) {
         Status currentStatus = this.status;
         if(currentStatus == Status.CLOSED_LOST || currentStatus == Status.CLOSED_WON && status == Status.OPEN) {
             this.status = currentStatus;
         } else {
-            this.status = status;
-        }
-        if (currentStatus == Status.OPEN && status == Status.CLOSED_LOST || status == Status.CLOSED_WON) {
-            this.status = status;
+            if(status == Status.OPEN || status == Status.CLOSED_LOST || status == Status.CLOSED_WON) {
+                this.status = status;
+            }
         }
     }
 
