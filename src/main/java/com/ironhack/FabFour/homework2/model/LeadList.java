@@ -21,6 +21,6 @@ public class LeadList {
             for (Lead lead : listOfLeads) {
                 System.out.println("Lead ID: " + lead.getId() + ", Contact Name: " + lead.getContactName() + ".\n");
             }
-        } else System.out.println("There is no leads! Try to add some by 'new lead' command");
+        } else System.out.println("There are no leads! Try to add some with the 'new lead' command");
     }
 }

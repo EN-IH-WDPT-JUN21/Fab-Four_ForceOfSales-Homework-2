@@ -62,4 +62,13 @@ public class LeadListTest {
         assertEquals("Lead ID: " + testOne.getId() + ", Contact Name: Buzz.", outputStreamCaptor.toString()
                 .trim());
     }
+
+    @Test
+    @DisplayName("Test: showLeads(). Return error message if list empty.")
+    public void LeadList_ShowLeadsTest_ReturnErrorMessage() {
+        LeadList.getListOfLeads().clear();
+        LeadList.showLeads();
+        assertEquals("There are no leads! Try to add some with the 'new lead' command", outputStreamCaptor.toString()
+                .trim());
+    }
 }

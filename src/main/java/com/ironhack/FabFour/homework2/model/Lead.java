@@ -2,6 +2,9 @@ package com.ironhack.FabFour.homework2.model;
 
 import java.util.Scanner;
 
+import static com.ironhack.FabFour.homework2.common.DataValidator.validateEmail;
+import static com.ironhack.FabFour.homework2.common.DataValidator.validatePhoneNumber;
+
 public class Lead {
     private static int leadIDCount = 1;
     protected long id;
@@ -46,7 +49,7 @@ public class Lead {
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        if (!phoneNumber.isBlank()) {
+        if (!phoneNumber.isEmpty() && validatePhoneNumber(phoneNumber)) {
             this.phoneNumber = phoneNumber;
         }
     }
@@ -56,7 +59,7 @@ public class Lead {
     }
 
     public void setEmail(String email) {
-        if (!email.isBlank() && email.contains("@")) {
+        if (!email.isEmpty() && validateEmail(email)) {
             this.email = email;
         }
     }

@@ -15,7 +15,7 @@ public class LeadTest {
 
     @BeforeAll
     public static void setUp() {
-        testLead = new Lead("Marie","0000 1234","marie@email.com","A New Company");
+        testLead = new Lead("Marie","01234 5678","marie@email.com","A New Company");
     }
 
     @Test
@@ -36,7 +36,7 @@ public class LeadTest {
     @Test
     @DisplayName("Test: Lead Constructor. Validate Correct Phone Number Set.")
     public void LeadClass_LeadConstructor_CheckCorrectPhoneNumber() {
-        assertEquals("0000 1234", testLead.getPhoneNumber());
+        assertEquals("01234 5678", testLead.getPhoneNumber());
     }
 
     @Test
@@ -72,7 +72,7 @@ public class LeadTest {
     @DisplayName(("Test: equals(). Positive Test."))
     public void LeadClass_EqualsTest_PositiveTest() {
         long testId = testLead.getId();
-        testLeadTwo = new Lead("Marie","0000 1234","marie@email.com","A New Company");
+        testLeadTwo = new Lead("Marie","01234 5678","marie@email.com","A New Company");
         testLeadTwo.id = testId;
         assertTrue(testLeadTwo.equals(testLead));
     }
