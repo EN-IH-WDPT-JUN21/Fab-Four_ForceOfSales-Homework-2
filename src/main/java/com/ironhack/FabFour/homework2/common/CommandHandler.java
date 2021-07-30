@@ -15,7 +15,7 @@ import org.apache.commons.lang.WordUtils;
 import java.io.IOException;
 import java.text.ParseException;
 
-import static com.ironhack.FabFour.homework2.model.AccountList.accountList;
+import static com.ironhack.FabFour.homework2.model.AccountList.*;
 
 public class CommandHandler {
 
@@ -39,8 +39,10 @@ public class CommandHandler {
                             " > show leads - to show all of leads\n" +
                             " > lookup lead {id} - to show specific lead\n" +
                             " > convert {id} - to convert lead to an opportunity\n" +
+                            " > lookup opportunity {id} - to show specific opportunity\n" +
+                            " > lookup account {id} - to show specific account\n" +
                             " > close-won {id} - to close case after sale\n" +
-                            " > close-lost {id} - to  close case without sale\n" +
+                            " > close-lost {id} - to close case without sale\n" +
                             " > quit - to leave the app"
                     );
                     break;
@@ -57,6 +59,12 @@ public class CommandHandler {
                     break;
                 case LOOKUP_LEAD:
                     lookupLead(id);
+                    break;
+                case LOOKUP_OPPORTUNITY:
+                    lookUpOpportunity(String.valueOf(id));
+                    break;
+                case LOOKUP_ACCOUNT:
+                    lookUpAccount(String.valueOf(id));
                     break;
                 case CLOSE_WON:
                     updateOpportunityStatusClosedWin(id);
@@ -86,21 +94,20 @@ public class CommandHandler {
     }
 
     public static Account convertLead(long id) {
+        //Wrapper method for converting Lead and setting up the Account object
         if(!DataValidator.leadExists(Long.toString(id))){
             System.out.println("Lead doesn't exist. Please provide the correct id.");
             return null;
         } else {
             Lead lead = lookupLead(id);
             Opportunity newOpportunity = createOpportunity(id, createContact(lead));
-            if(!DataValidator.isDuplicateOpportunity(newOpportunity)) {
-                return setupAccount(newOpportunity, getAccountInfo());
-            }
+            Account newAccount = setupAccount(newOpportunity, getAccountInfo());
+            return newAccount;
         }
-        System.out.println("Opportunity already exists!");
-        return null;
     }
 
     public static Contact createContact(Lead leadToConvert) {
+        //Creates Contact object from Lead
         String contactName = leadToConvert.getContactName();
         String contactPhoneNumber = leadToConvert.getPhoneNumber();
         String contactEmail = leadToConvert.getEmail();
@@ -109,19 +116,22 @@ public class CommandHandler {
         return newContact;
     }
     public static Opportunity createOpportunity(long id, Contact newContact){
+        //Creates Opportunity object from Contact
         System.out.println("Please provide the type of the product you're interested in.\nPossible choices are: HYBRID, FLATBED, BOX");
         Product newProduct = (Product) getEnumInput("product");
         System.out.println("Please provide the number of trucks you're interested in.\nMaximum amount: 300");
         int newQuantity = getIntInput("quantity");
         Opportunity newOpportunity = new Opportunity(newProduct, newQuantity, newContact);
         Lead leadToConvert = lookupLead(id);
-        System.out.println("Opportunity created. Lead ID: " + newOpportunity.getId());
+        System.out.println("Opportunity created. Opportunity ID: " + newOpportunity.getId());
         removeLead(id);
         System.out.println("Lead deleted. Lead ID: " + leadToConvert.getId());
         return newOpportunity;
     }
 
     public static List getAccountInfo() {
+        //Gets additional Account details from user input and
+        //stores them in a List
         System.out.println("Please provide the industry name.\nPossible choices are: PRODUCE, ECOMMERCE, MANUFACTURING, MEDICAL, OTHER");
         Industry newIndustry = (Industry) getEnumInput("industry");
         System.out.println("Please provide the number of company employees");
@@ -135,11 +145,11 @@ public class CommandHandler {
     }
 
     public static Account setupAccount(Opportunity opportunity, List<Object> accountInfoList) {
+        //Returns new Account Object from Opportunity and List of Account details
         Industry industry = (Industry) accountInfoList.get(0);
         int employees = (int) accountInfoList.get(1);
         String city = (String) accountInfoList.get(2);
         String country = (String) accountInfoList.get(3);
-        //should I create new ones each time???????? - IMPORTANT, discuss and test
         List<Contact> contactList = new ArrayList<>();
         List<Opportunity> opportunityList = new ArrayList<>();
         contactList.add(opportunity.getDecisionMaker());
@@ -150,6 +160,7 @@ public class CommandHandler {
     }
 
     public static boolean isInteger(String input) {
+        //Checks if the input String can be parsed into Integer
         try {
             Integer.parseInt(input);
             return true;
@@ -159,6 +170,7 @@ public class CommandHandler {
     }
 
     public static Scanner createScanner() {
+        //Creates new Scanner object after wrong user input is provided
         Scanner aScanner = new Scanner(System.in);
         System.out.println("Please provide the correct value");
         if (aScanner.hasNextLine()) {
@@ -168,6 +180,7 @@ public class CommandHandler {
     }
 
     public static Object getEnumInput(String enumType) {
+        //Processes user input used for setting enum  values
         Scanner aScanner = new Scanner(System.in);
         Object result = null;
         if (aScanner.hasNextLine()) {
@@ -185,6 +198,7 @@ public class CommandHandler {
     }
 
     public static int getIntInput(String intType) {
+        //Processes user input used for setting int values
         Scanner aScanner = new Scanner(System.in);
         int result = 0;
         int range = (intType == "quantity") ? 300 : 3000000;
@@ -201,6 +215,7 @@ public class CommandHandler {
     }
 
     public static String getUserInput() {
+        //Processes user input used for setting String values
         Scanner aScanner = new Scanner(System.in);
         String result = "";
         if (aScanner.hasNextLine()) {
@@ -266,8 +281,8 @@ public class CommandHandler {
                 break;
             }
         }
-        if(found = false) {
-            System.out.println("No opportunity has been found with this ID. Please try again.");
+        if(found == false) {
+            System.out.println("There is no opportunity with this ID. Please try again.");
         }
     }
 
@@ -282,8 +297,8 @@ public class CommandHandler {
                 break;
             }
         }
-        if(found = false) {
-            System.out.println("No opportunity has been found with this ID. Please try again.");
+        if(found == false) {
+            System.out.println("There is no opportunity with this ID. Please try again.");
         }
     }
 }

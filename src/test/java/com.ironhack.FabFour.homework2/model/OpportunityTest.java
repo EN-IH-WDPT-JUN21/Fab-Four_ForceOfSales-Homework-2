@@ -77,4 +77,12 @@ public class OpportunityTest {
     public void Opportunity_getDecisionMaker_isContactInstance(){
         assertTrue(opportunity.getDecisionMaker() instanceof Contact);
     }
+
+    @Test
+    @DisplayName("Test: toString(). Positive Test")
+    public void Opportunity_ToStringTest_ValidateString() {
+        String testString = "Opportunity: " + opportunity.getId() + ", Product: " + opportunity.getProduct() + ", Quantity: " +
+                opportunity.getQuantity() + ", Contact:" + opportunity.getDecisionMaker().getContactName() + ", Status: " + opportunity.getStatus();
+        assertTrue(testString.equals(opportunity.toString()));
+    }
 }

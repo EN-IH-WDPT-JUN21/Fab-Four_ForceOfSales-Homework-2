@@ -88,7 +88,7 @@ public class AccountTest {
     }
 
     @Test
-    @DisplayName("Test: setCountry(). Country set as expected despite empty input.")
+    @DisplayName("Test: setCountry(). Country set as expected despite empty initial input.")
     public void Account_SetCountry_CountrySetAfterEmptyInputProvided(){
         InputStream in = new ByteArrayInputStream("Italy".getBytes());
         System.setIn(in);
@@ -98,7 +98,7 @@ public class AccountTest {
     }
 
     @Test
-    @DisplayName("Test: setCity(). City set as expected despite empty input.")
+    @DisplayName("Test: setCity(). City set as expected despite empty initial input.")
     public void Account_SetCity_CitySetAfterEmptyInputProvided(){
         InputStream in = new ByteArrayInputStream("Los Angeles".getBytes());
         System.setIn(in);
@@ -165,5 +165,14 @@ public class AccountTest {
         Account equalAccount = new Account(Industry.ECOMMERCE, 12, "Paris", "France", contactList, opportunityList);
         assertTrue(account.equals(account));
         assertTrue(account.equals(equalAccount));
+    }
+
+    @Test
+    @DisplayName("Test: toString(). Positive Test.")
+    public void Account_ToStringTest_ValidateString() {
+        String testString = "Account: " + account.getId() + ", Industry: " + account.getIndustry() + ", Number of employees: " +
+                account.getEmployeeCount() + ", City: " + account.getCity() + ", Country: " + account.getCountry() +
+                    ", Contact:" + account.getContactList().get(0).getContactName() + ", Opportunity ID:" + account.getOpportunityList().get(0).getId();
+        assertTrue(testString.equals(account.toString()));
     }
 }
