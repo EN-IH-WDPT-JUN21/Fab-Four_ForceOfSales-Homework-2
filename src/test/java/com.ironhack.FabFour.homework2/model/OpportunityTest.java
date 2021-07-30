@@ -82,7 +82,7 @@ public class OpportunityTest {
     @DisplayName("Test: toString(). Positive Test")
     public void Opportunity_ToStringTest_ValidateString() {
         String testString = "Opportunity: " + opportunity.getId() + ", Product: " + opportunity.getProduct() + ", Quantity: " +
-                opportunity.getQuantity() + ", Contact:" + opportunity.getDecisionMaker().getContactName() + ", Status: " + opportunity.getStatus();
+                opportunity.getQuantity() + ", Contact: " + opportunity.getDecisionMaker().getContactName() + ", Status: " + opportunity.getStatus();
         assertTrue(testString.equals(opportunity.toString()));
     }
 }
