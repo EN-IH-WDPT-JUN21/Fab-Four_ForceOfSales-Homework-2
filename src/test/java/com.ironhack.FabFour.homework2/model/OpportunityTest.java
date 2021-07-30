@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
 import java.io.*;
-import java.util.Scanner;
 
 public class OpportunityTest {
     static Contact contact;
@@ -59,29 +58,9 @@ public class OpportunityTest {
     @Test
     @DisplayName("Test: setStatus(). Status not set as invalid input provided.")
     public void Opportunity_SetStatus_StatusNotSet(){
+        opportunity.setStatus(Status.CLOSED_WON);
         opportunity.setStatus(Status.OPEN);
         assertFalse(opportunity.getStatus() == Status.OPEN);
-    }
-
-    @Test
-    @DisplayName("Test: setInteger(). Integer attributes set as expected.")
-    public void Opportunity_SetInteger_IntegerSet(){
-        InputStream in = new ByteArrayInputStream("56".getBytes());
-        System.setIn(in);
-        Scanner sc = new Scanner(System.in);
-        opportunity.setInteger(sc);
-        assertEquals(opportunity.getQuantity(), 56);
-    }
-
-    @Test
-    @DisplayName("Test: setInteger(). Integer attributes not set as invalid input provided.")
-    public void Opportunity_SetInteger_IntegerNotSet(){
-        InputStream in = new ByteArrayInputStream("0".getBytes());
-        System.setIn(in);
-        Scanner sc = new Scanner(System.in);
-        in = new ByteArrayInputStream("400".getBytes());
-        System.setIn(in);
-        assertThrows(NullPointerException.class, () ->  opportunity.setInteger(sc));
     }
 
     @Test

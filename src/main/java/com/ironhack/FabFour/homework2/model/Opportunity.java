@@ -1,11 +1,7 @@
 package com.ironhack.FabFour.homework2.model;
 
-import com.ironhack.FabFour.homework2.common.CommandHandler;
 import com.ironhack.FabFour.homework2.enums.Product;
 import com.ironhack.FabFour.homework2.enums.Status;
-
-import java.util.Scanner;
-
 
 public class Opportunity {
     private static long opportunityIDCount = 1000;
@@ -45,16 +41,7 @@ public class Opportunity {
     }
 
     public void setQuantity(int quantity) {
-        if (quantity > 0 && quantity <= 300) {
-            this.quantity = quantity;
-        }
-        else {
-            setInteger(CommandHandler.createScanner());
-        }
-    }
-
-    public void setInteger(Scanner sc) {
-        setQuantity(Integer.parseInt(sc.next()));
+        this.quantity = quantity;
     }
 
     public Contact getDecisionMaker() {
@@ -70,7 +57,13 @@ public class Opportunity {
     }
 
     public void setStatus(Status status) {
-        if (status != null && (status == Status.CLOSED_LOST || status == Status.CLOSED_WON)) {
+        Status currentStatus = this.status;
+        if(currentStatus == Status.CLOSED_LOST || currentStatus == Status.CLOSED_WON && status == Status.OPEN) {
+            this.status = currentStatus;
+        } else {
+            this.status = status;
+        }
+        if (currentStatus == Status.OPEN && status == Status.CLOSED_LOST || status == Status.CLOSED_WON) {
             this.status = status;
         }
     }
