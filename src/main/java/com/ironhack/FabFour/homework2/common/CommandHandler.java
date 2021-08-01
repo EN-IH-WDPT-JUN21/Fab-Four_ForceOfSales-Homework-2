@@ -166,7 +166,6 @@ public class CommandHandler {
         Account newAccount = new Account(industry, employees, WordUtils.capitalizeFully(city), WordUtils.capitalizeFully(country), contactList, opportunityList);
         accountList.add(newAccount);
         System.out.println("Account created. Account ID: " + newAccount.getId());
-        accountList.add(newAccount);
         return newAccount;
     }
 
@@ -299,9 +298,7 @@ public class CommandHandler {
                 opportunity.setStatus(Status.CLOSED_LOST);
                 System.out.println("The opportunity status has been set to 'closed-lost'.");
                 found = true;
-                break;
-            }
-        }
+                break;}}
         if(found == false) {
             System.out.println("There is no opportunity with this ID. Please try again.");
         }
@@ -316,9 +313,7 @@ public class CommandHandler {
                 opportunity.setStatus(Status.CLOSED_WON);
                 System.out.println("The opportunity status has been set to 'closed-won'.");
                 found = true;
-                break;
-            }
-        }
+                break;}}
         if(found == false) {
             System.out.println("There is no opportunity with this ID. Please try again.");
         }
