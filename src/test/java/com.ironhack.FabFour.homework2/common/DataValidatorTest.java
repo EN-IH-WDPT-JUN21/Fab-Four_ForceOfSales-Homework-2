@@ -192,6 +192,7 @@ public class DataValidatorTest {
         assertTrue(opportunityExists(opportunityId.toString()));
 
         accountList.remove(testAccount2);
+        testContactList2.remove(testContact2);
     }
 
     @Test
@@ -211,6 +212,7 @@ public class DataValidatorTest {
         assertFalse(opportunityExists("1234"));
 
         accountList.remove(testAccount);
+        testContactList.remove(testContact);
     }
 
     /*
@@ -260,6 +262,7 @@ public class DataValidatorTest {
         assertTrue(isDuplicateOpportunity(testOpportunity2));
 
         accountList.remove(testAccount);
+        testContactList.remove(testContact);
     }
 
     @Test
@@ -280,6 +283,7 @@ public class DataValidatorTest {
         assertFalse(isDuplicateOpportunity(testOpportunity2));
 
         accountList.remove(testAccount);
+        testContactList.remove(testContact);
     }
 
 }
