@@ -192,6 +192,7 @@ public class DataValidatorTest {
         assertTrue(opportunityExists(opportunityId.toString()));
 
         accountList.remove(testAccount2);
+        testContactList2.remove(testContact2);
     }
 
     @Test
@@ -211,12 +212,14 @@ public class DataValidatorTest {
         assertFalse(opportunityExists("1234"));
 
         accountList.remove(testAccount);
+        testContactList.remove(testContact);
     }
 
     /*
     TESTS TO CHECK DUPLICATES
      */
     @Test
+    @DisplayName("Test: Lead is a duplicate")
     void DataValidator_isDuplicateLead_PositiveTest() {
         List<Lead> testListOfLeads = getListOfLeads();
         Lead testLead3 = new Lead("Peter", "987654321", "peter@email.de", "Small Company");
@@ -229,6 +232,7 @@ public class DataValidatorTest {
     }
 
     @Test
+    @DisplayName("Test: Lead is not a duplicate")
     void DataValidator_isDuplicateLead_NegativeTest() {
         Lead testLead1 = new Lead("Peter", "987654321", "peter@email.de", "Small Company");
         Lead testLead2 = new Lead("Petra", "987654321", "peter@email.de", "Small Company");
@@ -241,6 +245,7 @@ public class DataValidatorTest {
     }
 
     @Test
+    @DisplayName("Test: Opportunity is a duplicate")
     void DataValidator_isDuplicateOpportunity_PositiveTest() {
         List<Contact> testContactList = new ArrayList<>();
         Contact testContact = new Contact("Nick","1234567","nick@yahoo.fr","Company Zero");
@@ -260,9 +265,11 @@ public class DataValidatorTest {
         assertTrue(isDuplicateOpportunity(testOpportunity2));
 
         accountList.remove(testAccount);
+        testContactList.remove(testContact);
     }
 
     @Test
+    @DisplayName("Test: Opportunity is not a duplicate")
     void DataValidator_isDuplicateOpportunity_NegativeTest() {
         List<Contact> testContactList = new ArrayList<>();
         Contact testContact = new Contact("Nick","1234567","nick@yahoo.fr","Company Zero");
@@ -280,6 +287,30 @@ public class DataValidatorTest {
         assertFalse(isDuplicateOpportunity(testOpportunity2));
 
         accountList.remove(testAccount);
+        testContactList.remove(testContact);
     }
 
+    @Test
+    @DisplayName("Test: Input String contains only letters")
+    void DataValidator_containsOnlyLetters_PositiveTest() {
+        assertTrue(containsOnlyLetters("Berlin"));
+    }
+
+    @Test
+    @DisplayName("Test: Input String contains letters and white space")
+    void DataValidator_containsOnlyLetters_PositiveTestWithWhiteSpaces() {
+        assertTrue(containsOnlyLetters("new york"));
+    }
+
+    @Test
+    @DisplayName("Test: Input String contains numbers")
+    void DataValidator_containsOnlyLetters_NegativeTestWithNumbers() {
+        assertFalse(containsOnlyLetters("P4r1s"));
+    }
+
+    @Test
+    @DisplayName("Test: Input String contains other signs")
+    void DataValidator_containsOnlyLetters_NegativeTestWithOtherSigns() {
+        assertFalse(containsOnlyLetters("Lon!don"));
+    }
 }

@@ -210,9 +210,13 @@ public class CommandHandlerTest {
         accountInfoList = Arrays.asList(Industry.PRODUCE, 25, "Boston", "USA");
         newContact = new Contact("Peter Parker", "999888777", "peterP@yahoo.com", "Webs");
         newOpportunity = new Opportunity(Product.FLATBED, 25, newContact);
-        assertEquals(Industry.PRODUCE, test.setupAccount(newOpportunity, accountInfoList).getIndustry());
-        assertEquals(newOpportunity, test.setupAccount(newOpportunity, accountInfoList).getOpportunityList().get(0));
-        assertEquals(newContact, test.setupAccount(newOpportunity, accountInfoList).getContactList().get(0));
+        Account newAccount = test.setupAccount(newOpportunity, accountInfoList);
+
+        assertEquals(Industry.PRODUCE, newAccount.getIndustry());
+        assertEquals(newOpportunity, newAccount.getOpportunityList().get(0));
+        assertEquals(newContact, newAccount.getContactList().get(0));
+
+        accountList.remove(newAccount);
     }
 
     @Test
@@ -256,22 +260,8 @@ public class CommandHandlerTest {
 
     @Test
     void CommandHandler_updateOpportunityStatusClosedWin_NegativeTest() {
-        List<Contact> testContactList = new ArrayList<>();
-        Contact testContact = new Contact ("John Smith", "14243434", "johnsmith@gmx.de", "Smith Lab");
-        testContactList.add(testContact);
-
-        List<Opportunity> testOpportunityList = new ArrayList<>();
-        Opportunity testOpportunity = new Opportunity(Product.BOX, 12, testContact);
-        testOpportunityList.add(testOpportunity);
-
-        Account testAccount = new Account(Industry.MANUFACTURING, 345, "New York", "USA", testContactList, testOpportunityList);
-        accountList.add(testAccount);
-
-        Long id = testOpportunity.getId();
-        updateOpportunityStatusClosedWin(id);
-        assertFalse(Status.OPEN == testOpportunity.getStatus());
-
-        accountList.remove(testAccount);
+        updateOpportunityStatusClosedWin(9876);
+        assertEquals("There is no opportunity with this ID. Please try again.", outputStreamCaptor.toString().trim());
     }
 
     @Test
@@ -295,23 +285,9 @@ public class CommandHandlerTest {
     }
 
     @Test
-    void updateOpportunityStatusClosedLost_NegativeTest() {
-        List<Contact> testContactList = new ArrayList<>();
-        Contact testContact = new Contact ("John Smith", "14243434", "johnsmith@gmx.de", "Smith Lab");
-        testContactList.add(testContact);
-
-        List<Opportunity> testOpportunityList = new ArrayList<>();
-        Opportunity testOpportunity = new Opportunity(Product.BOX, 12, testContact);
-        testOpportunityList.add(testOpportunity);
-
-        Account testAccount = new Account(Industry.MANUFACTURING, 345, "New York", "USA", testContactList, testOpportunityList);
-        accountList.add(testAccount);
-
-        Long id = testOpportunity.getId();
-        updateOpportunityStatusClosedLost(id);
-        assertFalse(Status.OPEN == testOpportunity.getStatus());
-
-        accountList.remove(testAccount);
+    void CommandHandler_updateOpportunityStatusClosedLost_NegativeTest() {
+        updateOpportunityStatusClosedLost(55555);
+        assertEquals("There is no opportunity with this ID. Please try again.", outputStreamCaptor.toString().trim());
     }
 
     @Test
