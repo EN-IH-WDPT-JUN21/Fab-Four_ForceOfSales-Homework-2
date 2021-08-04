@@ -1,3 +1,0 @@
-Lead ID,Contact Name,Phone Number,Email,Company Name
-1,Buzz,null,null,A Company
-2,Woody,null,null,A Company
