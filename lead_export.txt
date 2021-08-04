@@ -1,4 +1,0 @@
-Id,Contact Name,Phone Number,Email,Company Name 
-1,maddy,0202020,maddy@test.com,A company
-2,buzz,02020202,buzz@test.com,A company
-3,biff ,020202020,bizz@test.com,A company
