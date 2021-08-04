@@ -47,13 +47,86 @@ public class InputOutputTests {
     }
 
     @Test
-    @DisplayName("Test: exportLeadInformation(). Verify that export is the same each time.")
-    public void InputOutput_ExportLeadInformationTest_SameExport() throws IOException {
+    @DisplayName("Test: exportLeadInformation(). Verify file created.")
+    public void InputOutput_ExportLeadInformationTest_FileCreated() {
         String simulatedInput = "LeadTestOne";
         InputStream savedStandardInputStream = System.in;
         System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
         InputOutput.exportLeadInformation();
         System.setIn(savedStandardInputStream);
 
+        File tempFile = new File("LeadTestOne.txt");
+        assertTrue(tempFile.exists());
+    }
+
+    @Test
+    @DisplayName("Test: exportLeadInformation(). Verify file name as expected.")
+    public void InputOutput_ExportLeadInformationTest_FileNameAsExpected() {
+        String simulatedInput = "LeadTestOne";
+        InputStream savedStandardInputStream = System.in;
+        System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+        InputOutput.exportLeadInformation();
+        System.setIn(savedStandardInputStream);
+
+        File tempFileOne = new File("LeadTestOne.txt");
+        assertTrue(tempFileOne.exists());
+        File tempFileTwo = new File("LeadTestTwo.txt");
+        assertFalse(tempFileTwo.exists());
+    }
+
+    @Test
+    @DisplayName("Test: exportAccountInformation(). Verify file created.")
+    public void InputOutput_ExportAccountInformationTest_FileCreated() {
+        String simulatedInput = "AccountTestOne";
+        InputStream savedStandardInputStream = System.in;
+        System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+        InputOutput.exportAccountInformation();
+        System.setIn(savedStandardInputStream);
+
+        File tempFile = new File("AccountTestOne.txt");
+        assertTrue(tempFile.exists());
+    }
+
+    @Test
+    @DisplayName("Test: exportAccountInformation(). Verify file name as expected.")
+    public void InputOutput_ExportAccountInformationTest_FileNameAsExpected() {
+        String simulatedInput = "AccountTestOne";
+        InputStream savedStandardInputStream = System.in;
+        System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+        InputOutput.exportAccountInformation();
+        System.setIn(savedStandardInputStream);
+
+        File tempFileOne = new File("AccountTestOne.txt");
+        assertTrue(tempFileOne.exists());
+        File tempFileTwo = new File("AccountTestTwo.txt");
+        assertFalse(tempFileTwo.exists());
+    }
+
+    @Test
+    @DisplayName("Test: exportOpportunityInformation(). Verify file created.")
+    public void InputOutput_ExportOppInformationTest_FileCreated() {
+        String simulatedInput = "OppTestOne";
+        InputStream savedStandardInputStream = System.in;
+        System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+        InputOutput.exportOppInformation();
+        System.setIn(savedStandardInputStream);
+
+        File tempFile = new File("OppTestOne.txt");
+        assertTrue(tempFile.exists());
+    }
+
+    @Test
+    @DisplayName("Test: exportOpportunityInformation(). Verify file name as expected.")
+    public void InputOutput_ExportOppInformationTest_FileNameAsExpected() {
+        String simulatedInput = "OppTestOne";
+        InputStream savedStandardInputStream = System.in;
+        System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+        InputOutput.exportOppInformation();
+        System.setIn(savedStandardInputStream);
+
+        File tempFileOne = new File("OppTestOne.txt");
+        assertTrue(tempFileOne.exists());
+        File tempFileTwo = new File("OppTestTwo.txt");
+        assertFalse(tempFileTwo.exists());
     }
 }
