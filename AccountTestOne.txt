@@ -1,3 +1,0 @@
-Id,Industry,Employee Count,City,Country,Number of Opportunities 
-2002,OTHER,50,Berlin,Germany,1
-2002,MEDICAL,300,London,UK,1
