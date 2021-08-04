@@ -1,2 +1,0 @@
-Company ID,Company Name,Id,Product,Quantity,Decision Maker,Status 
-2001,OTHER,1001,BOX,10,Lead: 5000, Contact: Maddy, Phone Number: 0202020, Email: maddy@test.com, Company Name: A company name,OPEN
