@@ -1,2 +1,0 @@
-Id,Industry,Employee Count,City,Country,Number of Opportunities 
-2001,OTHER,50,Dd,Dd,1
