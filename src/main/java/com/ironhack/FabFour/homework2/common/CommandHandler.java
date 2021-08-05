@@ -234,30 +234,39 @@ public class CommandHandler {
         Scanner aScanner = new Scanner(System.in);
         int result = 0;
         int range = (intType == "quantity") ? 300 : 3000000;
-        if (aScanner.hasNextLine()) {
-            String userInput = aScanner.next();
-            if (isInteger(userInput) && Integer.parseInt(userInput) > 0 && Integer.parseInt(userInput) <= range) {
-                result = Integer.parseInt(userInput);
-            } else {
-                errorMessage("Please provide the correct value.");
-                getIntInput(intType);
+        while(aScanner.hasNextLine()) {
+            try {
+                String userInput = aScanner.nextLine();
+                if (!isEmpty(userInput) && isInteger(userInput) && Integer.parseInt(userInput) > 0 && Integer.parseInt(userInput) <= range) {
+                    result = Integer.parseInt(userInput);
+                    return result;
+                } else {
+                    errorMessage("Please provide the correct value.");
+                }
+            } catch (Exception e) {
+                System.out.println("Exception is: " + e);
             }
         }
-        return result;
+        return 0;
     }
+
 
     public static String getUserInput() {
         //Processes user input used for setting String values
         Scanner aScanner = new Scanner(System.in);
-        do{
-            String input = aScanner.nextLine();
-            if(!isEmpty(input) && containsOnlyLetters(input)) {
-                return input;
-            } else {
-//                System.out.println("Please provide the correct value.");
-                errorMessage("Please provide the correct value.");
+        while(aScanner.hasNextLine()) {
+            try {
+                String input = aScanner.nextLine();
+                if(!isEmpty(input) && containsOnlyLetters(input)) {
+                    return input;
+                } else {
+                    errorMessage("Please provide the correct value.");
+                }
+            } catch (Exception e) {
+                System.out.println("Exception is: " + e);
             }
-        } while(true);
+        }
+        return null;
     }
 
     public static void errorMessage(String message) {
