@@ -212,21 +212,24 @@ public class CommandHandler {
     }
 
     public static Object getEnumInput(String enumType) {
-        //Processes user input used for setting enum  values
+        //Processes user input used for setting int values
         Scanner aScanner = new Scanner(System.in);
         Object result = null;
-        if (aScanner.hasNextLine()) {
-            if (enumType == "product") {
-                result = EnumHandler.getRequiredProduct(aScanner.next());
-            } else if (enumType == "industry") {
-                result = EnumHandler.getRequiredIndustry(aScanner.next());
-            }
+        while(aScanner.hasNextLine()) {
+            try {
+                String userInput = aScanner.nextLine();
+                if (!isEmpty(userInput) && enumType == "product" && EnumHandler.getRequiredProduct(userInput) != null) {
+                    result = EnumHandler.getRequiredProduct(userInput);
+                    return result;
+                } else if (!isEmpty(userInput) && enumType == "industry" && EnumHandler.getRequiredIndustry(userInput) != null) {
+                    result = EnumHandler.getRequiredIndustry(userInput);
+                    return result;
+                } else {
+                    errorMessage("Please provide the correct value.");
+                }
+            } catch (Exception e) { System.out.println("Exception is: " + e);}
         }
-        if (result == null) {
-            errorMessage("Please provide the correct value.");
-            getEnumInput(enumType);
-        }
-        return result;
+        return null;
     }
 
     public static int getIntInput(String intType) {
@@ -243,9 +246,7 @@ public class CommandHandler {
                 } else {
                     errorMessage("Please provide the correct value.");
                 }
-            } catch (Exception e) {
-                System.out.println("Exception is: " + e);
-            }
+            } catch (Exception e) { System.out.println("Exception is: " + e); }
         }
         return 0;
     }
@@ -262,19 +263,18 @@ public class CommandHandler {
                 } else {
                     errorMessage("Please provide the correct value.");
                 }
-            } catch (Exception e) {
-                System.out.println("Exception is: " + e);
-            }
+            } catch (Exception e) { System.out.println("Exception is: " + e); }
         }
         return null;
     }
 
-    public static void errorMessage(String message) {
+    public static String errorMessage(String message) {
         String escapeCode = "\033[31m";
         String resetCode = "\033[0m";
 
         System.out.println(escapeCode + message);
         System.out.println(resetCode);
+        return message;
     }
 
     public static Lead createLead() {
@@ -298,9 +298,7 @@ public class CommandHandler {
             LeadList.getListOfLeads().add(tempLead);
             System.out.println("Lead created. Lead ID: " + tempLead.getId());
         }
-        catch (Exception e) {
-            System.out.println("Exception: " + e);
-        }
+        catch (Exception e) { System.out.println("Exception: " + e); }
         return tempLead;
     }
 
