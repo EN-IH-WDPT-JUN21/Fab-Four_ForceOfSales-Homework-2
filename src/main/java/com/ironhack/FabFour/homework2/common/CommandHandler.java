@@ -8,6 +8,9 @@ import com.ironhack.FabFour.homework2.model.Opportunity;
 import com.ironhack.FabFour.homework2.enums.*;
 import com.ironhack.FabFour.homework2.model.*;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.*;
 
 import org.apache.commons.lang.WordUtils;
@@ -15,6 +18,7 @@ import org.apache.commons.lang.WordUtils;
 import java.io.IOException;
 import java.text.ParseException;
 
+import static com.ironhack.FabFour.homework2.common.InputOutput.*;
 import static com.ironhack.FabFour.homework2.model.AccountList.*;
 
 public class CommandHandler {
@@ -32,15 +36,27 @@ public class CommandHandler {
                 case SHOW_LEADS:
                     LeadList.showLeads();
                     break;
+                case EXPORT_LEADS:
+                    exportLeadInformation();
+                    break;
+                case EXPORT_OPPORTUNITIES:
+                    exportOppInformation();
+                    break;
+                case EXPORT_ACCOUNTS:
+                    exportAccountInformation();
+                    break;
                 case HELP:
                     System.out.println(
                             " Type one of below statement to execute :\n" +
                             " > new lead - " + "to create new lead\n" +
                             " > show leads - to show all of leads\n" +
+                            " > export leads - to export all current leads\n" +
                             " > lookup lead {id} - to show specific lead\n" +
                             " > convert {id} - to convert lead to an opportunity\n" +
                             " > lookup opportunity {id} - to show specific opportunity\n" +
+                            " > export opportunities {id} - to export all current opportunities\n" +
                             " > lookup account {id} - to show specific account\n" +
+                            " > export accounts {id} - to export all accounts\n" +
                             " > close-won {id} - to close case after sale\n" +
                             " > close-lost {id} - to close case without sale\n" +
                             " > quit - to leave the app"
@@ -166,7 +182,6 @@ public class CommandHandler {
         Account newAccount = new Account(industry, employees, WordUtils.capitalizeFully(city), WordUtils.capitalizeFully(country), contactList, opportunityList);
         accountList.add(newAccount);
         System.out.println("Account created. Account ID: " + newAccount.getId());
-        accountList.add(newAccount);
         return newAccount;
     }
 
@@ -245,17 +260,13 @@ public class CommandHandler {
         try {
             Scanner aScanner = new Scanner(System.in);
             System.out.println("Please enter their contact name.");
-            tempName = aScanner.next();
-            Thread.sleep(500);
+            tempName = aScanner.nextLine();
             System.out.println("Please enter their phone number, with no spaces.");
-            tempNumber = aScanner.next();
-            Thread.sleep(500);
+            tempNumber = aScanner.nextLine();
             System.out.println("Please enter their email address.");
-            tempEmail = aScanner.next();
-            Thread.sleep(1000);
+            tempEmail = aScanner.nextLine();
             System.out.println("Please enter their company's name");
-            tempCompany = aScanner.next();
-            Thread.sleep(1000);
+            tempCompany = aScanner.nextLine();
             tempLead = new Lead(tempName, tempNumber, tempEmail, tempCompany);
             LeadList.getListOfLeads().add(tempLead);
             System.out.println("Lead created. Lead ID: " + tempLead.getId());
@@ -299,9 +310,7 @@ public class CommandHandler {
                 opportunity.setStatus(Status.CLOSED_LOST);
                 System.out.println("The opportunity status has been set to 'closed-lost'.");
                 found = true;
-                break;
-            }
-        }
+                break;}}
         if(found == false) {
             System.out.println("There is no opportunity with this ID. Please try again.");
         }
@@ -316,9 +325,7 @@ public class CommandHandler {
                 opportunity.setStatus(Status.CLOSED_WON);
                 System.out.println("The opportunity status has been set to 'closed-won'.");
                 found = true;
-                break;
-            }
-        }
+                break;}}
         if(found == false) {
             System.out.println("There is no opportunity with this ID. Please try again.");
         }

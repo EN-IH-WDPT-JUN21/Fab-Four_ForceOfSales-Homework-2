@@ -18,6 +18,10 @@ public class LeadList {
         return listOfLeads;
     }
 
+    public static void setListOfLeads(List<Lead> newList) {
+        LeadList.listOfLeads = newList;
+    }
+
     public static int countLeads() {
         return listOfLeads.size();
     }

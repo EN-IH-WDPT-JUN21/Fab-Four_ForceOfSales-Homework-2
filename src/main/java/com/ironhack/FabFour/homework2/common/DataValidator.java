@@ -36,7 +36,7 @@ public class DataValidator {
         return input.isBlank();
     }
 
-    //Method to check if lead exists
+    //Method to check if a lead with a specific ID exists
     public static boolean leadExists(String input) {
         List<Lead> listOfLeads = getListOfLeads();
 
@@ -50,7 +50,7 @@ public class DataValidator {
         return false;
     }
 
-    //Method to check if the opportunity exists
+    //Method to check if an opportunity with the specific ID exists
     public static boolean opportunityExists(String input) {
         for(Account account : accountList) {
             Opportunity opportunity = account.getOpportunity(input);
@@ -61,7 +61,7 @@ public class DataValidator {
         return false;
     }
 
-    //Method to check if the lead already exists
+    //Method to check if a lead with the same information already exists
     public static boolean isDuplicateLead(Lead newLead) {
         List<Lead> listOfLeads = getListOfLeads();
 
@@ -71,7 +71,7 @@ public class DataValidator {
         return false;
     }
 
-
+    //Method to check if an opportunity with the same information already exists
     public static boolean isDuplicateOpportunity(Opportunity inputOpportunity) {
         for(Account account : accountList) {
             List<Opportunity> opportunityList = account.getOpportunityList();
@@ -82,4 +82,12 @@ public class DataValidator {
         return false;
     }
 
+    //Method to check if the String contains only letters and white spaces
+    public static boolean containsOnlyLetters(String input) {
+        final String regex = "^[ a-zA-Z]+$";
+
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+        return matcher.matches();
+    }
 }
