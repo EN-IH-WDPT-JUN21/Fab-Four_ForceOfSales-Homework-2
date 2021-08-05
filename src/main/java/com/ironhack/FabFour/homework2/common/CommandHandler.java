@@ -204,7 +204,7 @@ public class CommandHandler {
     public static Scanner createScanner() {
         //Creates new Scanner object after wrong user input is provided
         Scanner aScanner = new Scanner(System.in);
-        System.out.println("Please provide the correct value");
+        errorMessage("Please provide the correct value.");
         if (aScanner.hasNextLine()) {
             return aScanner;
         }
@@ -223,7 +223,7 @@ public class CommandHandler {
             }
         }
         if (result == null) {
-            System.out.println("Please provide the correct value.");
+            errorMessage("Please provide the correct value.");
             getEnumInput(enumType);
         }
         return result;
@@ -239,7 +239,7 @@ public class CommandHandler {
             if (isInteger(userInput) && Integer.parseInt(userInput) > 0 && Integer.parseInt(userInput) <= range) {
                 result = Integer.parseInt(userInput);
             } else {
-                System.out.println("Please provide the correct value.");
+                errorMessage("Please provide the correct value.");
                 getIntInput(intType);
             }
         }
@@ -254,11 +254,19 @@ public class CommandHandler {
             if(!isEmpty(input) && containsOnlyLetters(input)) {
                 return input;
             } else {
-                System.out.println("Please provide the correct value.");
+//                System.out.println("Please provide the correct value.");
+                errorMessage("Please provide the correct value.");
             }
         } while(true);
     }
 
+    public static void errorMessage(String message) {
+        String escapeCode = "\033[31m";
+        String resetCode = "\033[0m";
+
+        System.out.println(escapeCode + message);
+        System.out.println(resetCode);
+    }
 
     public static Lead createLead() {
         LeadList tester = new LeadList(); // created as a dummy whilst working out how to add objects to list
