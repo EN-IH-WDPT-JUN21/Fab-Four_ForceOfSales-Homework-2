@@ -18,6 +18,8 @@ import org.apache.commons.lang.WordUtils;
 import java.io.IOException;
 import java.text.ParseException;
 
+import static com.ironhack.FabFour.homework2.common.DataValidator.containsOnlyLetters;
+import static com.ironhack.FabFour.homework2.common.DataValidator.isEmpty;
 import static com.ironhack.FabFour.homework2.common.InputOutput.*;
 import static com.ironhack.FabFour.homework2.model.AccountList.*;
 
@@ -38,12 +40,6 @@ public class CommandHandler {
                     break;
                 case EXPORT_LEADS:
                     exportLeadInformation();
-                    break;
-                case EXPORT_OPPORTUNITIES:
-                    exportOppInformation();
-                    break;
-                case EXPORT_ACCOUNTS:
-                    exportAccountInformation();
                     break;
                 case HELP:
                     System.out.println(
@@ -81,6 +77,12 @@ public class CommandHandler {
                     break;
                 case LOOKUP_ACCOUNT:
                     voidChecker(lookUpAccount(String.valueOf(id)));
+                    break;
+                case EXPORT_OPPORTUNITIES:
+                    exportOppInformation();
+                    break;
+                case EXPORT_ACCOUNTS:
+                    exportAccountInformation();
                     break;
                 case CLOSE_WON:
                     updateOpportunityStatusClosedWin(id);
@@ -148,9 +150,11 @@ public class CommandHandler {
         int newQuantity = getIntInput("quantity");
         Opportunity newOpportunity = new Opportunity(newProduct, newQuantity, newContact);
         Lead leadToConvert = lookupLead(id);
-        System.out.println("Opportunity created. Opportunity ID: " + newOpportunity.getId());
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("Opportunity created. Opportunity ID: " + newOpportunity.getId() + "\n");
         removeLead(id);
-        System.out.println("Lead deleted. Lead ID: " + leadToConvert.getId());
+        System.out.println("Lead with ID: " + + leadToConvert.getId() +" has been deleted.");
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         return newOpportunity;
     }
 
@@ -181,7 +185,9 @@ public class CommandHandler {
         opportunityList.add(opportunity);
         Account newAccount = new Account(industry, employees, WordUtils.capitalizeFully(city), WordUtils.capitalizeFully(country), contactList, opportunityList);
         accountList.add(newAccount);
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("Account created. Account ID: " + newAccount.getId());
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         return newAccount;
     }
 
