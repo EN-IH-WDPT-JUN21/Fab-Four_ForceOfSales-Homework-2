@@ -164,7 +164,6 @@ public class CommandHandlerTest {
     public void CommandHandler_CreateScanner_ScannerCreated() {
         InputStream in = new ByteArrayInputStream("box".getBytes());
         System.setIn(in);
-        Scanner sc = new Scanner(System.in);
         assertTrue(createScanner() instanceof Scanner);
     }
 
@@ -173,7 +172,6 @@ public class CommandHandlerTest {
     public void CommandHandler_CreateScanner_ScannerNotCreated() {
         InputStream in = new ByteArrayInputStream("".getBytes());
         System.setIn(in);
-        Scanner sc = new Scanner(System.in);
         assertEquals(null, createScanner());
     }
 
@@ -182,8 +180,15 @@ public class CommandHandlerTest {
     public void CommandHandler_GetEnumInput_EnumReturned() {
         InputStream in = new ByteArrayInputStream("box".getBytes());
         System.setIn(in);
-        Scanner sc = new Scanner(System.in);
         assertEquals(Product.BOX, getEnumInput("product"));
+    }
+
+    @Test
+    @DisplayName("Test: getEnumInput(). Doesn't return correct as invalid input provided.")
+    public void CommandHandler_GetEnumInput_NullReturned() {
+        InputStream in = new ByteArrayInputStream("lalala".getBytes());
+        System.setIn(in);
+        assertEquals(null, getEnumInput("product"));
     }
 
     @Test
@@ -191,8 +196,15 @@ public class CommandHandlerTest {
     public void CommandHandler_GetIntInput_IntReturned() {
         InputStream in = new ByteArrayInputStream("200".getBytes());
         System.setIn(in);
-        Scanner sc = new Scanner(System.in);
-        assertEquals(200, test.getIntInput("quantity"));
+        assertEquals(200, getIntInput("quantity"));
+    }
+
+    @Test
+    @DisplayName("Test: getIntInput(). Doesn't return correct value as invalid input provided.")
+    public void CommandHandler_GetIntInput_ZeroReturned() {
+        InputStream in = new ByteArrayInputStream("abcd".getBytes());
+        System.setIn(in);
+        assertEquals(0, getIntInput("quantity"));
     }
 
     @Test
@@ -200,9 +212,17 @@ public class CommandHandlerTest {
     public void CommandHandler_GetUserInput_StringReturned() {
         InputStream in = new ByteArrayInputStream("Marion".getBytes());
         System.setIn(in);
-        Scanner sc = new Scanner(System.in);
-        assertEquals("Marion", test.getUserInput());
+        assertEquals("Marion", getUserInput());
     }
+
+    @Test
+    @DisplayName("Test: getUserInput(). Doesn't return correct value as invalid input provided.")
+    public void CommandHandler_GetUserInput_EmptyStringReturned() {
+        InputStream in = new ByteArrayInputStream("67".getBytes());
+        System.setIn(in);
+        assertEquals(null, getUserInput());
+    }
+
 
     @Test
     @DisplayName("Test: setupAccount(). Account created as expected.")
@@ -217,6 +237,12 @@ public class CommandHandlerTest {
         assertEquals(newContact, newAccount.getContactList().get(0));
 
         accountList.remove(newAccount);
+    }
+
+    @Test
+    @DisplayName("Test: errorMessage(). Method runs as expected.")
+    public void CommandHandler_errorMessage_MessagePrinted() {
+        assertEquals("This is a message", errorMessage("This is a message"));
     }
 
     @Test

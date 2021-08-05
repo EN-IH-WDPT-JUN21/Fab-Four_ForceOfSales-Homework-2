@@ -204,7 +204,7 @@ public class CommandHandler {
     public static Scanner createScanner() {
         //Creates new Scanner object after wrong user input is provided
         Scanner aScanner = new Scanner(System.in);
-        System.out.println("Please provide the correct value");
+        errorMessage("Please provide the correct value.");
         if (aScanner.hasNextLine()) {
             return aScanner;
         }
@@ -212,21 +212,24 @@ public class CommandHandler {
     }
 
     public static Object getEnumInput(String enumType) {
-        //Processes user input used for setting enum  values
+        //Processes user input used for setting int values
         Scanner aScanner = new Scanner(System.in);
         Object result = null;
-        if (aScanner.hasNextLine()) {
-            if (enumType == "product") {
-                result = EnumHandler.getRequiredProduct(aScanner.next());
-            } else if (enumType == "industry") {
-                result = EnumHandler.getRequiredIndustry(aScanner.next());
-            }
+        while(aScanner.hasNextLine()) {
+            try {
+                String userInput = aScanner.nextLine();
+                if (!isEmpty(userInput) && enumType == "product" && EnumHandler.getRequiredProduct(userInput) != null) {
+                    result = EnumHandler.getRequiredProduct(userInput);
+                    return result;
+                } else if (!isEmpty(userInput) && enumType == "industry" && EnumHandler.getRequiredIndustry(userInput) != null) {
+                    result = EnumHandler.getRequiredIndustry(userInput);
+                    return result;
+                } else {
+                    errorMessage("Please provide the correct value.");
+                }
+            } catch (Exception e) { System.out.println("Exception is: " + e);}
         }
-        if (result == null) {
-            System.out.println("Please provide the correct value.");
-            getEnumInput(enumType);
-        }
-        return result;
+        return null;
     }
 
     public static int getIntInput(String intType) {
@@ -234,26 +237,44 @@ public class CommandHandler {
         Scanner aScanner = new Scanner(System.in);
         int result = 0;
         int range = (intType == "quantity") ? 300 : 3000000;
-        if (aScanner.hasNextLine()) {
-            String userInput = aScanner.next();
-            if (isInteger(userInput) && Integer.parseInt(userInput) > 0 && Integer.parseInt(userInput) <= range) {
-                result = Integer.parseInt(userInput);
-            } else {
-                System.out.println("Please provide the correct value.");
-                getIntInput(intType);
-            }
+        while(aScanner.hasNextLine()) {
+            try {
+                String userInput = aScanner.nextLine();
+                if (!isEmpty(userInput) && isInteger(userInput) && Integer.parseInt(userInput) > 0 && Integer.parseInt(userInput) <= range) {
+                    result = Integer.parseInt(userInput);
+                    return result;
+                } else {
+                    errorMessage("Please provide the correct value.");
+                }
+            } catch (Exception e) { System.out.println("Exception is: " + e); }
         }
-        return result;
+        return 0;
     }
+
 
     public static String getUserInput() {
         //Processes user input used for setting String values
         Scanner aScanner = new Scanner(System.in);
-        String result = "";
-        if (aScanner.hasNextLine()) {
-            result = aScanner.next();
+        while(aScanner.hasNextLine()) {
+            try {
+                String input = aScanner.nextLine();
+                if(!isEmpty(input) && containsOnlyLetters(input)) {
+                    return input;
+                } else {
+                    errorMessage("Please provide the correct value.");
+                }
+            } catch (Exception e) { System.out.println("Exception is: " + e); }
         }
-        return result;
+        return null;
+    }
+
+    public static String errorMessage(String message) {
+        String escapeCode = "\033[31m";
+        String resetCode = "\033[0m";
+
+        System.out.println(escapeCode + message);
+        System.out.println(resetCode);
+        return message;
     }
 
     public static Lead createLead() {
@@ -277,9 +298,7 @@ public class CommandHandler {
             LeadList.getListOfLeads().add(tempLead);
             System.out.println("Lead created. Lead ID: " + tempLead.getId());
         }
-        catch (Exception e) {
-            System.out.println("Exception: " + e);
-        }
+        catch (Exception e) { System.out.println("Exception: " + e); }
         return tempLead;
     }
 
