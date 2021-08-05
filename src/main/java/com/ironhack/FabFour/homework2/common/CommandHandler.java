@@ -249,12 +249,16 @@ public class CommandHandler {
     public static String getUserInput() {
         //Processes user input used for setting String values
         Scanner aScanner = new Scanner(System.in);
-        String result = "";
-        if (aScanner.hasNextLine()) {
-            result = aScanner.next();
-        }
-        return result;
+        do{
+            String input = aScanner.nextLine();
+            if(!isEmpty(input) && containsOnlyLetters(input)) {
+                return input;
+            } else {
+                System.out.println("Please provide the correct value.");
+            }
+        } while(true);
     }
+
 
     public static Lead createLead() {
         LeadList tester = new LeadList(); // created as a dummy whilst working out how to add objects to list
