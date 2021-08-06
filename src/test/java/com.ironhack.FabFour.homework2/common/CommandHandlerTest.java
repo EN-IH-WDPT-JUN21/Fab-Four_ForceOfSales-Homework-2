@@ -106,22 +106,6 @@ public class CommandHandlerTest {
     }
 
     @Test
-    @DisplayName("Test: getAccountInfo(). Account Info list returned as expected.")
-    public void CommandHandler_getAccountInfo_AccountInfoListReturned() {
-        String industry = "other";
-        String numOfEmployees = "12";
-        String city = "Paris";
-        String country = "France";
-        String simulatedInput = industry + System.getProperty("line.separator") + numOfEmployees + System.getProperty("line.separator") + city + System.getProperty("line.separator") + country + System.getProperty("line.separator");
-        InputStream savedStandardInputStream = System.in;
-        System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
-        List<Object> obj = test.getAccountInfo();
-        System.setIn(savedStandardInputStream);
-        assertTrue(obj.size() > 0);
-        assertEquals(Industry.OTHER, obj.get(0));
-    }
-
-    @Test
     @DisplayName("Test: isInteger(). Return correct boolean value.")
     public void CommandHandler_isInteger_CorrectValueReturned() {
         InputStream in = new ByteArrayInputStream("11".getBytes());
@@ -140,39 +124,24 @@ public class CommandHandlerTest {
     }
 
     @Test
-    @DisplayName("Test: createOpportunity(). Opportunity created as expected.")
-    public void CommandHandler_createOpportunity_OpportunityCreated() {
-        String newProduct = "hybrid"; String numOfTrucks = "200";
+    @DisplayName("Test: convertLead(). Lead converted as expected.")
+    public void CommandHandler_convertLead_LeadConverted() {
+        String newProduct = "hybrid"; String numOfTrucks = "200"; String industry = "other";
+        String numOfEmployees = "12"; String city = "Paris"; String country = "France";
         tempLeadTwo = new Lead("Mick", "987654321", "mick@yahoo.com", "Stones");
         long leadId = tempLeadTwo.getId();
         LeadList.getListOfLeads().add(tempLeadTwo);
-        Contact newContact = createContact(tempLeadTwo);
-        String simulatedInput = newProduct + System.getProperty("line.separator") + numOfTrucks + System.getProperty("line.separator");
+        Contact c = createContact(tempLeadTwo);
+        String simulatedInput = newProduct + System.getProperty("line.separator") + numOfTrucks + System.getProperty("line.separator")
+                + industry + System.getProperty("line.separator") + numOfEmployees + System.getProperty("line.separator") + city
+                + System.getProperty("line.separator") + country + System.getProperty("line.separator");
         InputStream savedStandardInputStream = System.in;
         System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
-        Opportunity opportunity = test.createOpportunity(leadId, newContact);
+        Account acc = convertLead(leadId);
         System.setIn(savedStandardInputStream);
-        assertTrue(opportunity.getDecisionMaker() instanceof Contact);
-        assertEquals("Stones", opportunity.getDecisionMaker().getCompanyName());
-        assertEquals(Product.HYBRID, opportunity.getProduct());
-        assertEquals(Status.OPEN, opportunity.getStatus());
-        assertEquals(false, DataValidator.leadExists(Long.toString(leadId)));
-    }
-
-    @Test
-    @DisplayName("Test: createScanner(). Return scanner object as expected.")
-    public void CommandHandler_CreateScanner_ScannerCreated() {
-        InputStream in = new ByteArrayInputStream("box".getBytes());
-        System.setIn(in);
-        assertTrue(createScanner() instanceof Scanner);
-    }
-
-    @Test
-    @DisplayName("Test: createScanner(). Scanner object not returned as invalid input provided.")
-    public void CommandHandler_CreateScanner_ScannerNotCreated() {
-        InputStream in = new ByteArrayInputStream("".getBytes());
-        System.setIn(in);
-        assertEquals(null, createScanner());
+        assertEquals("Mick", acc.getContactList().get(0).getContactName());
+        assertEquals("Stones", acc.getContactList().get(0).getCompanyName());
+        accountList.remove(acc);
     }
 
     @Test
@@ -181,6 +150,9 @@ public class CommandHandlerTest {
         InputStream in = new ByteArrayInputStream("box".getBytes());
         System.setIn(in);
         assertEquals(Product.BOX, getEnumInput("product"));
+        in = new ByteArrayInputStream("other".getBytes());
+        System.setIn(in);
+        assertEquals(Industry.OTHER, getEnumInput("industry"));
     }
 
     @Test
@@ -221,22 +193,6 @@ public class CommandHandlerTest {
         InputStream in = new ByteArrayInputStream("67".getBytes());
         System.setIn(in);
         assertEquals(null, getUserInput());
-    }
-
-
-    @Test
-    @DisplayName("Test: setupAccount(). Account created as expected.")
-    public void CommandHandler_SetUpAccount_AccountCreated() {
-        accountInfoList = Arrays.asList(Industry.PRODUCE, 25, "Boston", "USA");
-        newContact = new Contact("Peter Parker", "999888777", "peterP@yahoo.com", "Webs");
-        newOpportunity = new Opportunity(Product.FLATBED, 25, newContact);
-        Account newAccount = test.setupAccount(newOpportunity, accountInfoList);
-
-        assertEquals(Industry.PRODUCE, newAccount.getIndustry());
-        assertEquals(newOpportunity, newAccount.getOpportunityList().get(0));
-        assertEquals(newContact, newAccount.getContactList().get(0));
-
-        accountList.remove(newAccount);
     }
 
     @Test

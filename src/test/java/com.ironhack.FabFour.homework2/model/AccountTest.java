@@ -107,25 +107,25 @@ public class AccountTest {
         assertFalse(account.getCity().equals(""));
     }
 
-    @Test
-    @DisplayName("Test: setString(). String attributes set as expected.")
-    public void Account_SetString_CityStringSet() {
-        InputStream in = new ByteArrayInputStream("Montreal".getBytes());
-        System.setIn(in);
-        Scanner sc = new Scanner(System.in);
-        account.setString("city", sc);
-        assertEquals("Montreal", account.getCity());
-    }
-
-    @Test
-    @DisplayName("Test: setString(). String attributes set as expected.")
-    public void Account_SetString_CountryStringSet() {
-        InputStream in = new ByteArrayInputStream("Canada".getBytes());
-        System.setIn(in);
-        Scanner sc = new Scanner(System.in);
-        account.setString("country", sc);
-        assertEquals("Canada", account.getCountry());
-    }
+//    @Test
+//    @DisplayName("Test: setString(). String attributes set as expected.")
+//    public void Account_SetString_CityStringSet() {
+//        InputStream in = new ByteArrayInputStream("Montreal".getBytes());
+//        System.setIn(in);
+//        Scanner sc = new Scanner(System.in);
+//        account.setString("city", sc);
+//        assertEquals("Montreal", account.getCity());
+//    }
+//
+//    @Test
+//    @DisplayName("Test: setString(). String attributes set as expected.")
+//    public void Account_SetString_CountryStringSet() {
+//        InputStream in = new ByteArrayInputStream("Canada".getBytes());
+//        System.setIn(in);
+//        Scanner sc = new Scanner(System.in);
+//        account.setString("country", sc);
+//        assertEquals("Canada", account.getCountry());
+//    }
 
     @Test
     @DisplayName("Test: getOpportunity(). Return correct Opportunity object as expected.")

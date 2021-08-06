@@ -127,8 +127,9 @@ public class CommandHandler {
             return null;
         } else {
             Lead lead = lookupLead(id);
-            Opportunity newOpportunity = createOpportunity(id, createContact(lead));
-            Account newAccount = setupAccount(newOpportunity, getAccountInfo());
+            Contact contact = createContact(lead);
+            List<Object> accountData = getAccountInfo(id, contact);
+            Account newAccount = setupAccount(accountData);
             return newAccount;
         }
     }
@@ -142,25 +143,13 @@ public class CommandHandler {
         Contact newContact = new Contact(contactName, contactPhoneNumber, contactEmail, contactCompany);
         return newContact;
     }
-    public static Opportunity createOpportunity(long id, Contact newContact){
+
+    public static List<Object> getAccountInfo(long id, Contact newContact){
         //Creates Opportunity object from Contact
         System.out.println("Please provide the type of the product you're interested in.\nPossible choices are: HYBRID, FLATBED, BOX");
         Product newProduct = (Product) getEnumInput("product");
         System.out.println("Please provide the number of trucks you're interested in.\nMaximum amount: 300");
         int newQuantity = getIntInput("quantity");
-        Opportunity newOpportunity = new Opportunity(newProduct, newQuantity, newContact);
-        Lead leadToConvert = lookupLead(id);
-        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        System.out.println("Opportunity created. Opportunity ID: " + newOpportunity.getId() + "\n");
-        removeLead(id);
-        System.out.println("Lead with ID: " + + leadToConvert.getId() +" has been deleted.");
-        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        return newOpportunity;
-    }
-
-    public static List getAccountInfo() {
-        //Gets additional Account details from user input and
-        //stores them in a List
         System.out.println("Please provide the industry name.\nPossible choices are: PRODUCE, ECOMMERCE, MANUFACTURING, MEDICAL, OTHER");
         Industry newIndustry = (Industry) getEnumInput("industry");
         System.out.println("Please provide the number of company employees");
@@ -169,20 +158,27 @@ public class CommandHandler {
         String city = getUserInput();
         System.out.println("Please provide the country name");
         String country = getUserInput();
-        List<Object> accountInfoList = Arrays.asList(newIndustry, employeeCount, city, country);
-        return accountInfoList;
+        Opportunity newOpportunity = new Opportunity(newProduct, newQuantity, newContact);
+        Lead leadToConvert = lookupLead(id);
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("Opportunity created. Opportunity ID: " + newOpportunity.getId() + "\n");
+        removeLead(id);
+        System.out.println("Lead with ID: " + + leadToConvert.getId() +" has been deleted.");
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        return Arrays.asList(newOpportunity, newIndustry, employeeCount, city, country);
     }
 
-    public static Account setupAccount(Opportunity opportunity, List<Object> accountInfoList) {
+    public static Account setupAccount(List<Object> accountInfoList) {
         //Returns new Account Object from Opportunity and List of Account details
-        Industry industry = (Industry) accountInfoList.get(0);
-        int employees = (int) accountInfoList.get(1);
-        String city = (String) accountInfoList.get(2);
-        String country = (String) accountInfoList.get(3);
+        Industry industry = (Industry) accountInfoList.get(1);
+        System.out.println(industry);
+        int employees = (int) accountInfoList.get(2);
+        String city = (String) accountInfoList.get(3);
+        String country = (String) accountInfoList.get(4);
         List<Contact> contactList = new ArrayList<>();
         List<Opportunity> opportunityList = new ArrayList<>();
-        contactList.add(opportunity.getDecisionMaker());
-        opportunityList.add(opportunity);
+        contactList.add(((Opportunity) accountInfoList.get(0)).getDecisionMaker());
+        opportunityList.add((Opportunity) accountInfoList.get(0));
         Account newAccount = new Account(industry, employees, WordUtils.capitalizeFully(city), WordUtils.capitalizeFully(country), contactList, opportunityList);
         accountList.add(newAccount);
         System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
@@ -199,16 +195,6 @@ public class CommandHandler {
         } catch (NumberFormatException e) {
             return false;
         }
-    }
-
-    public static Scanner createScanner() {
-        //Creates new Scanner object after wrong user input is provided
-        Scanner aScanner = new Scanner(System.in);
-        errorMessage("Please provide the correct value.");
-        if (aScanner.hasNextLine()) {
-            return aScanner;
-        }
-        return null;
     }
 
     public static Object getEnumInput(String enumType) {

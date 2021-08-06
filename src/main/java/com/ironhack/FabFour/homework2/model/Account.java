@@ -62,12 +62,7 @@ public class Account {
     }
 
     public void setCity(String city) {
-        if(!DataValidator.isEmpty(city)) {
-            this.city = city;
-        }
-        else {
-            setString("city", CommandHandler.createScanner());
-        }
+        this.city = city;
     }
 
     public String getCountry() {
@@ -75,20 +70,7 @@ public class Account {
     }
 
     public void setCountry(String country) {
-        if(!DataValidator.isEmpty(country)) {
-            this.country = country;
-        }
-        else {
-            setString("country", CommandHandler.createScanner());
-        }
-    }
-
-    public void setString(String attribute, Scanner sc) {
-        if(attribute.equals("city")) {
-            setCity(sc.next());
-        } else if(attribute.equals("country")) {
-            setCountry(sc.next());
-        }
+        this.country = country;
     }
 
     public List<Contact> getContactList() {
