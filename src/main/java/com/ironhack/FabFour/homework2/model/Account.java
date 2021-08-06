@@ -1,11 +1,8 @@
 package com.ironhack.FabFour.homework2.model;
 
-import com.ironhack.FabFour.homework2.common.CommandHandler;
-import com.ironhack.FabFour.homework2.common.DataValidator;
 import com.ironhack.FabFour.homework2.enums.Industry;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class Account {
     private static long accountIDCount = 2000;
@@ -102,7 +99,7 @@ public class Account {
             long temp = opportunity.getId();
             if(Long.parseLong(id) == temp) {
                 return opportunity;
-            };
+            }
         }
         return null;
     }

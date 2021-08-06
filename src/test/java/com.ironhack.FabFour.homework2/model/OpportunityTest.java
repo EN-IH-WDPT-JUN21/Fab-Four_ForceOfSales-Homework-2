@@ -60,7 +60,7 @@ public class OpportunityTest {
     public void Opportunity_SetStatus_StatusNotSet(){
         opportunity.setStatus(Status.CLOSED_WON);
         opportunity.setStatus(Status.OPEN);
-        assertFalse(opportunity.getStatus() == Status.OPEN);
+        assertNotSame(opportunity.getStatus(), Status.OPEN);
     }
 
     @Test
@@ -68,14 +68,8 @@ public class OpportunityTest {
     public void Opportunity_equals_areEqual(){
         opportunity = new Opportunity(Product.FLATBED, 25, contact);
         Opportunity equalOpportunity = new Opportunity(Product.FLATBED, 25, contact);
-        assertTrue(opportunity.equals(opportunity));
-        assertTrue(opportunity.equals(equalOpportunity));
-    }
-
-    @Test
-    @DisplayName("Test: getDecisionMaker(). DecisionMaker object is an instance of Contact class as expected.")
-    public void Opportunity_getDecisionMaker_isContactInstance(){
-        assertTrue(opportunity.getDecisionMaker() instanceof Contact);
+        assertEquals(opportunity, opportunity);
+        assertEquals(opportunity, equalOpportunity);
     }
 
     @Test
@@ -83,6 +77,6 @@ public class OpportunityTest {
     public void Opportunity_ToStringTest_ValidateString() {
         String testString = "Opportunity: " + opportunity.getId() + ", Product: " + opportunity.getProduct() + ", Quantity: " +
                 opportunity.getQuantity() + ", Contact: " + opportunity.getDecisionMaker().getContactName() + ", Status: " + opportunity.getStatus();
-        assertTrue(testString.equals(opportunity.toString()));
+        assertEquals(testString, opportunity.toString());
     }
 }

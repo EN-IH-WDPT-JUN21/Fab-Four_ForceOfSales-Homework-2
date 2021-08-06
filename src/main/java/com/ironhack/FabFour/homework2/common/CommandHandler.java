@@ -1,22 +1,11 @@
 package com.ironhack.FabFour.homework2.common;
 
-import com.ironhack.FabFour.homework2.enums.Command;
-import com.ironhack.FabFour.homework2.enums.Status;
-import com.ironhack.FabFour.homework2.model.Lead;
-import com.ironhack.FabFour.homework2.model.LeadList;
-import com.ironhack.FabFour.homework2.model.Opportunity;
 import com.ironhack.FabFour.homework2.enums.*;
 import com.ironhack.FabFour.homework2.model.*;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.util.*;
 
 import org.apache.commons.lang.WordUtils;
-
-import java.io.IOException;
-import java.text.ParseException;
 
 import static com.ironhack.FabFour.homework2.common.DataValidator.containsOnlyLetters;
 import static com.ironhack.FabFour.homework2.common.DataValidator.isEmpty;
@@ -126,11 +115,10 @@ public class CommandHandler {
             System.out.println("Lead doesn't exist. Please provide the correct id.");
             return null;
         } else {
-            Lead lead = lookupLead(id);
-            Contact contact = createContact(lead);
-            List<Object> accountData = getAccountInfo(id, contact);
-            Account newAccount = setupAccount(accountData);
-            return newAccount;
+            Lead lead = lookupLead(id); //get Lead by ID
+            Contact contact = createContact(lead); //create Contact object from Lead
+            List<Object> accountData = getAccountInfo(id, contact); //obtain account data via user input
+            return setupAccount(accountData); //return Account object from account data
         }
     }
 
@@ -140,12 +128,11 @@ public class CommandHandler {
         String contactPhoneNumber = leadToConvert.getPhoneNumber();
         String contactEmail = leadToConvert.getEmail();
         String contactCompany = leadToConvert.getCompanyName();
-        Contact newContact = new Contact(contactName, contactPhoneNumber, contactEmail, contactCompany);
-        return newContact;
+        return new Contact(contactName, contactPhoneNumber, contactEmail, contactCompany);
     }
 
     public static List<Object> getAccountInfo(long id, Contact newContact){
-        //Creates Opportunity object from Contact
+        //Obtains account data from user input and Contact object
         System.out.println("Please provide the type of the product you're interested in.\nPossible choices are: HYBRID, FLATBED, BOX");
         Product newProduct = (Product) getEnumInput("product");
         System.out.println("Please provide the number of trucks you're interested in.\nMaximum amount: 300");
@@ -160,30 +147,27 @@ public class CommandHandler {
         String country = getUserInput();
         Opportunity newOpportunity = new Opportunity(newProduct, newQuantity, newContact);
         Lead leadToConvert = lookupLead(id);
-        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("Opportunity created. Opportunity ID: " + newOpportunity.getId() + "\n");
         removeLead(id);
-        System.out.println("Lead with ID: " + + leadToConvert.getId() +" has been deleted.");
-        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("Lead with ID: " + leadToConvert.getId() +" has been deleted.");
         return Arrays.asList(newOpportunity, newIndustry, employeeCount, city, country);
     }
 
     public static Account setupAccount(List<Object> accountInfoList) {
-        //Returns new Account Object from Opportunity and List of Account details
+        //Returns new Account Object from account data list
         Industry industry = (Industry) accountInfoList.get(1);
-        System.out.println(industry);
         int employees = (int) accountInfoList.get(2);
         String city = (String) accountInfoList.get(3);
         String country = (String) accountInfoList.get(4);
         List<Contact> contactList = new ArrayList<>();
         List<Opportunity> opportunityList = new ArrayList<>();
-        contactList.add(((Opportunity) accountInfoList.get(0)).getDecisionMaker());
-        opportunityList.add((Opportunity) accountInfoList.get(0));
+        contactList.add(((Opportunity) accountInfoList.get(0)).getDecisionMaker()); //decisionMaker for the Opportunity is added to contact list
+        opportunityList.add((Opportunity) accountInfoList.get(0)); //Opportunity object is added to opportunity list
         Account newAccount = new Account(industry, employees, WordUtils.capitalizeFully(city), WordUtils.capitalizeFully(country), contactList, opportunityList);
         accountList.add(newAccount);
-        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("Account created. Account ID: " + newAccount.getId());
-        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++");
         return newAccount;
     }
 
@@ -198,17 +182,17 @@ public class CommandHandler {
     }
 
     public static Object getEnumInput(String enumType) {
-        //Processes user input used for setting int values
+        //Processes user input used for setting enum values
         Scanner aScanner = new Scanner(System.in);
-        Object result = null;
+        Object result;
         while(aScanner.hasNextLine()) {
             try {
                 String userInput = aScanner.nextLine();
-                if (!isEmpty(userInput) && enumType == "product" && EnumHandler.getRequiredProduct(userInput) != null) {
-                    result = EnumHandler.getRequiredProduct(userInput);
+                if (!isEmpty(userInput) && enumType.equals("product") && Product.getProduct(userInput) != null) {
+                    result = Product.getProduct(userInput); //assigns enum value from valid input
                     return result;
-                } else if (!isEmpty(userInput) && enumType == "industry" && EnumHandler.getRequiredIndustry(userInput) != null) {
-                    result = EnumHandler.getRequiredIndustry(userInput);
+                } else if (!isEmpty(userInput) && enumType.equals("industry") && Industry.getIndustry(userInput) != null) {
+                    result = Industry.getIndustry(userInput); //assigns enum value from valid input
                     return result;
                 } else {
                     errorMessage("Please provide the correct value.");
@@ -221,8 +205,8 @@ public class CommandHandler {
     public static int getIntInput(String intType) {
         //Processes user input used for setting int values
         Scanner aScanner = new Scanner(System.in);
-        int result = 0;
-        int range = (intType == "quantity") ? 300 : 3000000;
+        int result;
+        int range = (intType.equals("quantity")) ? 300 : 3000000; //limit for quantity is 300, for employees 3000000
         while(aScanner.hasNextLine()) {
             try {
                 String userInput = aScanner.nextLine();
@@ -236,7 +220,6 @@ public class CommandHandler {
         }
         return 0;
     }
-
 
     public static String getUserInput() {
         //Processes user input used for setting String values
@@ -255,9 +238,9 @@ public class CommandHandler {
     }
 
     public static String errorMessage(String message) {
-        String escapeCode = "\033[31m";
-        String resetCode = "\033[0m";
-
+        //Changes the color of System.output error messages
+        String escapeCode = "\033[31m"; //sets color to red
+        String resetCode = "\033[0m";   //resets color to the primary one
         System.out.println(escapeCode + message);
         System.out.println(resetCode);
         return message;

@@ -29,7 +29,7 @@ public class Opportunity {
     }
 
     public Product getProduct() {
-        return product;
+        return this.product;
     }
 
     public void setProduct(Product product) {
@@ -37,7 +37,7 @@ public class Opportunity {
     }
 
     public int getQuantity() {
-        return quantity;
+        return this.quantity;
     }
 
     public void setQuantity(int quantity) {
@@ -45,7 +45,7 @@ public class Opportunity {
     }
 
     public Contact getDecisionMaker() {
-        return decisionMaker;
+        return this.decisionMaker;
     }
 
     public void setDecisionMaker(Contact decisionMaker) {
@@ -53,11 +53,11 @@ public class Opportunity {
     }
 
     public Status getStatus() {
-        return status;
+        return this.status;
     }
 
  public void setStatus(Status status) {
-        Status currentStatus = this.status;
+        Status currentStatus = this.getStatus();
         if(currentStatus == Status.CLOSED_LOST || currentStatus == Status.CLOSED_WON && status == Status.OPEN) {
             this.status = currentStatus;
         } else {

@@ -20,16 +20,12 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 public class CommandHandlerTest {
 
     CommandHandler test;
     Lead tempLeadOne = null;
     Lead tempLeadTwo;
-    Opportunity newOpportunity;
-    Contact newContact;
-    List<Object> accountInfoList;
 
     private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
@@ -110,17 +106,16 @@ public class CommandHandlerTest {
     public void CommandHandler_isInteger_CorrectValueReturned() {
         InputStream in = new ByteArrayInputStream("11".getBytes());
         System.setIn(in);
-        Scanner sc = new Scanner(System.in);
-        assertTrue(test.isInteger("11"));
+        assertTrue(isInteger("11"));
         in = new ByteArrayInputStream("hello".getBytes());
         System.setIn(in);
-        assertFalse(test.isInteger("hello"));
+        assertFalse(isInteger("hello"));
     }
 
     @Test
     @DisplayName("Test: convertLead(). Lead not converted as it doesn't exist.")
     public void CommandHandler_convertLead_LeadNotConvertedNoSuchLead() {
-        assertEquals(null, convertLead(000));
+        assertNull(convertLead(1000000));
     }
 
     @Test
@@ -131,7 +126,6 @@ public class CommandHandlerTest {
         tempLeadTwo = new Lead("Mick", "987654321", "mick@yahoo.com", "Stones");
         long leadId = tempLeadTwo.getId();
         LeadList.getListOfLeads().add(tempLeadTwo);
-        Contact c = createContact(tempLeadTwo);
         String simulatedInput = newProduct + System.getProperty("line.separator") + numOfTrucks + System.getProperty("line.separator")
                 + industry + System.getProperty("line.separator") + numOfEmployees + System.getProperty("line.separator") + city
                 + System.getProperty("line.separator") + country + System.getProperty("line.separator");
@@ -142,6 +136,18 @@ public class CommandHandlerTest {
         assertEquals("Mick", acc.getContactList().get(0).getContactName());
         assertEquals("Stones", acc.getContactList().get(0).getCompanyName());
         accountList.remove(acc);
+    }
+
+    @Test
+    @DisplayName("Test: setupAccount(). Return Account object as expected.")
+    public void CommandHandler_setupAccount_AccountReturned() {
+        //newOpportunity, newIndustry, employeeCount, city, country
+        tempLeadTwo = new Lead("Mick", "987654321", "mick@yahoo.com", "Stones");
+        Contact contact = createContact(tempLeadTwo);
+        Opportunity opportunity = new Opportunity(Product.HYBRID, 23, contact);
+        List<Object> accountData = Arrays.asList(opportunity, Industry.ECOMMERCE, 12, "London", "UK");
+        Account account = setupAccount(accountData);
+        assertEquals("London", account.getCity());
     }
 
     @Test
@@ -158,9 +164,9 @@ public class CommandHandlerTest {
     @Test
     @DisplayName("Test: getEnumInput(). Doesn't return correct as invalid input provided.")
     public void CommandHandler_GetEnumInput_NullReturned() {
-        InputStream in = new ByteArrayInputStream("lalala".getBytes());
+        InputStream in = new ByteArrayInputStream("semi".getBytes());
         System.setIn(in);
-        assertEquals(null, getEnumInput("product"));
+        assertNull(getEnumInput("product"));
     }
 
     @Test
@@ -174,7 +180,7 @@ public class CommandHandlerTest {
     @Test
     @DisplayName("Test: getIntInput(). Doesn't return correct value as invalid input provided.")
     public void CommandHandler_GetIntInput_ZeroReturned() {
-        InputStream in = new ByteArrayInputStream("abcd".getBytes());
+        InputStream in = new ByteArrayInputStream("small".getBytes());
         System.setIn(in);
         assertEquals(0, getIntInput("quantity"));
     }
@@ -192,7 +198,7 @@ public class CommandHandlerTest {
     public void CommandHandler_GetUserInput_EmptyStringReturned() {
         InputStream in = new ByteArrayInputStream("67".getBytes());
         System.setIn(in);
-        assertEquals(null, getUserInput());
+        assertNull(getUserInput());
     }
 
     @Test
