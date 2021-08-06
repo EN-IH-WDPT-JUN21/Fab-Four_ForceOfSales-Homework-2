@@ -42,6 +42,21 @@ public class CommandHandlerTest {
     }
 
     @Test
+    @DisplayName("Test: handleCommand(). Command without id handled as expected.")
+    public void CommandHandler_HandleCommand_CommandWithoutIdRuns() {
+        var currentListSize = LeadList.getListOfLeads().size();
+        String username= "Jack"; String phoneNumber= "0794922"; String email = "test@test.com"; String company = "Company";
+        String simulatedInput = username + System.getProperty("line.separator") +
+                phoneNumber +  System.getProperty("line.separator") + email +
+                System.getProperty("line.separator") + company +  System.getProperty("line.separator");
+        InputStream savedStandardInputStream = System.in;
+        System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+        handleCommand("new lead");
+        System.setIn(savedStandardInputStream);
+        assertTrue(LeadList.getListOfLeads().size() == currentListSize + 1);
+    }
+
+    @Test
     @DisplayName("Test: createLead(). Validate that newly created lead is added to LeadList.")
     public void CommandHandler_CreateLeadTest_ValidateLeadAddedToList() {
         var currentListSize = LeadList.getListOfLeads().size();
