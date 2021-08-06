@@ -1,11 +1,8 @@
 package com.ironhack.FabFour.homework2.model;
 
-import com.ironhack.FabFour.homework2.common.CommandHandler;
-import com.ironhack.FabFour.homework2.common.DataValidator;
 import com.ironhack.FabFour.homework2.enums.Industry;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class Account {
     private static long accountIDCount = 2000;
@@ -62,12 +59,7 @@ public class Account {
     }
 
     public void setCity(String city) {
-        if(!DataValidator.isEmpty(city)) {
-            this.city = city;
-        }
-        else {
-            setString("city", CommandHandler.createScanner());
-        }
+        this.city = city;
     }
 
     public String getCountry() {
@@ -75,20 +67,7 @@ public class Account {
     }
 
     public void setCountry(String country) {
-        if(!DataValidator.isEmpty(country)) {
-            this.country = country;
-        }
-        else {
-            setString("country", CommandHandler.createScanner());
-        }
-    }
-
-    public void setString(String attribute, Scanner sc) {
-        if(attribute.equals("city")) {
-            setCity(sc.next());
-        } else if(attribute.equals("country")) {
-            setCountry(sc.next());
-        }
+        this.country = country;
     }
 
     public List<Contact> getContactList() {
@@ -120,7 +99,7 @@ public class Account {
             long temp = opportunity.getId();
             if(Long.parseLong(id) == temp) {
                 return opportunity;
-            };
+            }
         }
         return null;
     }

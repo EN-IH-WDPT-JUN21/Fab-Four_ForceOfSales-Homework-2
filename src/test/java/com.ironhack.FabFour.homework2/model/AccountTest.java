@@ -7,7 +7,6 @@ import org.junit.jupiter.api.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class AccountTest {
 
@@ -76,65 +75,25 @@ public class AccountTest {
     @Test
     @DisplayName("Test: getContactList(). ContactList is of type List and size of 1 as expected.")
     public void Account_getContactList_ContactListIsAListOfLength1() {
-        assertTrue(account.getContactList() instanceof List);
+        assertNotNull(account.getContactList());
         assertEquals(1, account.getContactList().size());
     }
 
     @Test
     @DisplayName("Test: getOpportunityList(). OpportunityList is of type List and size of 1 as expected.")
     public void Account_getOpportunityList_OpportunityListIsAListOfLength1() {
-        assertTrue(account.getOpportunityList() instanceof List);
+        assertNotNull(account.getOpportunityList());
         assertEquals(1, account.getOpportunityList().size());
-    }
-
-    @Test
-    @DisplayName("Test: setCountry(). Country set as expected despite empty initial input.")
-    public void Account_SetCountry_CountrySetAfterEmptyInputProvided(){
-        InputStream in = new ByteArrayInputStream("Italy".getBytes());
-        System.setIn(in);
-        Scanner sc = new Scanner(System.in);
-        account.setCountry("");
-        assertFalse(account.getCountry().equals(""));
-    }
-
-    @Test
-    @DisplayName("Test: setCity(). City set as expected despite empty initial input.")
-    public void Account_SetCity_CitySetAfterEmptyInputProvided(){
-        InputStream in = new ByteArrayInputStream("Los Angeles".getBytes());
-        System.setIn(in);
-        Scanner sc = new Scanner(System.in);
-        account.setCity("");
-        assertFalse(account.getCity().equals(""));
-    }
-
-    @Test
-    @DisplayName("Test: setString(). String attributes set as expected.")
-    public void Account_SetString_CityStringSet() {
-        InputStream in = new ByteArrayInputStream("Montreal".getBytes());
-        System.setIn(in);
-        Scanner sc = new Scanner(System.in);
-        account.setString("city", sc);
-        assertEquals("Montreal", account.getCity());
-    }
-
-    @Test
-    @DisplayName("Test: setString(). String attributes set as expected.")
-    public void Account_SetString_CountryStringSet() {
-        InputStream in = new ByteArrayInputStream("Canada".getBytes());
-        System.setIn(in);
-        Scanner sc = new Scanner(System.in);
-        account.setString("country", sc);
-        assertEquals("Canada", account.getCountry());
     }
 
     @Test
     @DisplayName("Test: getOpportunity(). Return correct Opportunity object as expected.")
     void Account_getOpportunity_correct_OpportunityReturned() {
-        List<Contact> testContactList = new ArrayList<Contact>();
+        List<Contact> testContactList = new ArrayList<>();
         Contact testContact = new Contact("Rick","079492222","rick@westley.com","Zombies");
         testContactList.add(testContact);
 
-        List<Opportunity> testOpportunityList = new ArrayList<Opportunity>();
+        List<Opportunity> testOpportunityList = new ArrayList<>();
         Opportunity testOpportunity = new Opportunity(Product.HYBRID, 3, testContact);
         String opportunityId = String.valueOf(testOpportunity.getId());
         testOpportunityList.add(testOpportunity);
@@ -146,16 +105,16 @@ public class AccountTest {
     @Test
     @DisplayName("Test: getOpportunity(). Return nul as Opportunity doesn't exist.")
     void Account_getOpportunity_correct_OpportunityNotReturned() {
-        List<Contact> testContactList = new ArrayList<Contact>();
+        List<Contact> testContactList = new ArrayList<>();
         Contact testContact = new Contact("Rick","079492222","rick@westley.com","Zombies");
         testContactList.add(testContact);
 
-        List<Opportunity> testOpportunityList = new ArrayList<Opportunity>();
+        List<Opportunity> testOpportunityList = new ArrayList<>();
         Opportunity testOpportunity = new Opportunity(Product.HYBRID, 3, testContact);
         testOpportunityList.add(testOpportunity);
 
         Account testAccount = new Account(Industry.ECOMMERCE, 2, "Berlin", "Germany", testContactList, testOpportunityList);
-        assertEquals(null, testAccount.getOpportunity("900"));
+        assertNull(testAccount.getOpportunity("900"));
     }
 
     @Test
@@ -163,8 +122,11 @@ public class AccountTest {
     public void Account_equals_areEqual(){
         account = new Account(Industry.ECOMMERCE, 12, "Paris", "France", contactList, opportunityList);
         Account equalAccount = new Account(Industry.ECOMMERCE, 12, "Paris", "France", contactList, opportunityList);
-        assertTrue(account.equals(account));
-        assertTrue(account.equals(equalAccount));
+        Object nullObject = null;
+        assertEquals(account, account);
+        assertEquals(equalAccount, equalAccount);
+        assertEquals(account, (Account) equalAccount);
+        assertNotEquals(account, nullObject);
     }
 
     @Test
@@ -174,6 +136,6 @@ public class AccountTest {
                 account.getEmployeeCount() + ", City: " + account.getCity() + ", Country: " + account.getCountry()
                 + ", Contact: " + account.getContactList().get(0).getContactName() + ", Company: " + account.getContactList().get(0).getCompanyName()
                 + ", Opportunity ID:" + account.getOpportunityList().get(0).getId();
-        assertTrue(testString.equals(account.toString()));
+        assertEquals(testString, account.toString());
     }
 }
