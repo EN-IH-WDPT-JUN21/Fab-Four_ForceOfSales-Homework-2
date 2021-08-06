@@ -53,7 +53,7 @@ public class CommandHandlerTest {
         System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
         handleCommand("new lead");
         System.setIn(savedStandardInputStream);
-        assertTrue(LeadList.getListOfLeads().size() == currentListSize + 1);
+        assertEquals(LeadList.getListOfLeads().size(), ++currentListSize);
     }
 
     @Test
