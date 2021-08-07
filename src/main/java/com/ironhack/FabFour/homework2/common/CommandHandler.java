@@ -7,12 +7,14 @@ import java.util.*;
 
 import org.apache.commons.lang.WordUtils;
 
-import static com.ironhack.FabFour.homework2.common.DataValidator.containsOnlyLetters;
-import static com.ironhack.FabFour.homework2.common.DataValidator.isEmpty;
+import static com.ironhack.FabFour.homework2.common.DataValidator.*;
 import static com.ironhack.FabFour.homework2.common.InputOutput.*;
 import static com.ironhack.FabFour.homework2.model.AccountList.*;
 
 public class CommandHandler {
+
+    public static final String RED_TEXT = "\033[31m";
+    public static final String GREEN_TEXT = "\u001B[32m";
 
     public static void handleCommand(String command) {
         String upperCommand = command.trim().toUpperCase(); // delete all spaces around command
@@ -112,7 +114,7 @@ public class CommandHandler {
     public static Account convertLead(long id) {
         //Wrapper method for converting Lead and setting up the Account object
         if(!DataValidator.leadExists(Long.toString(id))){
-            System.out.println("Lead doesn't exist. Please provide the correct id.");
+            colorMessage("Lead doesn't exist. Please provide the correct id.", RED_TEXT);
             return null;
         } else {
             Lead lead = lookupLead(id); //get Lead by ID
@@ -148,9 +150,9 @@ public class CommandHandler {
         Opportunity newOpportunity = new Opportunity(newProduct, newQuantity, newContact);
         Lead leadToConvert = lookupLead(id);
         removeLead(id);
-        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++");
-        System.out.println("Lead with ID: " + leadToConvert.getId() +" has been deleted.\n");
-        System.out.println("Opportunity created. Opportunity ID: " + newOpportunity.getId() + "\n");
+        colorMessage("++++++++++++++++++++++++++++++++++++++++++++++++++", GREEN_TEXT);
+        colorMessage("Lead with ID: " + leadToConvert.getId() +" has been deleted.\n", GREEN_TEXT);
+        colorMessage("Opportunity created. Opportunity ID: " + newOpportunity.getId() + "\n", GREEN_TEXT);
         return Arrays.asList(newOpportunity, newIndustry, employeeCount, city, country);
     }
 
@@ -164,10 +166,11 @@ public class CommandHandler {
         List<Opportunity> opportunityList = new ArrayList<>();
         contactList.add(((Opportunity) accountInfoList.get(0)).getDecisionMaker()); //decisionMaker for the Opportunity is added to contact list
         opportunityList.add((Opportunity) accountInfoList.get(0)); //Opportunity object is added to opportunity list
-        Account newAccount = new Account(industry, employees, WordUtils.capitalizeFully(city), WordUtils.capitalizeFully(country), contactList, opportunityList);
+        Account newAccount = new Account(industry, employees, WordUtils.capitalizeFully(city),
+                WordUtils.capitalizeFully(country), contactList, opportunityList);
         accountList.add(newAccount);
-        System.out.println("Account created. Account ID: " + newAccount.getId());
-        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++");
+        colorMessage("Account created. Account ID: " + newAccount.getId(), GREEN_TEXT);
+        colorMessage("++++++++++++++++++++++++++++++++++++++++++++++++++", GREEN_TEXT);
         return newAccount;
     }
 
@@ -195,7 +198,7 @@ public class CommandHandler {
                     result = Industry.getIndustry(userInput); //assigns enum value from valid input
                     return result;
                 } else {
-                    errorMessage("Please provide the correct value.");
+                    colorMessage("Please provide the correct value.", RED_TEXT);
                 }
             } catch (Exception e) { System.out.println("Exception is: " + e);}
         }
@@ -214,7 +217,7 @@ public class CommandHandler {
                     result = Integer.parseInt(userInput);
                     return result;
                 } else {
-                    errorMessage("Please provide the correct value.");
+                    colorMessage("Please provide the correct value.", RED_TEXT);
                 }
             } catch (Exception e) { System.out.println("Exception is: " + e); }
         }
@@ -229,49 +232,36 @@ public class CommandHandler {
                 String input = aScanner.nextLine();
                 if(!isEmpty(input) && containsOnlyLetters(input) && attribute.equals("city")) {
                     return input;
-                } else if (!isEmpty(input) && containsOnlyLetters(input) && attribute.equals("country") && validateCountryName(input)) {
+                } else if (!isEmpty(input) && containsOnlyLetters(input)
+                        && attribute.equals("country") && validateCountryName(input)) {
                     return input;
                 } else {
-                    errorMessage("Please provide the correct value.");
+                    colorMessage("Please provide the correct value.", RED_TEXT);
                 }
             } catch (Exception e) { System.out.println("Exception is: " + e); }
         }
         return null;
     }
 
-    public static String errorMessage(String message) {
-        //Changes the color of System.output error messages
-        String escapeCode = "\033[31m"; //sets color to red
+    public static String colorMessage(String message, String color) {
+        //Changes the color of System.output messages
         String resetCode = "\033[0m";   //resets color to the primary one
-        System.out.println(escapeCode + message);
-        System.out.println(resetCode);
+        System.out.println(color + message + resetCode);
         return message;
     }
 
     public static List<String> getCountryList() {
         List<String> countries = new ArrayList<>();
-        Locale.setDefault(Locale.forLanguageTag("en-GB"));
-        String[] isoCountries = Locale.getISOCountries();
+        Locale.setDefault(Locale.forLanguageTag("en-GB")); //set Locale for English
+        String[] isoCountries = Locale.getISOCountries(); //obtain ISO country list
         for (String country : isoCountries) {
             Locale locale = new Locale("en", country);
             String name = locale.getDisplayCountry();
             if ( !"".equals(name)) {
-                countries.add(name);
+                countries.add(name); //store country name in list
             }
         }
         return countries;
-    }
-
-    public static boolean validateCountryName(String countryName) {
-        List<String> countryList = getCountryList();
-        boolean check = false;
-        for(String country: countryList) {
-            if(countryName.equals(country)) {
-                check = true;
-                break;
-            }
-        }
-        return check;
     }
 
     public static Lead createLead() {
@@ -293,7 +283,9 @@ public class CommandHandler {
             tempCompany = aScanner.nextLine();
             tempLead = new Lead(tempName, tempNumber, tempEmail, tempCompany);
             LeadList.getListOfLeads().add(tempLead);
-            System.out.println("Lead created. Lead ID: " + tempLead.getId());
+            colorMessage("++++++++++++++++++++++++++++++++++++++++++++++++++", GREEN_TEXT);
+            colorMessage("Lead created. Lead ID: " + tempLead.getId(), GREEN_TEXT);
+            colorMessage("++++++++++++++++++++++++++++++++++++++++++++++++++", GREEN_TEXT);
         }
         catch (Exception e) { System.out.println("Exception: " + e); }
         return tempLead;
@@ -308,7 +300,7 @@ public class CommandHandler {
             }
         }
         if(foundLead == null) {
-            System.out.println("There is no lead with id "+id);
+            colorMessage("There is no lead with id "+id, RED_TEXT);
         }
 
         return foundLead;
@@ -330,7 +322,9 @@ public class CommandHandler {
             Opportunity opportunity = account.getOpportunity(String.valueOf(id));
             if (opportunity != null) {
                 opportunity.setStatus(Status.CLOSED_LOST);
-                System.out.println("The opportunity status has been set to 'closed-lost'.");
+                colorMessage("++++++++++++++++++++++++++++++++++++++++++++++++++", GREEN_TEXT);
+                colorMessage("The opportunity status has been set to 'closed-lost'.", GREEN_TEXT);
+                colorMessage("++++++++++++++++++++++++++++++++++++++++++++++++++", GREEN_TEXT);
                 found = true;
                 break;}}
         if(found == false) {
@@ -345,7 +339,9 @@ public class CommandHandler {
             Opportunity opportunity = account.getOpportunity(String.valueOf(id));
             if (opportunity != null) {
                 opportunity.setStatus(Status.CLOSED_WON);
-                System.out.println("The opportunity status has been set to 'closed-won'.");
+                colorMessage("++++++++++++++++++++++++++++++++++++++++++++++++++", GREEN_TEXT);
+                colorMessage("The opportunity status has been set to 'closed-won'.", GREEN_TEXT);
+                colorMessage("++++++++++++++++++++++++++++++++++++++++++++++++++", GREEN_TEXT);
                 found = true;
                 break;}}
         if(found == false) {
