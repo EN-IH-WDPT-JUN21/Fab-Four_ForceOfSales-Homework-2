@@ -3,11 +3,13 @@ package com.ironhack.FabFour.homework2.common;
 import com.ironhack.FabFour.homework2.model.Account;
 import com.ironhack.FabFour.homework2.model.Lead;
 import com.ironhack.FabFour.homework2.model.Opportunity;
+import org.apache.commons.lang.WordUtils;
 
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.ironhack.FabFour.homework2.common.CommandHandler.getCountryList;
 import static com.ironhack.FabFour.homework2.model.AccountList.accountList;
 import static com.ironhack.FabFour.homework2.model.LeadList.getListOfLeads;
 
@@ -89,5 +91,18 @@ public class DataValidator {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
         return matcher.matches();
+    }
+
+    //Method to check if the String is an ISO country name
+    public static boolean validateCountryName(String countryName) {
+        List<String> countryList = getCountryList();
+        boolean check = false;
+        for(String country: countryList) {
+            if(WordUtils.capitalizeFully(countryName).equals(country)) {
+                check = true;
+                break;
+            }
+        }
+        return check;
     }
 }

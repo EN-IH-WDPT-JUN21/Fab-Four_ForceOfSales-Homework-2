@@ -313,4 +313,11 @@ public class DataValidatorTest {
     void DataValidator_containsOnlyLetters_NegativeTestWithOtherSigns() {
         assertFalse(containsOnlyLetters("Lon!don"));
     }
+
+    @Test
+    @DisplayName("Test: validateCountryName(). Return correct boolean value as expected.")
+    public void DataValidator_validateCountryName_CorrectBooleanReturned() {
+        assertTrue(validateCountryName("Andorra"));
+        assertFalse(validateCountryName("And"));
+    }
 }
