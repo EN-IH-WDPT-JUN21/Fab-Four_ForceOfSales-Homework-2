@@ -142,15 +142,15 @@ public class CommandHandler {
         System.out.println("Please provide the number of company employees");
         int employeeCount = getIntInput("employees");
         System.out.println("Please provide the city name");
-        String city = getUserInput();
+        String city = getUserInput("city");
         System.out.println("Please provide the country name");
-        String country = getUserInput();
+        String country = getUserInput("country");
         Opportunity newOpportunity = new Opportunity(newProduct, newQuantity, newContact);
         Lead leadToConvert = lookupLead(id);
-        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++");
-        System.out.println("Opportunity created. Opportunity ID: " + newOpportunity.getId() + "\n");
         removeLead(id);
-        System.out.println("Lead with ID: " + leadToConvert.getId() +" has been deleted.");
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("Lead with ID: " + leadToConvert.getId() +" has been deleted.\n");
+        System.out.println("Opportunity created. Opportunity ID: " + newOpportunity.getId() + "\n");
         return Arrays.asList(newOpportunity, newIndustry, employeeCount, city, country);
     }
 
@@ -221,13 +221,15 @@ public class CommandHandler {
         return 0;
     }
 
-    public static String getUserInput() {
+    public static String getUserInput(String attribute) {
         //Processes user input used for setting String values
         Scanner aScanner = new Scanner(System.in);
         while(aScanner.hasNextLine()) {
             try {
                 String input = aScanner.nextLine();
-                if(!isEmpty(input) && containsOnlyLetters(input)) {
+                if(!isEmpty(input) && containsOnlyLetters(input) && attribute.equals("city")) {
+                    return input;
+                } else if (!isEmpty(input) && containsOnlyLetters(input) && attribute.equals("country") && validateCountryName(input)) {
                     return input;
                 } else {
                     errorMessage("Please provide the correct value.");
@@ -244,6 +246,32 @@ public class CommandHandler {
         System.out.println(escapeCode + message);
         System.out.println(resetCode);
         return message;
+    }
+
+    public static List<String> getCountryList() {
+        List<String> countries = new ArrayList<>();
+        Locale.setDefault(Locale.forLanguageTag("en-GB"));
+        String[] isoCountries = Locale.getISOCountries();
+        for (String country : isoCountries) {
+            Locale locale = new Locale("en", country);
+            String name = locale.getDisplayCountry();
+            if ( !"".equals(name)) {
+                countries.add(name);
+            }
+        }
+        return countries;
+    }
+
+    public static boolean validateCountryName(String countryName) {
+        List<String> countryList = getCountryList();
+        boolean check = false;
+        for(String country: countryList) {
+            if(countryName.equals(country)) {
+                check = true;
+                break;
+            }
+        }
+        return check;
     }
 
     public static Lead createLead() {

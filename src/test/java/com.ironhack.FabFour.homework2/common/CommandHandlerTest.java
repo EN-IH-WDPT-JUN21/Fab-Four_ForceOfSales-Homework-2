@@ -20,6 +20,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class CommandHandlerTest {
 
@@ -203,23 +204,37 @@ public class CommandHandlerTest {
     @Test
     @DisplayName("Test: getUserInput(). Return correct String value as expected.")
     public void CommandHandler_GetUserInput_StringReturned() {
-        InputStream in = new ByteArrayInputStream("Marion".getBytes());
+        InputStream in = new ByteArrayInputStream("London".getBytes());
         System.setIn(in);
-        assertEquals("Marion", getUserInput());
+        assertEquals("London", getUserInput("city"));
     }
 
     @Test
     @DisplayName("Test: getUserInput(). Doesn't return correct value as invalid input provided.")
     public void CommandHandler_GetUserInput_EmptyStringReturned() {
-        InputStream in = new ByteArrayInputStream("67".getBytes());
+        InputStream in = new ByteArrayInputStream("London".getBytes());
         System.setIn(in);
-        assertNull(getUserInput());
+        assertNull(getUserInput("country"));
     }
 
     @Test
     @DisplayName("Test: errorMessage(). Method runs as expected.")
     public void CommandHandler_errorMessage_MessagePrinted() {
         assertEquals("This is a message", errorMessage("This is a message"));
+    }
+
+    @Test
+    @DisplayName("Test: getCountryList(). Return list of countries as expected.")
+    public void CommandHandler_getCountryList_CountryListReturned() {
+        String[] isoCountries = Locale.getISOCountries();
+        assertEquals(isoCountries.length, getCountryList().size());
+    }
+
+    @Test
+    @DisplayName("Test: validateCountryName(). Return correct boolean value as expected.")
+    public void CommandHandler_validateCountryName_CorrectBooleanReturned() {
+        assertTrue(validateCountryName("Andorra"));
+        assertFalse(validateCountryName("And"));
     }
 
     @Test
