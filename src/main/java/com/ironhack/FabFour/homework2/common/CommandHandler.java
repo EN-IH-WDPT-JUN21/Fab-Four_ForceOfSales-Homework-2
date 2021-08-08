@@ -126,10 +126,10 @@ public class CommandHandler {
 
     public static Contact createContact(Lead leadToConvert) {
         //Creates Contact object from Lead
-        String contactName = leadToConvert.getContactName();
+        String contactName = WordUtils.capitalizeFully(leadToConvert.getContactName());
         String contactPhoneNumber = leadToConvert.getPhoneNumber();
         String contactEmail = leadToConvert.getEmail();
-        String contactCompany = leadToConvert.getCompanyName();
+        String contactCompany = WordUtils.capitalizeFully(leadToConvert.getCompanyName());
         return new Contact(contactName, contactPhoneNumber, contactEmail, contactCompany);
     }
 
@@ -145,7 +145,7 @@ public class CommandHandler {
         int employeeCount = getIntInput("employees");
         System.out.println("Please provide the city name");
         String city = getUserInput("city");
-        System.out.println("Please provide the country name");
+        System.out.println("Please provide the full country name (e.g. United Kingdom, Germany)");
         String country = getUserInput("country");
         Opportunity newOpportunity = new Opportunity(newProduct, newQuantity, newContact);
         Lead leadToConvert = lookupLead(id);

@@ -2,10 +2,12 @@ package com.ironhack.FabFour.homework2.model;
 
 import java.util.Scanner;
 
-import static com.ironhack.FabFour.homework2.common.DataValidator.validateEmail;
-import static com.ironhack.FabFour.homework2.common.DataValidator.validatePhoneNumber;
+import static com.ironhack.FabFour.homework2.common.CommandHandler.colorMessage;
+import static com.ironhack.FabFour.homework2.common.DataValidator.*;
 
 public class Lead {
+
+    public static final String RED_TEXT = "\033[31m";
 
     // Value for the lead ID, automatically incremented on each creation
     private static int leadIDCount = 1;
@@ -43,9 +45,13 @@ public class Lead {
     }
 
     public void setContactName(String name) {
-        if (!name.isBlank()) {
-            this.contactName = name;
+        Scanner aScanner = new Scanner(System.in);
+        String input = this.contactName = name;;
+        while (input.isEmpty() || !containsOnlyLetters(input)) {
+            colorMessage("Please provide a valid contact name.", RED_TEXT);
+            input = aScanner.nextLine();
         }
+        this.contactName = input;
     }
 
     public String getPhoneNumber() {
@@ -57,7 +63,7 @@ public class Lead {
         Scanner aScanner = new Scanner(System.in);
         String input = phoneNumber;
         while (!validatePhoneNumber(input)) {
-            System.out.println("Please provide a valid phone number. It must be between 6 and 15 digits, and can have hyphens or +. Spaces are not allowed.");
+            colorMessage("Please provide a valid phone number. It must be between 6 and 15 digits, and can have hyphens or +. Spaces are not allowed.", RED_TEXT);
             input = aScanner.next();
         }
         this.phoneNumber = input;
@@ -72,7 +78,7 @@ public class Lead {
         Scanner aScanner = new Scanner(System.in);
         String input = email;
         while (!validateEmail(input)) {
-            System.out.println("Please provide a valid email.");
+            colorMessage("Please provide a valid email.", RED_TEXT);
             input = aScanner.next();
         }
         this.email = input;
@@ -87,7 +93,7 @@ public class Lead {
         Scanner aScanner = new Scanner(System.in);
         String input = companyName;
         while (input.isEmpty()) {
-            System.out.println("Please provide a valid company name.");
+            colorMessage("Please provide a valid company name.", RED_TEXT);
             input = aScanner.nextLine();
         }
         this.companyName = input;
